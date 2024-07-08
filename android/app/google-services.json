@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1081452186768",
+    "project_id": "lcaapp-7d817",
+    "storage_bucket": "lcaapp-7d817.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081452186768:android:01dcb9ebdd9f5912d0dc15",
+        "android_client_info": {
+          "package_name": "com.example.lca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD191rTTztXBHqeRmprLMK7sbWlB2kMDU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
