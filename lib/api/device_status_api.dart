@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/model/device_status.dart';
+import 'package:lca/model/type1.dart';
 import 'package:lca/model/type2.dart';
 import 'package:lca/model/type3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,7 @@ Future<DeviceStatus> device_detail(String deviceId) async {
   }
 }
 
-Future<type3> valve_detail_typeb(String deviceId) async {
+Future<type2> valve_detail_typeb(String deviceId) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String token = sharedPreferences.getString('token').toString();
   final String apiUrl = '$url/api/v1/data/${deviceId}/type/3/last';
@@ -60,13 +61,38 @@ Future<type3> valve_detail_typeb(String deviceId) async {
     var data = jsonDecode(response.body);
     print('b: ${data}');
     //sharedPreferences.setString('durationb',type3.);
-    return type3.fromJson(data);
+    return type2.fromJson(data);
   } else {
     // If the server did not return a 200 OK response, throw an exception.
     throw Exception('Failed to load data');
   }
 }
+Future<type1> valve_detail_type1(String deviceId) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  String token = sharedPreferences.getString('token').toString();
+  final String apiUrl = '$url/api/v1/data/${deviceId}/type/1/last';
+  // Replace with your actual API key
 
+  final Uri uri = Uri.parse(apiUrl);
+
+  final response = await http.get(
+    uri,
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+  print(response.body);
+  if (response.statusCode == 200) {
+     var data = jsonDecode(response.body);
+    
+   
+    return type1.fromJson(data);
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
 Future<type2> valve_detail_typea(String deviceId) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String token = sharedPreferences.getString('token').toString();
@@ -87,12 +113,11 @@ Future<type2> valve_detail_typea(String deviceId) async {
     print('a ${data}');
      return type2.fromJson(data);
   } else {
-    // If the server did not return a 200 OK response, throw an exception.
     throw Exception('Failed to load data');
   }
 }
 DeviceStatus? deviceStatus;
-type3? typeb;
+type2? typeb;
 type2? typea;
 String? devideId;
 class DeviceProvider with ChangeNotifier {
@@ -101,7 +126,7 @@ class DeviceProvider with ChangeNotifier {
 
   DeviceStatus? get data => deviceStatus;
 type2? get type2a=>typea;
-type3? get type3b=>typeb;
+type2? get type3b=>typeb;
 
   DataProvider(String deviceIdget) {
     devideId = deviceIdget;

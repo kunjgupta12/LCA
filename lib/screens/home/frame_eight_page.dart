@@ -186,14 +186,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                     right: 0.1.h),
                                                 child: status.ms == 1
                                                     ? Text(
-                                                        "POWER ON ",
-                                                        style: CustomTextStyles
-                                                            .headlineSmallErrorContainer,
+                                                        "Power On ",
+                                                        style:TextStyle(fontSize: 23,fontWeight: FontWeight.w700,color: Colors.green)
                                                       )
                                                     : Text(
-                                                        "POWER OFF ",
-                                                        style: CustomTextStyles
-                                                            .headlineSmallErrorContainer,
+                                                        "Power off",
+                                                        style:TextStyle(fontSize: 23,fontWeight: FontWeight.w700,color: Colors.red)
+                                                   
                                                       ),
                                               )
                                             ],
@@ -203,24 +202,28 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                           height: 153.v,
                                           width: 168.h,
                                           margin: EdgeInsets.only(left: 19.h),
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 22.h,
-                                            vertical: 4.v,
-                                          ),
+                                        
                                           decoration: AppDecoration
                                               .outlinePrimary5
                                               .copyWith(
                                                   borderRadius:
                                                       BorderRadiusStyle
                                                           .roundedBorder10,
-                                                  color: Colors.white),
-                                          child: CustomImageView(
-                                            imagePath: status.rs == 0
-                                                ? ImageConstant.imgRain2
-                                                : ImageConstant.imgRaining,
-                                            height: 126.adaptSize,
-                                            width: 126.adaptSize,
-                                            alignment: Alignment.center,
+                                                  color: Colors.indigo[900]),
+                                          child: Column(
+                                            children: [
+                                              CustomImageView(
+                                                imagePath: status.rs == 0
+                                                    ? ImageConstant.imgRain2
+                                                    : ImageConstant.imgRaining,
+                                                height: 100.adaptSize,fit: BoxFit.fitHeight,
+                                                width: 106.adaptSize,
+                                                alignment: Alignment.center,
+                                              ),
+                                              Text(status.rs == 0 ?
+                                                'No Rain':'Raining',
+                                                style: CustomTextStyles.headlineSmallLilitaOneWhiteA70001,)
+                                            ],
                                           ),
                                         )
                                       ],
@@ -261,7 +264,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                               width: 370.h,
                                             )),
                                   SizedBox(height: 27.v),
-                                  Row(
+                                  status.p=='null'
+                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -359,11 +363,11 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                         status.p == 'A'
                                                             ? dataprovider
                                                                 .type2a!
-                                                                .c!
+                                                                .c
                                                                 .vd![index]
                                                             : dataprovider
                                                                 .type3b!
-                                                                .c!
+                                                                .c
                                                                 .vd![index],
                                                         status.bal!.toInt());
                                                   },
@@ -386,7 +390,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                         ),
                                       ),
                                     ],
-                                  ),
+                                  ):Text('Failed To Load Valves',style: CustomTextStyles.titleMediumPoppinsRedA70001,),
                                   SizedBox(height: 8.v)
                                 ],
                               ),

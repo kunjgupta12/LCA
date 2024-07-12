@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lca/api/api.dart';
@@ -58,32 +59,27 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
                 key: _formKey,
                 child: SizedBox(
                   width: double.maxFinite,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ViewScedule()));
-                    },
-                    child: Column(
-                      children: [
-                        _buildLoginSection(context),
-                        Spacer(
-                          flex: 30,
-                        ),
-                        _buildEmailSection(context),
-                        SizedBox(height: 20),
-                        _buildPasswordSection(context),
-                        SizedBox(height: 43),
-                        _buildLoginButtonSection(context),
-                        SizedBox(height: 15),
-                        _buildViaPhoneButtonSection(context),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        _buildContrast(context),
-                        Spacer(
-                          flex: 69,
-                        ),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      _buildLoginSection(context),
+                      Spacer(
+                        flex: 30,
+                      ),
+                      _buildEmailSection(context),
+                      SizedBox(height: 20),
+                      _buildPasswordSection(context),
+                      SizedBox(height: 43),
+                      _buildLoginButtonSection(context),
+                      SizedBox(height: 15),
+                      _buildViaPhoneButtonSection(context),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _buildContrast(context),
+                      Spacer(
+                        flex: 69,
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -261,8 +257,10 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
     return CustomOutlinedButton(
       onPressed: () {
         if (_formKey.currentState!.validate())
-          Api().loginUser(
+        {
+         Api().loginUser(
               emailSectionController.text, passwordSectionController.text);
+        }
         else {
           for (int i = 0; i < _focusNode.length; i++) {
             if (_focusNode[i].hasFocus) {

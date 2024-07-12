@@ -1,48 +1,65 @@
 class type2 {
-  int? id;
-  int? deviceId;
-  int? typeId;
-  C? c;
-  String? t;
-
-  type2({this.id, this.deviceId, this.typeId, this.c, this.t});
-
-  type2.fromJson(Map<String, dynamic> json) {
+  type2({
+    required this.id,
+    required this.deviceId,
+    required this.typeId,
+    required this.c,
+    required this.t,
+  });
+  late final int id;
+  late final int deviceId;
+  late final int typeId;
+  late final C c;
+  late final String t;
+  
+  type2.fromJson(Map<String, dynamic> json){
     id = json['id'];
     deviceId = json['deviceId'];
     typeId = json['typeId'];
-    c = json['c'] != null ? new C.fromJson(json['c']) : null;
+    c = C.fromJson(json['c']);
     t = json['t'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['deviceId'] = this.deviceId;
-    data['typeId'] = this.typeId;
-    if (this.c != null) {
-      data['c'] = this.c!.toJson();
-    }
-    data['t'] = this.t;
-    return data;
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['deviceId'] = deviceId;
+    _data['typeId'] = typeId;
+    _data['c'] = c.toJson();
+    _data['t'] = t;
+    return _data;
   }
 }
 
 class C {
-  int? m;
-  List<int>? vd;
-
-  C({this.m, this.vd});
-
-  C.fromJson(Map<String, dynamic> json) {
+  C({
+    required this.m,
+     this.fd,
+  this.vd,
+   this.pwd,
+     this.frtd,
+  });
+  late final int m;
+  late final List<int>? fd;
+  late final List<int>? vd;
+  late final List<int>? pwd;
+  late final List<int>?frtd;
+  
+  C.fromJson(Map<String, dynamic> json){
     m = json['m'];
-    vd = json['vd'].cast<int>();
+    fd = json['fd'] != null? List.castFrom<dynamic, int>(json['fd']):null;
+    vd =json['vd']!=null ?List.castFrom<dynamic, int>(json['vd']) :null;
+    pwd = json['pwd']!=null ?List.castFrom<dynamic, int>(json['pwd']):null;
+    frtd =json['frtd']!=null?List.castFrom<dynamic, int>(json['frtd']):null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['m'] = this.m;
-    data['vd'] = this.vd;
-    return data;
+    final _data = <String, dynamic>{};
+    _data['m'] = m;
+    _data['fd'] = fd;
+    _data['vd'] = vd;
+    _data['pwd'] = pwd;
+    _data['frtd'] = frtd;
+    return _data;
   }
 }

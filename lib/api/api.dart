@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,8 @@ class Api {
       String fullAdress,
       double lat,
       double long,
-      String city,String fcm_token) async {
+      String city,
+      String fcm_token) async {
     if (emailController.isNotEmpty && passwordController.isNotEmpty) {
       Map<String, dynamic> regBody = {
         "email": emailController,
@@ -36,7 +38,7 @@ class Api {
         'firstName': firstName,
         "lastName": lastname,
         "phoneNo": mobile,
-        "fcm_token":fcm_token,
+        "fcm_token": fcm_token,
         "address": {
           "city": city,
           "pincode": pincode,
@@ -57,16 +59,16 @@ class Api {
         print(response.statusCode);
 
         if (response.statusCode == 201) {
-         
           loginUser(emailController, passwordController);
-     showToast('Succesfully Registered with userId ');
-        } else if(response.statusCode== 400) {
-          showToast(response.body);}
+          showToast('Succesfully Registered with userId ');
+        } else if (response.statusCode == 400) {
+          showToast(jsonResponse['message']);
+        }
       } catch (error) {
         showToast(error.toString());
       }
     }
-    return showToast('Try again later');
+   
   }
 
   Future<LoginModel?> loginUser(
@@ -90,13 +92,22 @@ class Api {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString('user', jsonEncode(jsonResponse['data']['user']));
           prefs.setString('token', myToken);
-           SharedPreferences preff = await SharedPreferences.getInstance();
-        preff.setString('image', loginModel.data!.user!.imgUrl.toString());
-       
+          SharedPreferences preff = await SharedPreferences.getInstance();
+          preff.setString('image', loginModel.data!.user!.imgUrl.toString());
+
           showToast('Logged In with ${loginModel.data!.user!.email}');
           print(prefs.getString('user'));
-           DeviceDataService().fetchData();
+          DeviceDataService().fetchData();
           //   print(list);
+ FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+   
+    if (token != null) {
+      await messaging.subscribeToTopic('${loginModel.data!.user!.id}-');
+      print("Subscribed to topic: ${loginModel.data!.user!.id}");
+    }
+  
+          return LoginModel.fromJson(jsonResponse);
         } else {
           showToast(jsonResponse['message']);
         }
@@ -173,7 +184,7 @@ class DeviceDataService {
         prefs.setInt('device', response.body.length);
 
         print(prefs);
-         Get.off(FrameNineteenContainerScreen(
+        Get.off(FrameNineteenContainerScreen(
           devices: response.body.length,
         ));
         response.body.isNotEmpty;
@@ -217,4 +228,3 @@ void comingsoonpop(BuildContext context) {
             ),
           ));
 }
-

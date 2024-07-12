@@ -850,8 +850,6 @@ class A1State extends State<a1> {
             physics: NeverScrollableScrollPhysics(),
             itemCount: 7,
             itemBuilder: (context, index) {
-              String day = days[index];
-              //    Color _colorContainer = dayColors[day] ?? Colors.white;
               return Align(
                 alignment: Alignment.center,
                 child: Ink(

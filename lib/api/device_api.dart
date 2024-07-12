@@ -55,8 +55,8 @@ class Devices {
       prefs.setInt('device', 10);
       DeviceDataService().deviceslist(token);
       Get.offAll(FrameNineteenContainerScreen());
-    } else
-      showToast(jsonResponse['valveCount']);
+    } else if(response.statusCode==400){
+      showToast(jsonResponse.toString());}
   }
 
   Future<void> updatedevice(

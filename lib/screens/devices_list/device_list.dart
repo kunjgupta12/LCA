@@ -89,15 +89,11 @@ class _DeeviceListState extends State<DeeviceList> {
       child: Scaffold(
         floatingActionButton: RectangularFloatingActionButton(
           onPressed: () {
-            // Define the action on button press
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Register new device')),
-            );
-
+            
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => FrameFifteenScreen()));
           },
-          child: Padding(
+          child:const  Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Row(
@@ -191,7 +187,7 @@ class _DeeviceListState extends State<DeeviceList> {
                                     buttonStyle: CustomButtonStyles.fillOrangeA
                                         .copyWith(
                                             backgroundColor:
-                                                MaterialStateProperty
+                                                WidgetStateProperty
                                                     .all<Color>(Color.fromRGBO(
                                                         218, 188, 255, 1))),
                                     height: 40,
@@ -216,66 +212,7 @@ class _DeeviceListState extends State<DeeviceList> {
                           ),
                         )
 
-                            /*   ListTile(isThreeLine: true,
-                            title: Text('Name: ${item.title}'),
-                            subtitle: Container(height: 100,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(item.imei),
-                                  Text('Created On: ${formattedTime}'),
-                                ],
-                              ),
-                            ),
-                            trailing: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                CustomElevatedButton(
-                                  width: 160.h,
-                                  buttonStyle: CustomButtonStyles.fillOrangeA,
-                                  height: 40,
-                                  text: 'Dashboard',
-                                  buttonTextStyle:
-                                      CustomTextStyles.titleSmallff000000,
-                                  onPressed: () {
-                                    print(token);
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                //    FrameThirtythreePage())
-                                                FrameEightPage(
-                                                    token: token.toString(),
-                                                    valve_no: item.valveCount,
-                                                    para:
-                                                        '${item.address!.lat},${item.address!.long}',
-                                                    iemi: item.imei,
-                                                    name: item.title,
-                                                    id: item.id)));
-                                  },
-                                ),SizedBox(height:10,),
-                                CustomElevatedButton(
-                                  width: 160.h,
-                                  buttonStyle: CustomButtonStyles.fillOrangeA,
-                                  height: 40,
-                                  text: 'Schedules',
-                                  buttonTextStyle:
-                                      CustomTextStyles.titleSmallff000000,
-                                  onPressed: () {
-                                    print(token);
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => Schedule(
-                                                  id: item.id,
-                                                  token: token.toString(),
-                                                )
-                                            //    FrameThirtythreePage())
-                                            ));
-                                  },
-                                ),
-                              ],
-                            ),*/
+                            
 
                             );
                       },
@@ -308,13 +245,8 @@ class _DeeviceListState extends State<DeeviceList> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppbarTitle(
-                  onTap: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.clear();
-                    prefs.remove('user');
-                    Get.offAll(() => FrameTwelveScreen());
-                  },
+                  
+                 
                   text: "My Devices",
                 ),
               ],

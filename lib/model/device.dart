@@ -36,7 +36,7 @@ class Device {
         address: json['address'] != null
             ? new Address.fromJson(json['address'])
             : null);
-  }
+  } 
 }
 
 class Address {
@@ -129,5 +129,5 @@ class ApiResponse {
       totalPages: json['totalPages'],
       lastPage: json['lastPage'],
     );
-  }
+  } 
 }

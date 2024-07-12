@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:lca/api/api.dart';
 import 'package:lca/api/schedule.dart';
 import 'package:lca/model/schedule_model.dart';
 import 'package:lca/screens/devices_list/device_list.dart';
@@ -8,6 +5,7 @@ import 'package:lca/screens/frame_twenty_screen/widget_a1.dart';
 import 'package:lca/screens/frame_twenty_screen/widget_a2.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
+import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 
 import '../../widgets/app_bar/appbar_subtitle.dart';
@@ -106,6 +104,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                 CustomOutlinedButton(
                   text: 'Submit',
                   onPressed: () {
+                    print(' monday ${schedule.programA?.monday}');
+
                     setState(() {
                       showDialog(
                           context: context,
@@ -205,7 +205,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                                   .updateA()
                                               : childKeya2.currentState!
                                                   .updateB();
-                                                     schedule = Schedule(
+                                          schedule = Schedule(
                                               programA:
                                                   programA.programId == null
                                                       ? null
@@ -221,10 +221,21 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                               prt: int.tryParse(pumprechargetime
                                                   .text
                                                   .toString()));
-                                          // print(schedule.programA);
-                                         
-                                          schedule_program(token.toString(),
-                                              widget.id!.toInt(), schedule);
+                                          print(schedule.programA?.startTime
+                                              .toString());
+                                          schedule.programA?.programId != null
+                                              ? schedule.programA?.startTime ==
+                                                  null
+                                              : schedule.programB?.startTime ==
+                                                      null
+                                                  ? showToast(
+                                                      'Select starting time')
+                                                  : //=='null'? schedule.programA!.monday :null );
+
+                                                  schedule_program(
+                                                      token.toString(),
+                                                      widget.id!.toInt(),
+                                                      schedule);
                                         },
                                         child: Text(
                                           'Confirm',
@@ -280,7 +291,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
           SizedBox(height: 30),
           Container(
             width: 315,
-            margin: EdgeInsets.only(
+            margin:const  EdgeInsets.only(
               left: 57,
               right: 62,
             ),
@@ -320,7 +331,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
         child: Container(
           height: 50,
           child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:const  SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisExtent: 47,
               mainAxisSpacing: 10,
               crossAxisSpacing: 20,

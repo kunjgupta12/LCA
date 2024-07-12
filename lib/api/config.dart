@@ -1,4 +1,4 @@
-final url = 'http://192.168.1.7.:9002';
+final url = 'http://34.125.4.88:9002';
 final registration = url + "/api/v1/auth/register/customer"; 
 final login = url + '/api/v1/auth/login';
 final device_register = url + '/api/v1/devices/';

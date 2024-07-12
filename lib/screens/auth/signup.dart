@@ -93,33 +93,11 @@ String? fcm_token;
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
   }
-void gettoken() async{
-  
-FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-NotificationSettings settings = await messaging.requestPermission(
-  alert: true,
-  announcement: false,
-  badge: true,
-  carPlay: false,
-  criticalAlert: false,
-  provisional: false,
-  sound: true,
-);
-
-print('User granted permission: ${settings.authorizationStatus}');
-  await FirebaseMessaging.instance.requestPermission(provisional: true);
-final apnsToken = await FirebaseMessaging.instance.getToken();
-if (apnsToken != null) {
-  print("fcm ap $apnsToken");
-  fcm_token=apnsToken;
- // APNS token is available, make FCM plugin API requests...
-}
-}
 @override
   void initState() {
     // TODO: implement initState
-    gettoken();
+   
     _getGeoLocationPosition();
     super.initState();
   }

@@ -40,9 +40,9 @@ class ImageConstant {
 
   static String imgRectangle4284 = '$imagePath/img_rectangle_4284.png';
   static String fert = '$imagePath/fert.png';
-  static String imgRain2 = '$imagePath/img_rain_2.png';
+  static String imgRain2 = '$imagePath/cloudy_sunny_image.png';
 
-  static String imgRaining = '$imagePath/rain.png';
+  static String imgRaining = '$imagePath/rain_card_image.png';
   // Frame Eight images
   static String imgRectangle4281 = '$imagePath/img_rectangle_4281.png';
   static String imgirrigation = '$imagePath/Vector.png';

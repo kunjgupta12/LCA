@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lca/api/api.dart';
@@ -58,7 +59,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
   @override
   void initState() {
     super.initState();
-
+    print(image_path);
     userdetail();
   }
 
@@ -84,8 +85,9 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                       return Center(child: Text('No data found'));
                     }
                     final userData = snapshot.data!;
-                    final user = '${userData.firstName.toString()} ${userData.lastName}';
-final send=userData;
+                    final user =
+                        '${userData.firstName.toString()} ${userData.lastName}';
+                    final send = userData;
                     return SingleChildScrollView(
                       padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -105,8 +107,21 @@ final send=userData;
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5.0),
                                     child: CustomElevatedButton(
-                                      leftIcon: Icon(Icons.logout,color: Colors.white,),
+                                      leftIcon: Icon(
+                                        Icons.logout,
+                                        color: Colors.white,
+                                      ),
                                       onPressed: () async {
+                                        FirebaseMessaging messaging =
+                                            FirebaseMessaging.instance;
+                                        String? token =
+                                            await messaging.getToken();
+
+                                        if (token != null) {
+                                          await messaging.unsubscribeFromTopic(
+                                              '${userData.id}-');
+                                           print("UnSubscribed to topic: ${userData.id}");
+                                        }
                                         SharedPreferences prefs =
                                             await SharedPreferences
                                                 .getInstance();
@@ -194,9 +209,8 @@ final send=userData;
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 10.0, bottom: 10),
-                                          child: Text(userData
-                                                  .phoneNo
-                                                  .toString()
+                                          child: Text(
+                                              userData.phoneNo.toString()
                                               //  style: CustomTextStyles.titleLargeRoboto,
                                               ),
                                         ),
@@ -233,8 +247,7 @@ final send=userData;
                                           padding: const EdgeInsets.only(
                                               top: 5.0, bottom: 10),
                                           child: Text(
-                                            userData.email
-                                                .toString(),
+                                            userData.email.toString(),
                                             style: theme.textTheme.titleLarge!
                                                 .copyWith(fontSize: 15),
                                           ),
@@ -253,15 +266,12 @@ final send=userData;
                               _buildVuesaxlinearSection(
                                   context,
                                   userData!.address!.city.toString(),
-                                  userData!.address!.pincode
-                                      .toString()),
+                                  userData!.address!.pincode.toString()),
                               SizedBox(height: 10.v),
                               _buildVuesaxlinearSection(
                                   context,
-                                  userData.address!.state
-                                      .toString(),
-                                  userData.address!.country
-                                      .toString()),
+                                  userData.address!.state.toString(),
+                                  userData.address!.country.toString()),
                               SizedBox(height: 10.v),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -284,8 +294,7 @@ final send=userData;
                                             top: 2.v,
                                           ),
                                           child: Text(
-                                            userData.address!
-                                                .fullAddress
+                                            userData.address!.fullAddress
                                                 .toString(),
                                             maxLines: 4,
                                             style: theme.textTheme.titleLarge!
@@ -306,8 +315,23 @@ final send=userData;
                               SizedBox(height: 41.v),
                               CustomElevatedButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Edit(lat:send.address!.lat,long:send!.address!.long,
-                                    firstName: send!.firstName,lastName:send.lastName,token:token.toString(),phoneNo: send.phoneNo,pincode: send.address!.pincode.toString(),state: send.address!.state,city: send.address!.city,country: send.address!.country,fullAddress: send.address!.fullAddress,email: send.email,)));
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => Edit(
+                                            lat: send.address!.lat,
+                                            long: send!.address!.long,
+                                            firstName: send!.firstName,
+                                            lastName: send.lastName,
+                                            token: token.toString(),
+                                            phoneNo: send.phoneNo,
+                                            pincode: send.address!.pincode
+                                                .toString(),
+                                            state: send.address!.state,
+                                            city: send.address!.city,
+                                            country: send.address!.country,
+                                            fullAddress:
+                                                send.address!.fullAddress,
+                                            email: send.email,
+                                          )));
                                 },
                                 width: 186.h,
                                 text: "Edit Profile",
@@ -423,34 +447,36 @@ final send=userData;
                 alignment: Alignment.bottomRight,
                 children: [
                   Container(
-                    height: 150.v,
-                    width: 120.h,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 4.h,
-                      vertical: 7.v,
-                    ),
-                    decoration: AppDecoration.outlineBlack.copyWith(
-                        //borderRadius: BorderRadiusStyle.roundedBorder52,
-                        shape: BoxShape.circle,
-                        color: Colors.white),
-                    child: image_path.toString() != '/null'
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(80.0),
-                            child: Image.network(
-                              '$url/image/user/profile' + image_path.toString(),
-                              fit: BoxFit.fill,
-                              height: 130.v,
-                              width: 116.h,
-                            ),
-                          )
-                        : CustomImageView(
-                            imagePath: ImageConstant.username,
-                            height: 74.v,
-                            width: 68.h,
-                            color: Colors.green,
-                            alignment: Alignment.center,
-                          ),
-                    /* IconButton(
+                      height: 150.v,
+                      width: 120.h,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 4.h,
+                        vertical: 7.v,
+                      ),
+                      decoration: AppDecoration.outlineBlack.copyWith(
+                          //borderRadius: BorderRadiusStyle.roundedBorder52,
+                          shape: BoxShape.circle,
+                          color: Colors.white),
+                      child: image_path.toString() ==
+                              '/default-user-profile-image.webp'
+                          ? CustomImageView(
+                              imagePath: ImageConstant.username,
+                              height: 74.v,
+                              width: 68.h,
+                              color: Colors.green,
+                              alignment: Alignment.center,
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(80.0),
+                              child: Image.network(
+                                '$url/image/user/profile' +
+                                    image_path.toString(),
+                                fit: BoxFit.fill,
+                                height: 130.v,
+                                width: 116.h,
+                              ),
+                            )
+                      /* IconButton(
                       onPressed: () {
                         _pickAndUploadImage();
                         //.then((value) => image(token.toString()));
@@ -459,14 +485,14 @@ final send=userData;
                             : showToast("Please seelect Image");*/
                       },
                       icon: Icon(Icons.edit)),*/
-                    /* child: CustomImageView(
+                      /* child: CustomImageView(
                   imagePath: ImageConstant.username,
                   height: 74.v,
                   width: 68.h,
                   color: Colors.green,
                   alignment: Alignment.topCenter,
                 ),*/
-                  ),
+                      ),
                   IconButton(
                       onPressed: () {
                         _pickAndUploadImage();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lca/screens/devices_list/device_list.dart';
+import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:lca/screens/home/frame_eight_page.dart';
 import 'package:lca/screens/profile/profile.dart';
 import '../../app_routes.dart';
@@ -79,7 +80,7 @@ class _FrameNineteenContainerScreenState
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.frameEightScreen:
-        return DeeviceList();
+        return DeviceListScreen();
 
       case AppRoutes.frameTwentyScreen:
         return FrameTwentyScreen(); 
