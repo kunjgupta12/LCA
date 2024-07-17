@@ -8,8 +8,7 @@ import 'package:lca/model/device.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:lca/screens/home/frame_eight_page.dart';
-import 'package:lca/screens/profile/profile.dart';
+import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/register_device/register_device.dart';
 import 'package:lca/screens/schedule/schedule.dart';
 import 'package:lca/widgets/app_bar/appbar_title.dart';
@@ -26,6 +25,8 @@ class DeviceListScreen extends StatefulWidget {
   _DeviceListScreenState createState() => _DeviceListScreenState();
 }
 
+String? token;
+String? jsonString;
 class _DeviceListScreenState extends State<DeviceListScreen> {
   final ScrollController _scrollController = ScrollController();
   List<Device> _devices = [];
@@ -41,6 +42,14 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
     }
 
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+  void storedevice() async {
+    print(token);
+    final prefs = await SharedPreferences.getInstance();
+    
+
+    token = prefs.getString('token');
+    print('stored token:${token}');
   }
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -58,6 +67,7 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
   @override
   void initState() {
     super.initState();
+    storedevice();
     _scrollController.addListener(_scrollListener);
     setupInteractedMessage();
     firebaseCloudMessaging_Listeners();

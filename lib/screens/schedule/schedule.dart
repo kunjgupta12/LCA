@@ -5,7 +5,7 @@ import 'package:lca/api/schedule.dart';
 import 'package:lca/model/getschedule.dart';
 import 'package:lca/model/type2.dart';
 import 'package:lca/model/type3.dart';
-import 'package:lca/screens/frame_twenty_screen/frame_twenty_screen.dart';
+import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
 import 'package:lca/screens/view_schedule/view_schedule.dart';
 import 'package:lca/widgets/app_bar/appbar_title.dart';
 import 'package:lca/widgets/app_bar/custom_app_bar.dart';

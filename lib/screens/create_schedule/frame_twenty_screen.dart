@@ -1,13 +1,10 @@
 import 'package:lca/api/schedule.dart';
 import 'package:lca/model/schedule_model.dart';
-import 'package:lca/screens/devices_list/device_list.dart';
-import 'package:lca/screens/frame_twenty_screen/widget_a1.dart';
-import 'package:lca/screens/frame_twenty_screen/widget_a2.dart';
+import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
+import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
-import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/app_decoration.dart';
@@ -38,7 +35,8 @@ class FrameTwentyScreen extends StatefulWidget {
 bool isChecked = false;
 TimeOfDay? a1_end = TimeOfDay(hour: 0, minute: 0);
 TextEditingController pumpstarttime = TextEditingController();
-
+String? token;
+ 
 TextEditingController pumprechargetime = TextEditingController();
 
 //inal GlobalKey<> childKey = GlobalKey<_A1State>();
@@ -46,6 +44,15 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   final GlobalKey<A1State> childKeya1 = GlobalKey<A1State>();
 
   GlobalKey<a1State> childKeya2 = GlobalKey<a1State>();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+   starttime.clear();
+   starttime2.clear();
+  
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -134,10 +141,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                             validator: (value) {
                                               final number =
                                                   int.tryParse(value!);
-                                              if (value == null ||
+                                              if (value == 'null' ||
                                                   value.isEmpty ||
                                                   number! < 5 ||
-                                                  number! > 90) {
+                                                  number > 90) {
                                                 return 'Please enter in range of 5 to 90';
                                               }
                                               return null;
@@ -155,10 +162,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                             validator: (value) {
                                               final number =
                                                   int.tryParse(value!);
-                                              if (value == null ||
+                                              if (value == 'null' ||
                                                   value.isEmpty ||
                                                   number! < 1 ||
-                                                  number! > 1440) {
+                                                  number > 1440) {
                                                 return 'Please enter in range of 1 to 1440';
                                               }
                                               return null;
@@ -221,19 +228,9 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                               prt: int.tryParse(pumprechargetime
                                                   .text
                                                   .toString()));
-                                          print(schedule.programA?.startTime
-                                              .toString());
-                                          schedule.programA?.programId != null
-                                              ? schedule.programA?.startTime ==
-                                                  null
-                                              : schedule.programB?.startTime ==
-                                                      null
-                                                  ? showToast(
-                                                      'Select starting time')
-                                                  : //=='null'? schedule.programA!.monday :null );
-
+                                        print(widget.token);
                                                   schedule_program(
-                                                      token.toString(),
+                                                      widget.token.toString(),
                                                       widget.id!.toInt(),
                                                       schedule);
                                         },
@@ -372,14 +369,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                            /* Container(
-                              width: 15,
-                              height: 15,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: _selectedValue == index
-                                      ? Colors.red
-                                      : Colors.white))*/
+                          
                           ],
                         ),
                       )),
@@ -392,7 +382,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 2,
                                   blurRadius: 3,
-                                  offset: Offset(
+                                  offset:const  Offset(
                                       0, 2), // changes position of shadow
                                 ),
                               ],
@@ -405,7 +395,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                   color: Colors.white54.withOpacity(0.5),
                                   spreadRadius: 2,
                                   blurRadius: 7,
-                                  offset: Offset(
+                                  offset:const  Offset(
                                       0, 2), // changes position of shadow
                                 ),
                               ],

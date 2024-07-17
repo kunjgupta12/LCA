@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/screens/auth/signup.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
-import 'package:lca/screens/devices_list/device_list.dart';
-import 'package:lca/screens/home/frame_eight_page.dart';
+import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/screens/register_device/register_device.dart';
 import 'package:lca/screens/splash_screen.dart';
@@ -52,7 +51,6 @@ class AppRoutes {
     frameFiveScreen: (context) => FrameFiveScreen(),
     frameThirteenScreen: (context) => FrameThirteenScreen(),
     profile: (context) => FrameThirtytwoPage(),
-    devicelist: (context) => DeeviceList(),
     frameEightScreen: (context) => FrameEightPage(),
     frameNineteenContainerScreen: (context) => FrameNineteenContainerScreen(),
     frameFifteenScreen: (context) => FrameFifteenScreen(),

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/model/schedule_model.dart';
-import 'package:lca/screens/frame_twenty_screen/frame_twenty_screen.dart';
+import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
 import 'package:lca/screens/register_device/register_device.dart';
 import 'package:lca/widgets/custom_image.dart';
 import 'package:lca/widgets/custom_outlined_button.dart';
@@ -129,12 +129,55 @@ class A1State extends State<a1> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 5),
-            child: Text(
-              "Select Days",
-              style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 5),
+                child: Text(
+                  "Select Days",
+                  style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedTime = TimeOfDay(hour: 0, minute: 0);
+                    starttime.text = '00:00';
+                    for (int i = 0; i < _colorContainera1.length; i++) {
+                      _colorContainera1[i] = Colors.white;
+                    }for (int i = 0; i < 12; i++) {
+                     selectedTimes[i]=TimeOfDay(hour: 00, minute: 00);
+                    }totalh=0;
+                    totalm=0;
+                    total=0;
+                    totalhfer=0;
+                    totalmfer=0;
+                    for (int i = 0; i < 12; i++) {
+                     selectedTimefer[i][0]=TimeOfDay(hour: 00, minute: 00);
+                           selectedTimefer[i][2]=TimeOfDay(hour: 00, minute: 00);
+                    selectedTimefer[i][1]=TimeOfDay(hour: 00, minute: 00);
+              
+                    }
+                    a1_end=TimeOfDay(hour: 00, minute: 00);
+                  });
+                  programA = ProgramA();
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'Reset All',
+                      style: CustomTextStyles.bodyLargeDMSansRegular,
+                    ),
+                   const Icon(
+                      Icons.replay,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
+              )
+              
+            ],
           ),
           SizedBox(height: 5),
           Padding(
@@ -525,7 +568,7 @@ class A1State extends State<a1> {
                             : a1_end = TimeOfDay(
                                 hour: totalhfer + _selectedTime.hour.toInt(),
                                 minute:
-                                    totalmfer! + _selectedTime.minute.toInt());
+                                    totalmfer + _selectedTime.minute.toInt());
                       });
                     },
                     child: Padding(
@@ -1046,7 +1089,7 @@ class A1State extends State<a1> {
           ],
         ),
         Container(
-          height:1100.h,
+          height: 1100.h,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,

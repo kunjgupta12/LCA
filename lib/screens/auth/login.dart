@@ -109,12 +109,12 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an Account?",
+                      "Don't have an Account?".tr,
                       style: CustomTextStyles.titleMediumGreen600,
                     ),
                     
                     CustomOutlinedButton(
-                      text: 'Create',
+                      text: 'Create'.tr,
                       onPressed: () {
                         Navigator.push(
                             context,

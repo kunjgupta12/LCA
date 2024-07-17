@@ -6,12 +6,14 @@ import 'package:lca/api/api.dart';
 import 'package:lca/api/complaints.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/model/complaint_issue.dart';
-import 'package:lca/screens/complaint_detail/complaint_detail.dart';
+import 'package:lca/screens/complaint/complaint_detail.dart';
+import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:lca/widgets/custom_button_style.dart';
+import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
 import '../../model/device.dart';
 import '../../widgets/app_decoration.dart';
 import '../../widgets/custom_elevated_button.dart';
@@ -34,15 +36,39 @@ class FrameEighteenScreen extends StatefulWidget {
 class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
   List<Device>? devices = [];
   Future<List<Issue>>? issues;
+
+  Device? selectedDevice;
+  String? selectedImei;
+
   @override
   void initState() {
-    print('good data:${widget.data}');
-    List<dynamic> jsonData = json.decode(widget.data.toString())['content'];
-    devices = jsonData.map((data) => Device.fromJson(data)).toList();
-    // TODO: implement initState
-   // issues=fetchDataissue(widget.token.toString());
-   
     super.initState();
+    fetchDevices();
+  }
+
+  void fetchDevices() async {
+    try {
+      final fetchedDevices = await fetchDevicesissues();
+      setState(() {
+        devices = fetchedDevices;
+      });
+    } catch (e) {
+      print('Failed to fetch devices: $e');
+    }
+  }
+
+  void onDeviceSelected(Device? device) {
+    setState(() {
+      selectedDevice = device;
+      selectedImei = device?.imei;
+    });
+  }
+
+  void onImeiSelected(String? imei) {
+    setState(() {
+      selectedImei = imei;
+      selectedDevice = devices!.firstWhere((device) => device.imei == imei);
+    });
   }
 
   TextEditingController deviceidSectionController = TextEditingController();
@@ -109,7 +135,34 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                               style: CustomTextStyles.titleMediumBluegray900,
                             ),
                             SizedBox(height: 16),
-                            _buildDeviceidSection(context),
+
+                            DropdownButtonFormField<Device>(
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                focusColor: Colors.green,
+                                iconColor: Colors.green,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              hint: Text('Select Device Title'),
+                              value: selectedDevice,
+                              items: devices!.map((Device device) {
+                                return DropdownMenuItem<Device>(
+                                  value: device,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(device.title),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: onDeviceSelected,
+                            ),
                             SizedBox(height: 14),
                             Padding(
                               padding: EdgeInsets.only(left: 4),
@@ -118,8 +171,36 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                                 style: CustomTextStyles.titleMediumBluegray900,
                               ),
                             ),
-                            SizedBox(height: 16),
-                            _buildNameSection(context),
+                            SizedBox(height: 10),
+                            DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                focusColor: Colors.green,
+                                iconColor: Colors.green,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              hint: Text('Select IMEI'),
+                              value: selectedImei,
+                              items: devices!.map((Device device) {
+                                return DropdownMenuItem<String>(
+                                  value: device.imei,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(device.imei),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: onImeiSelected,
+                            ),
+
+                            //   _buildNameSection(context),
                             SizedBox(height: 14),
                             Padding(
                               padding: EdgeInsets.only(left: 6),
@@ -207,44 +288,47 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
     );
   }
 
-  Device? selectedDevice;
   String? selectedItem;
+  Device? iemiselected;
 
   /// Section Widget
-  Widget _buildDeviceidSection(BuildContext context) {
-    return widget.data != null
-        ? DropdownButtonFormField<Device>(
-            decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.green),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              focusColor: Colors.green,
-              iconColor: Colors.green,
-              contentPadding: const EdgeInsets.symmetric(vertical: 2),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            hint: Text(selectedDevice?.toString() ?? 'Device ID'),
-            value: selectedDevice,
-            onChanged: (Device? newValue) {
-              setState(() {
-                selectedDevice = newValue;
-              });
-            },
-            items: devices!.map<DropdownMenuItem<Device>>((Device apiResponse) {
-              return DropdownMenuItem<Device>(
-                  value: apiResponse,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(apiResponse.title.toString()),
-                  ));
-            }).toList(),
-          )
-        : CircularProgressIndicator();
+  Widget _buildDeviceidSection(
+      BuildContext context, List<Device>? selectedDevice) {
+    return DropdownButtonFormField<Device>(
+      decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.green),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusColor: Colors.green,
+        iconColor: Colors.green,
+        contentPadding: const EdgeInsets.symmetric(vertical: 2),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      hint: Text('Device ID'),
+      value: iemiselected,
+      onChanged: (Device? newValue) {
+        setState(() {
+          iemiselected = newValue;
+          //  selectedDevice. = newValue;
+        });
+      },
+      items:
+          selectedDevice!.map<DropdownMenuItem<Device>>((Device apiResponse) {
+        return DropdownMenuItem<Device>(
+            value: apiResponse,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(apiResponse.imei.toString()),
+            ));
+      }).toList(),
+    );
   }
-int? device_name=0;
+
+  int? device_name = 0;
+
   /// Section Widget
   Widget _buildNameSection(BuildContext context) {
     return DropdownButtonFormField<Device>(
@@ -265,7 +349,7 @@ int? device_name=0;
       onChanged: (Device? newValue) {
         setState(() {
           selectedDevice = newValue;
-          device_name=selectedDevice!.id;
+          device_name = selectedDevice!.id;
         });
       },
       items: devices!.map<DropdownMenuItem<Device>>((Device device) {
@@ -291,34 +375,32 @@ int? device_name=0;
   }
 
   String? selectedissue;
-int?  problem_id;
+  int? problem_id;
+
   /// Section Widget
   Widget _buildIssueCounterSection(BuildContext context) {
-    
-
-   //IssueProvider dataProvider = Provider.of<IssueProvider>(context);
+    //IssueProvider dataProvider = Provider.of<IssueProvider>(context);
     return Consumer<IssueProvider>(
-       builder: (context, dataProvider, child) {
+      builder: (context, dataProvider, child) {
         if (dataProvider.isLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (dataProvider.errorMessage != null) {
-          return Center(child: Padding(
+          return Center(
+              child: Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("Reload"),
-                IconButton(onPressed: (){dataProvider.fetchissues(widget.token.toString());}, icon: Icon(Icons.replay_outlined)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Reload"),
+                IconButton(
+                    onPressed: () {
+                      dataProvider.fetchissues(token.toString());
+                    },
+                    icon: Icon(Icons.replay_outlined)),
               ],
             ),
-          ) );
+          ));
         } else {
-    /*  future: issues,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          List<Issue>? categories = snapshot.data;*/
           return DropdownButtonFormField<Issue>(
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
@@ -338,10 +420,11 @@ int?  problem_id;
               print('Selected category: ${issue!.title}');
               setState(() {
                 selectedissue = issue.title;
-                problem_id=issue.id;
+                problem_id = issue.id;
               });
             },
-            items: dataProvider.devices.map<DropdownMenuItem<Issue>>((Issue category) {
+            items: dataProvider.devices
+                .map<DropdownMenuItem<Issue>>((Issue category) {
               return DropdownMenuItem<Issue>(
                 value: category,
                 child: Padding(
@@ -385,16 +468,32 @@ int?  problem_id;
       onPressed: () {
         print(device_name);
         if (_formKey.currentState!.validate()) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FrameThirtyfiveScreen(iemi: selectedDevice!.imei.toString(),name: selectedDevice!.title,note: descriptionSectionController.text,problem: selectedissue,device_id: selectedDevice!.id,problem_id: problem_id,token: widget.token.toString(),)));
+          if (selectedDevice!.imei != 'null' ||
+              selectedDevice!.title != "null") {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => FrameThirtyfiveScreen(
+                      iemi: selectedDevice!.imei.toString(),
+                      name: selectedDevice!.title,
+                      note: descriptionSectionController.text,
+                      problem: selectedissue,
+                      device_id: selectedDevice!.id,
+                      problem_id: problem_id,
+                      token: widget.token.toString(),
+                    )));
+          } else if (selectedDevice!.imei == 'null' ||
+              selectedDevice!.title == "null" ||
+              selectedissue == 'null') {
+            showToast('Enter All Fields');
+          }
         }
       },
       //buttonStyle: CustomButtonStyles.none,
       //  decoration: CustomButtonStyles.gradientIndigoAToPurpleADecoration,
       buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
       buttonStyle: CustomButtonStyles.fillOnError.copyWith(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
           // If the button is pressed, return green, otherwise blue
-          if (states.contains(MaterialState.pressed)) {
+          if (states.contains(WidgetState.pressed)) {
             return Colors.green;
           }
           return Colors.green;
@@ -402,5 +501,23 @@ int?  problem_id;
       ),
       alignment: Alignment.center,
     );
+  }
+}
+
+Future<List<Device>> fetchDevicesissues() async {
+  final response = await http.get(
+    Uri.parse('${devices}?pageNumber=0&pageSize=100'),
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+  print(response.body);
+  if (response.statusCode == 200) {
+    final List<dynamic> jsonResponse = json.decode(response.body)['content'];
+    return jsonResponse.map((json) => Device.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load devices');
   }
 }

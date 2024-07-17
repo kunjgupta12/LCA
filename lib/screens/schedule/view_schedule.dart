@@ -2,8 +2,8 @@ import 'package:intl/intl.dart';
 import 'package:lca/api/device_status_api.dart';
 import 'package:lca/model/type1.dart';
 import 'package:lca/model/type2.dart';
-import 'package:lca/screens/frame_twenty_screen/widget_a1.dart';
-import 'package:lca/screens/frame_twenty_screen/widget_a2.dart';
+import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
+import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
 import 'package:lca/widgets/custom_image.dart';
 import 'package:lca/widgets/custom_outlined_button.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
@@ -733,7 +733,7 @@ class _ViewScheduleState extends State<ViewScedule> {
           ],
         ),
         Container(
-          height: vc * 70.h,
+          height: vc * 40.h,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,

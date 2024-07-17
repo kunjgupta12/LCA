@@ -6,8 +6,7 @@ import 'package:lca/api/api.dart';
 import 'package:lca/api/device_api.dart';
 import 'package:lca/api/device_status_api.dart';
 import 'package:lca/model/device_status.dart';
-import 'package:lca/screens/devices_list/device_list.dart';
-import 'package:lca/screens/register_device/update_device.dart';
+import 'package:lca/screens/device/update_device.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
 import 'package:lca/widgets/custom_floating_button.dart';
@@ -80,7 +79,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(minutes: 3), (timer) {
+    _timer = Timer.periodic(const Duration(minutes: 3), (timer) {
       Provider.of<DeviceProvider>(context, listen: false)
           .DataProvider(widget.id.toString());
     });
@@ -125,7 +124,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                         Consumer<DeviceProvider>(
                             builder: (context, dataprovider, snapshot) {
                           if (dataprovider.data == null) {
-                            return CircularProgressIndicator();
+                            return const  CircularProgressIndicator();
                           } else if (dataprovider.data == null) {
                             return const Center(
                                 child: Text(
@@ -185,11 +184,11 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 padding: EdgeInsets.only(
                                                     right: 0.1.h),
                                                 child: status.ms == 1
-                                                    ? Text(
+                                                    ?const  Text(
                                                         "Power On ",
                                                         style:TextStyle(fontSize: 23,fontWeight: FontWeight.w700,color: Colors.green)
                                                       )
-                                                    : Text(
+                                                    : const Text(
                                                         "Power off",
                                                         style:TextStyle(fontSize: 23,fontWeight: FontWeight.w700,color: Colors.red)
                                                    
@@ -252,7 +251,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                               color: Color.fromRGBO(
                                                   180, 200, 199, 1),
                                               height: 120,
-                                              child: Center(
+                                              child:   Center(
                                                 child: Text(
                                                   'Low Flow',
                                                   style: TextStyle(
@@ -264,7 +263,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                               width: 370.h,
                                             )),
                                   SizedBox(height: 27.v),
-                                  status.p=='null'
+                                  status.p !='null'
                                  ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -323,7 +322,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                               .outlineWhiteATL15
                                                               .copyWith(
                                                         backgroundColor:
-                                                            MaterialStateProperty
+                                                            WidgetStateProperty
                                                                 .resolveWith(
                                                                     (states) {
                                                           return Colors.white;
@@ -351,7 +350,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                     crossAxisSpacing: 18.h,
                                                   ),
                                                   physics:
-                                                      NeverScrollableScrollPhysics(),
+                                                     const  NeverScrollableScrollPhysics(),
                                                   itemCount: widget.valve_no,
                                                   itemBuilder:
                                                       (context, index) {
@@ -396,7 +395,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                               ),
                             );
                           }
-                          return CircularProgressIndicator();
+                          return const  CircularProgressIndicator();
                         }),
                       ],
                     ),
@@ -428,7 +427,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
             future: _futureWeatherData,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (snapshot.hasData) {
@@ -722,11 +721,11 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 .fillOrangeA
                                                 .copyWith(
                                               backgroundColor:
-                                                  MaterialStateProperty
+                                                  WidgetStateProperty
                                                       .resolveWith((states) {
                                                 // If the button is pressed, return green, otherwise blue
                                                 if (states.contains(
-                                                    MaterialState.pressed)) {
+                                                    WidgetState.pressed)) {
                                                   return Colors.white;
                                                 }
                                                 return Colors.white;
@@ -761,12 +760,12 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                 );
                               },
                             ),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.settings_outlined,
                           color: Colors.white,
                           size: 45,
                         )),
-                    Text(
+                   const  Text(
                       'Settings',
                       style: TextStyle(
                           fontSize: 15,
@@ -785,8 +784,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
   }
 
   /// Section Widget
-
-  Widget _devices(BuildContext context) {
+/*
+  Widget _device(BuildContext context) {
     return GestureDetector(
       onTap: () async {
         SharedPreferences prefss = await SharedPreferences.getInstance();
@@ -820,7 +819,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
             ),
           )),
     );
-  }
+  }*/
 
   Widget _buildLoranImage(BuildContext context) {
     return Container(

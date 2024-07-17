@@ -28,9 +28,7 @@ Future<Weather> fetchData(String query) async {
     prefs.setString('weather', jsonEncode(data));
 
     return Weather.fromJson(data);
-  } else {
-    // If the server did not return a 200 OK response, throw an exception.
-    throw Exception('Failed to load data');
+  } else {throw Exception('Failed to load data');
   }
 
   // Construct the URL with query parameters

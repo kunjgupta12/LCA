@@ -1,9 +1,8 @@
-import 'dart:ffi';
+
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/complaints.dart';
-import 'package:lca/api/device_api.dart';
 import 'package:lca/api/device_status_api.dart';
 import 'package:lca/screens/splash_screen.dart';
 import 'package:lca/widgets/theme_helper.dart';

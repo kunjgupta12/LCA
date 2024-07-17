@@ -217,13 +217,13 @@ String? fcm_token;
                       SizedBox(height: 10),
                       _buildAddress(context),
                       SizedBox(height: 5),
-                     const  Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
                             padding:  EdgeInsets.only(left: 25.0),
                             child: Text(
-                              '* Required Fields',
+                              '* Required Fields'.tr,
                               style: TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -499,8 +499,8 @@ String? fcm_token;
           children: [
             Row(
               children: [
-           const      Text(
-                  'Current Location',
+                 Text(
+                  'Current Location'.tr,
                   style: TextStyle(color: Colors.green, fontSize: 18),
                 ),
                 Container(
@@ -541,7 +541,7 @@ String? fcm_token;
                 autofocus: true,
                 style: CustomTextStyles.bodyLargeDMSansBlack90001,
                 decoration: InputDecoration(
-                  hintText: "GPS Location",
+                  hintText: "GPS Location".tr,
                   hintStyle: CustomTextStyles.titleLargeGray50003,
                   isDense: true,
                   fillColor: appTheme.gray200B7,
@@ -679,7 +679,7 @@ String? fcm_token;
           style: CustomTextStyles.bodyLargeDMSansBlack90001,
           maxLines: 5,
           decoration: InputDecoration(
-            hintText: "Full Address",
+            hintText: "Full Address".tr,
             hintStyle: CustomTextStyles.titleLargeGray50003,
             isDense: true,
             contentPadding:
@@ -715,7 +715,7 @@ String? fcm_token;
     return Align(
       alignment: Alignment.center,
       child: Container(
-        width: 345.h,
+        width: 355.h,
         child: Column(
           children: [
             TextButton(
@@ -729,14 +729,11 @@ String? fcm_token;
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an Account?",
+                      "Already have an Account?".tr,
                       style: CustomTextStyles.titleMediumGreen600,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    CustomOutlinedButton(
-                      text: 'Login',
+                     CustomOutlinedButton(
+                      text: 'Login'.tr,
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -750,9 +747,9 @@ String? fcm_token;
                       })),
                       buttonTextStyle: const TextStyle(
                           color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800),
-                      width: 85,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700),
+                      width: 105.h,
                       height: 30,
                     )
                   ],
@@ -766,7 +763,7 @@ String? fcm_token;
   /// Section Widget
   Widget _buildRegister(BuildContext context) {
     return CustomOutlinedButton(
-        width: 200,
+        width: 250.h,
         text: "Register".tr,
         buttonStyle: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lca/screens/devices_list/device_list.dart';
 import 'package:lca/screens/devices_list/device_scroll.dart';
-import 'package:lca/screens/home/frame_eight_page.dart';
+import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/profile/profile.dart';
 import '../../app_routes.dart';
 import '../../model/weather_model.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../../widgets/theme_helper.dart';
-import '../done_seventeen/frame_seventeen_screen.dart';
-import '../frame_twenty_screen/frame_twenty_screen.dart';
+import '../complaint_detail/frame_seventeen_screen.dart';
+import '../create_schedule/frame_twenty_screen.dart';
 import 'package:get/get.dart';
 
 // ignore_for_file: must_be_immutable
@@ -83,7 +82,7 @@ class _FrameNineteenContainerScreenState
         return DeviceListScreen();
 
       case AppRoutes.frameTwentyScreen:
-        return FrameTwentyScreen(); 
+        return FrameTwentyScreen();
       case AppRoutes.frameSeventeenScreen:
         return FrameSeventeenScreen();
       case AppRoutes.profile:

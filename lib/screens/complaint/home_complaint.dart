@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lca/api/api.dart';
-import 'package:lca/screens/frame_nineteen_page/frame_nineteen_page.dart';
+import 'package:lca/screens/complaint/view_complaint.dart';
 import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +12,7 @@ import '../../widgets/custom_button_style.dart';
 import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_text_style.dart';
 import '../../widgets/theme_helper.dart';
-import '../devices_list/home_screen.dart';
+import 'create_complaint.dart';
 
 String? jsonString;
 String? token;
@@ -22,7 +22,7 @@ void storedevice() async {
   token = prefs.getString("token");
   print('stored data:${jsonString}');
 }
-
+//TODO NEED NEW DEVICE LIST API WITH ONLY NAME AND ID
 class FrameSeventeenScreen extends StatefulWidget {
   FrameSeventeenScreen({Key? key})
       : super(
@@ -38,7 +38,7 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
   @override
   void initState() {
     storedevice();
-    // TODO: implement initState
+   
     super.initState();
   }
 
@@ -116,7 +116,7 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                         CustomElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => FrameNineteenPage(token:token
+                                builder: (context) => FrameNineteenPage(token:token  
                                  )));
                     
                           },

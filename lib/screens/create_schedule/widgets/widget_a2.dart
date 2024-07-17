@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/model/schedule_model.dart';
-import 'package:lca/screens/frame_twenty_screen/frame_twenty_screen.dart';
+import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
+import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/widgets/custom_image.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
@@ -12,6 +13,9 @@ import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 
+  TextEditingController starttimeb = TextEditingController();
+
+  TextEditingController starttime2b = TextEditingController();
 List<Color> _colorContainer = List.generate(7, (index) => Colors.white);
 
 class a2 extends StatefulWidget {
@@ -30,9 +34,6 @@ class a1State extends State<a2> {
   int? _selectedButtonIndex = 1;
   TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
   TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
-  TextEditingController starttime = TextEditingController();
-
-  TextEditingController starttime2 = TextEditingController();
   List<TimeOfDay> selectedTimes =
       List.generate(12, (index) => const TimeOfDay(hour: 0, minute: 0));
 
@@ -47,7 +48,7 @@ class a1State extends State<a2> {
         setState(() {
           _selectedTime = picked;
 
-          starttime.text = _selectedTime.hour.toString().padLeft(2, '0') +
+          starttimeb.text = _selectedTime.hour.toString().padLeft(2, '0') +
               ":" +
               _selectedTime.minute.toString().padLeft(2, '0');
           // totalh = _selectedTime.hour;
@@ -73,25 +74,48 @@ class a1State extends State<a2> {
               totalh! * 60 +
                   totalm! +
                   _selectedTime2.hour.toInt() * 60 +
-                  _selectedTime2.minute &&
-          _selectedButtonIndex == 2) {
+                  _selectedTime2.minute&&
+          _selectedButtonIndex == 1
+          ) {
         setState(() {
           _selectedTime2 = picked2;
          
-          starttime2.text = _selectedTime2.hour.toString().padLeft(2, '0') +
+          starttime2b.text = _selectedTime2.hour.toString().padLeft(2, '0') +
               ":" +
               _selectedTime2.minute.toString().padLeft(2, '0');
           // totalh = _selectedTime.hour;
           // totalh += _selectedTime.hour.toInt();
         });
-      }
+      } if (picked2.hour * 60 + picked2.minute >
+              totalhfer * 60 +
+                  totalmfer +
+                  _selectedTime.hour.toInt() * 60 +
+                  _selectedTime.minute &&
+          _selectedButtonIndex == 2) {
+        setState(() {
+          _selectedTime2 = picked2;
+          a1_end = TimeOfDay(
+              hour: picked2.hour + totalhfer,
+              minute: picked2.minute + totalmfer);
+          starttime2b.text = _selectedTime2.hour.toString().padLeft(2, '0') +
+              ":" +
+              _selectedTime2.minute.toString().padLeft(2, '0');
+          // totalh = _selectedTime.hour;
+          // totalh += _selectedTime.hour.toInt();
+        });
+      } 
        else if (picked2.hour * 60 + picked2.minute <
               totalh! * 60 +
                   totalm! +
                   _selectedTime2.hour.toInt() * 60 +
                   _selectedTime2.minute &&
-          _selectedButtonIndex == 2) {
-        showToast("Please send after end time");
+          _selectedButtonIndex == 1 ||picked2.hour * 60 + picked2.minute <
+              totalhfer * 60 +
+                  totalmfer +
+                  _selectedTime2.hour.toInt() * 60 +
+                  _selectedTime2.minute &&
+          _selectedButtonIndex == 2 ) {
+        showToast("Please set after end time");
       }
     }
   }
@@ -190,12 +214,53 @@ class a1State extends State<a2> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 5),
-            child: Text(
-              "Select Days ",
-              style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
-            ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 5),
+                child: Text(
+                  "Select Days ",
+                  style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
+                ),
+              ),TextButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedTime = TimeOfDay(hour: 0, minute: 0);
+                    starttime.text = '00:00';
+                    for (int i = 0; i < _colorContainer.length; i++) {
+                      _colorContainer[i] = Colors.white;
+                    }for (int i = 0; i < 12; i++) {
+                     selectedTimes[i]=TimeOfDay(hour: 00, minute: 00);
+                    }totalh=0;
+                    totalm=0;
+                
+                    totalhfer=0;
+                    totalmfer=0;
+                    for (int i = 0; i < 12; i++) {
+                     selectedTimefer[i][0]=TimeOfDay(hour: 00, minute: 00);
+                           selectedTimefer[i][2]=TimeOfDay(hour: 00, minute: 00);
+                    selectedTimefer[i][1]=TimeOfDay(hour: 00, minute: 00);
+              
+                    }
+                    a1_end=TimeOfDay(hour: 00, minute: 00);
+                  });
+                  programA = ProgramA();
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'Reset All',
+                      style: CustomTextStyles.bodyLargeDMSansRegular,
+                    ),
+                   const Icon(
+                      Icons.replay,
+                      color: Colors.black,
+                    )
+                  ],
+                ),
+              )
+              
+            ],
           ),
           SizedBox(height: 3),
           Padding(
@@ -357,7 +422,7 @@ class a1State extends State<a2> {
                   child: CustomTextFormField(
                     autofocus: false,
                     focusNode: FocusNode(),
-                    controller: starttime,
+                    controller: starttimeb,
                     enabled: false,
                     width: 120,
                     hintText: "00:00 hrs",

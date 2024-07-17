@@ -168,7 +168,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                          height: 60.v,
                          text: "EDIT",
                          buttonStyle: CustomButtonStyles.outlineWhiteATL15.copyWith(
-                          backgroundColor:   MaterialStateProperty.resolveWith((states) {
+                          backgroundColor:   WidgetStateProperty.resolveWith((states) {
                         return Colors.purple;})
                         ,),
                       buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
