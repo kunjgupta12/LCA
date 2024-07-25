@@ -21,8 +21,18 @@ import 'package:flutter/material.dart';
 class ViewScedule extends StatefulWidget {
   String? token;
   int? id;
-  type2? type2data;
-  ViewScedule({Key? key, this.id, this.token, this.type2data})
+  type1? type1data;
+  int type;
+  String name;
+  String iemi;
+  ViewScedule(
+      {Key? key,
+      this.id,
+      this.token,
+      this.type1data,
+      required this.type,
+      required this.name,
+      required this.iemi})
       : super(
           key: key,
         );
@@ -34,20 +44,31 @@ class ViewScedule extends StatefulWidget {
 String getTimeString(int value) {
   final int hour = value ~/ 60;
   final int minutes = value % 60;
-  return hour !=0 ?
-      '${hour.toString().padLeft(2, "0")}hr ${minutes.toString().padLeft(2, "0")}min' :'${minutes.toString().padLeft(2, "0")} min';
+  return hour != 0
+      ? '${hour.toString().padLeft(2, "0")}hr ${minutes.toString().padLeft(2, "0")}min'
+      : '${minutes.toString().padLeft(2, "0")} min';
 }
-String ampm(int minutes){
-    int hours = minutes ~/ 60;
-    int remainingMinutes = minutes % 60;
 
-    // Create a DateTime object for today's date with the calculated hours and minutes
-    DateTime time = DateTime(2020, 1, 1, hours, remainingMinutes);
-
-    // Format the DateTime object to a 12-hour format with AM/PM
-    String formattedTime = DateFormat.jm().format(time);
-return formattedTime;
+String getTimeTotalString(int value) {
+  final int hour = value ~/ 60;
+  final int minutes = value % 60;
+  return hour != 0
+      ? '${hour.toString().padLeft(2, "0")}hr  and ${minutes.toString().padLeft(2, "0")}min'
+      : '${minutes.toString().padLeft(2, "0")} min';
 }
+
+String ampm(int minutes) {
+  int hours = minutes ~/ 60;
+  int remainingMinutes = minutes % 60;
+
+  // Create a DateTime object for today's date with the calculated hours and minutes
+  DateTime time = DateTime(2020, 1, 1, hours, remainingMinutes);
+
+  // Format the DateTime object to a 12-hour format with AM/PM
+  String formattedTime = DateFormat.jm().format(time);
+  return minutes == 0 ? '00' : formattedTime;
+}
+
 //inal GlobalKey<> childKey = GlobalKey<_A1State>();
 class _ViewScheduleState extends State<ViewScedule> {
   final GlobalKey<A1State> childKeya1 = GlobalKey<A1State>();
@@ -55,16 +76,15 @@ class _ViewScheduleState extends State<ViewScedule> {
 
   @override
   Widget build(BuildContext context) {
-    int? _selectedButtonIndex = widget.type2data!.c!.m;
-   
-
     return SafeArea(child:
         Scaffold(body: Sizer(builder: (context, orientation, deviceType) {
       return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           physics: AlwaysScrollableScrollPhysics(),
-          child: FutureBuilder<type1>(
-              future: valve_detail_type1(widget.id.toString()),
+          child: FutureBuilder<type2>(
+              future: widget.type == 0
+                  ? valve_detail_typea(widget.id.toString())
+                  : valve_detail_typeb(widget.id.toString()),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -72,10 +92,10 @@ class _ViewScheduleState extends State<ViewScedule> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
                 int value;
-                widget.type2data!.typeId == 2
-                    ? value = snapshot.data!.c.wa
-                    : value = snapshot.data!.c.wb; // Example value
-
+                snapshot.data!.typeId == 2
+                    ? value = widget.type1data!.c.wa
+                    : value = widget.type1data!.c.wb; // Example value
+                int? _selectedButtonIndex = snapshot.data!.c.m;
                 if (value == 1) {
                   checkedday = [1, 1, 1, 1, 1, 1, 1];
                 } else {
@@ -110,10 +130,10 @@ class _ViewScheduleState extends State<ViewScedule> {
                     checkedday[0] = 1;
                   }
                 }
-                 int endtimetime=0;
-    for (int i = 0; i < snapshot.data!.c.vc; i++) {
-      endtimetime = endtimetime + widget.type2data!.c.vd![i];
-    }
+                int endtimetime = 0;
+                for (int i = 0; i < widget.type1data!.c.vc; i++) {
+                  endtimetime = endtimetime + snapshot.data!.c.vd![i];
+                }
                 return Column(children: [
                   _buildAppBar(context),
                   SizedBox(height: 10),
@@ -134,6 +154,60 @@ class _ViewScheduleState extends State<ViewScedule> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    "Device Name:",
+                                    style: CustomTextStyles
+                                        .headlineSmallDMSansBlack90001Bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  widget.name,
+                                  style: TextStyle(
+                                    color: appTheme.black900,
+                                    fontSize: 20,
+                                    fontFamily: 'DM Sans',
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    "Device IEMI:",
+                                    style: CustomTextStyles
+                                        .headlineSmallDMSansBlack90001Bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  widget.iemi,
+                                  style: TextStyle(
+                                    color: appTheme.black900,
+                                    fontSize: 20,
+                                    fontFamily: 'DM Sans',
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 15),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -161,7 +235,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            widget.type2data!.typeId == 2
+                                            snapshot.data!.typeId == 2
                                                 ? "Program A"
                                                 : "Program B",
                                             style: TextStyle(
@@ -231,7 +305,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        widget.type2data!.c!.m == 1
+                                        snapshot.data!.c!.m == 1
                                             ? Row(
                                                 children: [
                                                   Container(
@@ -412,22 +486,18 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           controller: starttime,
                                           enabled: false,
                                           width: 120,
-                                          hintText:
-                                              widget.type2data!.typeId == 2
-                                                  ?ampm(
-                                                      snapshot.data!.c.st[0])
-                                                  : ampm(
-                                                      snapshot.data!.c.st[2]),
-                                          hintStyle:
-                                              CustomTextStyles.titleMediumLibreFranklinOnPrimary,
-                                           textInputType: TextInputType.number,
-                                         
+                                          hintText: snapshot.data!.typeId == 2
+                                              ? ampm(widget.type1data!.c.st[0])
+                                              : ampm(widget.type1data!.c.st[2]),
+                                          hintStyle: CustomTextStyles
+                                              .titleMediumLibreFranklinOnPrimary,
+                                          textInputType: TextInputType.number,
+
                                           contentPadding: EdgeInsets.only(
                                               left: 10, top: 20),
                                           //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                                         ),
                                       ),
-                                    
                                     ],
                                   ),
                                 ),
@@ -442,23 +512,32 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 ),
                                 SizedBox(height: 27),
                                 _selectedButtonIndex == 1
-                                    ? _durationtwo(context, snapshot.data!.c.vc)
+                                    ? _durationtwo(
+                                        context,
+                                        widget.type1data!.c.vc,
+                                        snapshot.data!.c.vd)
                                     : (_selectedButtonIndex == 2
                                         ? _durationfour(
-                                            context, snapshot.data!.c.vc)
+                                            context,
+                                            widget.type1data!.c.vc,
+                                            snapshot.data!.c.vd,
+                                            snapshot.data!.c.pwd,
+                                            snapshot.data!.c.frtd,
+                                            snapshot.data!.c.fd)
                                         : _durationtwo(
-                                            context, snapshot.data!.c.vc)),
+                                            context,
+                                            widget.type1data!.c.vc,
+                                            snapshot.data!.c.vd)),
                                 SizedBox(height: 25),
                                 Container(
-                                    width: 286,
+                                    width: 286.h,
                                     margin: EdgeInsets.only(left: 45),
                                     child: Text(
-                                            "Total Time for valves is ${getTimeString(endtimetime)}",  
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                            style: CustomTextStyles
-                                                .bodyLargeDMSans,
-                                          )),
+                                      "Total Time for valves\n is ${getTimeTotalString(endtimetime)}",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: CustomTextStyles.bodyLargeDMSans,
+                                    )),
                                 SizedBox(height: 25),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -486,14 +565,15 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         child: CustomTextFormField(
                                           width: 140.h,
                                           enabled: false,
-                                      hintStyle: 
-    CustomTextStyles.titleMediumLibreFranklinOnPrimary,
-                                         
-                                          hintText:  widget.type2data!.typeId == 2
-                                                  ? ampm(
-                                                      snapshot.data!.c.st[0]+endtimetime)
-                                                  : ampm(
-                                                      snapshot.data!.c.st[2]+endtimetime),    contentPadding: EdgeInsets.only(
+                                          hintStyle: CustomTextStyles
+                                              .titleMediumLibreFranklinOnPrimary,
+
+                                          hintText: snapshot.data!.typeId == 2
+                                              ? ampm(widget.type1data!.c.st[0] +
+                                                  endtimetime)
+                                              : ampm(widget.type1data!.c.st[2] +
+                                                  endtimetime),
+                                          contentPadding: EdgeInsets.only(
                                               left: 20, top: 20),
                                           //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                                         ),
@@ -522,14 +602,11 @@ class _ViewScheduleState extends State<ViewScedule> {
                                       CustomTextFormField(
                                         width: 140.h,
                                         enabled: false,
-                                        hintStyle:
-                                             CustomTextStyles.titleMediumLibreFranklinOnPrimary,
-                                         
-                                        hintText: widget.type2data!.typeId == 2
-                                            ? ampm(
-                                                snapshot.data!.c.st[1])
-                                            : ampm(
-                                                snapshot.data!.c.st[3]),
+                                        hintStyle: CustomTextStyles
+                                            .titleMediumLibreFranklinOnPrimary,
+                                        hintText: snapshot.data!.typeId == 2
+                                            ? ampm(widget.type1data!.c.st[1])
+                                            : ampm(widget.type1data!.c.st[3]),
                                         contentPadding:
                                             EdgeInsets.only(left: 20, top: 20),
                                       ),
@@ -562,7 +639,7 @@ class _ViewScheduleState extends State<ViewScedule> {
     return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
   }
 
-  Widget _durationtwo(BuildContext context, int vc) {
+  Widget _durationtwo(BuildContext context, int vc, List<int>? time) {
     return SizedBox(
       height: vc * 70,
       width: 500.h,
@@ -586,7 +663,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                       style: theme.textTheme.titleLarge,
                     ),
                   ),
-                  _buildValveOne(context, index),
+                  _buildValveOne(context, index, time![index]),
                 ],
               ),
             );
@@ -678,7 +755,7 @@ class _ViewScheduleState extends State<ViewScedule> {
     );
   }
 
-  Widget _buildValveOne(BuildContext context, int index) {
+  Widget _buildValveOne(BuildContext context, int index, int time) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -688,7 +765,7 @@ class _ViewScheduleState extends State<ViewScedule> {
           hintStyle: CustomTextStyles.bodyMediumInter,
           enabled: false,
           textInputType: TextInputType.number,
-          hintText: "${getTimeString(widget.type2data!.c.vd![index])}",
+          hintText: "${getTimeString(time)}",
           contentPadding: EdgeInsets.only(left: 10, top: 20),
           // contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
         ),
@@ -696,12 +773,17 @@ class _ViewScheduleState extends State<ViewScedule> {
     );
   }
 
-  Widget _durationfour(BuildContext context, int vc) {
+  Widget _durationfour(BuildContext context, int vc, List<int>? vd,
+      List<int>? pwd, List<int>? frtd, List<int>? flush) {
     return Column(
       children: [
         const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,crossAxisAlignment: CrossAxisAlignment.center,
-          children: [SizedBox(width: 10,),
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 10,
+            ),
             Text(
               'Prewet',
               style: TextStyle(
@@ -733,7 +815,7 @@ class _ViewScheduleState extends State<ViewScedule> {
           ],
         ),
         Container(
-          height: vc * 40.h,
+          height: vc * 45.h,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
@@ -754,39 +836,35 @@ class _ViewScheduleState extends State<ViewScedule> {
                             "V${index + 1}: ",
                             style: theme.textTheme.titleLarge,
                           ),
-                    
+
                           for (var i = 0; i < 3; i++)
                             InkWell(
                               onTap: () {},
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 5.0),
                                 child: Text(
-                         style: CustomTextStyles.titleLargeGray50003,
-            
-                                 i == 0
-                                      ? '${widget.type2data!.c.pwd![index].toString()}min'
+                                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),
+
+                                  i == 0
+                                      ? '${pwd![index].toString()}m'
                                       : i == 1
-                                          ? '${widget.type2data!.c.frtd![index]}min'
-                                              .toString()
-                                          : '${widget.type2data!.c.frtd![index]}min'
-                                              .toString(),
-                               
-                    
+                                          ? '${frtd![index]}m'.toString()
+                                          : '${flush![index]}m'.toString(),
+
                                   // contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                                 ),
                               ),
                             ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Text(
-                              getTimeString(widget.type2data!.c.vd![index]),
-                              style: TextStyle(fontSize: 14),
-                            ),
+                          Text(
+                            getTimeString(vd![index]),
+                            style:  TextStyle(fontSize: 22.fSize,fontWeight: FontWeight.w800),
+                          
                           ),
                           //  _dropdown(context),
                         ],
                       ),
-                    ),Divider()
+                    ),
+                    Divider()
                   ],
                 );
               }),
@@ -846,7 +924,7 @@ class _ViewScheduleState extends State<ViewScedule> {
   }
 
   /// Section Widget
-  Widget _buidProgramsGrid(BuildContext context) {
+  Widget _buidProgramsGrid(BuildContext context, int type) {
     return Align(
       alignment: Alignment.center,
       child: Padding(
@@ -880,9 +958,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              widget.type2data!.typeId == 2
-                                  ? "Program A"
-                                  : "Program B",
+                              type == 2 ? "Program A" : "Program B",
                               style: TextStyle(
                                 color: appTheme.black900,
                                 fontSize: 16,

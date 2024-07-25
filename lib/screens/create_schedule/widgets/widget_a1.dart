@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/model/schedule_model.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
-import 'package:lca/screens/register_device/register_device.dart';
+import 'package:lca/screens/device/register_device.dart';
 import 'package:lca/widgets/custom_image.dart';
 import 'package:lca/widgets/custom_outlined_button.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';

@@ -1,9 +1,12 @@
+import 'package:lca/api/device_status_api.dart';
 import 'package:lca/api/schedule.dart';
+import 'package:lca/model/device_status.dart';
 import 'package:lca/model/schedule_model.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
+import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
@@ -36,7 +39,7 @@ bool isChecked = false;
 TimeOfDay? a1_end = TimeOfDay(hour: 0, minute: 0);
 TextEditingController pumpstarttime = TextEditingController();
 String? token;
- 
+DeviceStatus? deviceStatus;
 TextEditingController pumprechargetime = TextEditingController();
 
 //inal GlobalKey<> childKey = GlobalKey<_A1State>();
@@ -48,11 +51,12 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   void dispose() {
     // TODO: implement dispose
 
-   starttime.clear();
-   starttime2.clear();
-  
+    starttime.clear();
+    starttime2.clear();
+
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -183,6 +187,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                                 onChanged: (bool? value) {
                                                   setState(() {
                                                     isChecked = value!;
+                                                    print(isChecked);
                                                   });
                                                 },
                                                 activeColor: isChecked
@@ -206,7 +211,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                               .titleLargeRedA70002,
                                         )),
                                     TextButton(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           _selectedValue == 0
                                               ? childKeya1.currentState!
                                                   .updateA()
@@ -228,11 +233,27 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                               prt: int.tryParse(pumprechargetime
                                                   .text
                                                   .toString()));
-                                        print(widget.token);
-                                                  schedule_program(
-                                                      widget.token.toString(),
-                                                      widget.id!.toInt(),
-                                                      schedule);
+                                          print(widget.token);
+                                          try {
+                                            deviceStatus=       await device_detail(
+                                                widget.id.toString());
+
+                                                if (deviceStatus != null) {
+                                            if (deviceStatus!.c!.ms == 1) {
+                                              schedule_program(
+                                                  widget.token.toString(),
+                                                  widget.id!.toInt(),
+                                                  schedule);
+                                            } else {
+                                              showToast('Mains off/Power Off');
+                                            }
+                                          } else {
+                                            showToast('Device not configured');
+                                          } 
+                                          } catch (e) {
+                                            showToast('Error');
+                                          }
+                                    
                                         },
                                         child: Text(
                                           'Confirm',
@@ -288,7 +309,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
           SizedBox(height: 30),
           Container(
             width: 315,
-            margin:const  EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 57,
               right: 62,
             ),
@@ -328,7 +349,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
         child: Container(
           height: 50,
           child: GridView.builder(
-            gridDelegate:const  SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisExtent: 47,
               mainAxisSpacing: 10,
               crossAxisSpacing: 20,
@@ -369,7 +390,6 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                          
                           ],
                         ),
                       )),
@@ -382,7 +402,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 2,
                                   blurRadius: 3,
-                                  offset:const  Offset(
+                                  offset: const Offset(
                                       0, 2), // changes position of shadow
                                 ),
                               ],
@@ -395,7 +415,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                   color: Colors.white54.withOpacity(0.5),
                                   spreadRadius: 2,
                                   blurRadius: 7,
-                                  offset:const  Offset(
+                                  offset: const Offset(
                                       0, 2), // changes position of shadow
                                 ),
                               ],

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:lca/api/token_shared_pref.dart';
 import 'package:lca/model/device.dart';
 import 'package:lca/model/login_model.dart';
 import 'package:lca/model/register_model.dart';
@@ -13,6 +15,69 @@ import '../screens/bottom_nav/frame_nineteen_container_screen.dart';
 import '../widgets/custom_text_style.dart';
 import '../widgets/utils/notification.dart';
 import 'config.dart';
+
+class RegisterNotifier extends ChangeNotifier {
+  var myToken;
+  bool _isLoading = false;
+  String? _errorMessage = null;
+
+  bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
+  Future<LoginModel?> loginUser(
+      String emailController, String passwordController) async {
+    if (emailController.isNotEmpty && passwordController.isNotEmpty) {
+      var reqBody = {
+        "username": emailController,
+        "password": passwordController
+      };
+      notifyListeners();
+      _errorMessage = null;
+     _isLoading=true;
+      try {
+        var response = await http.post(Uri.parse(login),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode(reqBody));
+
+        var jsonResponse = jsonDecode(response.body);
+        LoginModel loginModel = LoginModel.fromJson(jsonResponse);
+          print(loginModel.token);
+        if (jsonResponse['token'].toString() != 'null') {
+          myToken = jsonResponse['token'];
+          SharedPrefManager.setAccessToken(myToken);
+          log(SharedPrefManager.getAccessToken().toString());
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('user', jsonEncode(jsonResponse['data']['user']));
+          //  prefs.setString('token', myToken);
+          SharedPreferences preff = await SharedPreferences.getInstance();
+          preff.setString('image', loginModel.data!.user!.imgUrl.toString());
+
+          showToast('Logged In with ${loginModel.data!.user!.email}');
+          print(prefs.getString('user'));
+          DeviceDataService().fetchData();
+          //   print(list);
+          FirebaseMessaging messaging = FirebaseMessaging.instance;
+          String? token = await messaging.getToken();
+
+          if (token != null) {
+            await messaging.subscribeToTopic('${loginModel.data!.user!.id}-');
+            print("Subscribed to topic: ${loginModel.data!.user!.id}");
+          }
+          _errorMessage = null;
+
+          return LoginModel.fromJson(jsonResponse);
+        } else {
+          showToast(jsonResponse['message']);
+        }
+      } catch (e) {
+        showToast(e.toString());
+      } finally {
+        _isLoading = false;
+        notifyListeners();
+      }
+    }
+    return null;
+  }
+}
 
 class Api {
   var myToken;
@@ -38,7 +103,6 @@ class Api {
         'firstName': firstName,
         "lastName": lastname,
         "phoneNo": mobile,
-        "fcm_token": fcm_token,
         "address": {
           "city": city,
           "pincode": pincode,
@@ -59,7 +123,7 @@ class Api {
         print(response.statusCode);
 
         if (response.statusCode == 201) {
-          loginUser(emailController, passwordController);
+          RegisterNotifier().loginUser(emailController, passwordController);
           showToast('Succesfully Registered with userId ');
         } else if (response.statusCode == 400) {
           showToast(jsonResponse['message']);
@@ -68,54 +132,6 @@ class Api {
         showToast(error.toString());
       }
     }
-   
-  }
-
-  Future<LoginModel?> loginUser(
-      String emailController, String passwordController) async {
-    if (emailController.isNotEmpty && passwordController.isNotEmpty) {
-      var reqBody = {
-        "username": emailController,
-        "password": passwordController
-      };
-      try {
-        var response = await http.post(Uri.parse(login),
-            headers: {"Content-Type": "application/json"},
-            body: jsonEncode(reqBody));
-
-        var jsonResponse = jsonDecode(response.body);
-        LoginModel loginModel = LoginModel.fromJson(jsonResponse);
-        loginModel.token;
-        print(loginModel.token);
-        if (jsonResponse['token'].toString() != 'null') {
-          myToken = jsonResponse['token'];
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('user', jsonEncode(jsonResponse['data']['user']));
-          prefs.setString('token', myToken);
-          SharedPreferences preff = await SharedPreferences.getInstance();
-          preff.setString('image', loginModel.data!.user!.imgUrl.toString());
-
-          showToast('Logged In with ${loginModel.data!.user!.email}');
-          print(prefs.getString('user'));
-          DeviceDataService().fetchData();
-          //   print(list);
- FirebaseMessaging messaging = FirebaseMessaging.instance;
-    String? token = await messaging.getToken();
-   
-    if (token != null) {
-      await messaging.subscribeToTopic('${loginModel.data!.user!.id}-');
-      print("Subscribed to topic: ${loginModel.data!.user!.id}");
-    }
-  
-          return LoginModel.fromJson(jsonResponse);
-        } else {
-          showToast(jsonResponse['message']);
-        }
-      } catch (e) {
-        showToast(e.toString());
-      }
-    }
-    return null;
   }
 }
 
@@ -132,11 +148,7 @@ class DeviceDataService {
 
   Future<ApiResponse> fetchDatafordevices() async {
     String? token;
-
-    SharedPreferences prefss = await SharedPreferences.getInstance();
-    token = prefss.getString('token');
-    print(token);
-    //  print(cachedData);
+    token = SharedPrefManager.getAccessToken().toString();
     return await deviceslist(token.toString());
   }
 

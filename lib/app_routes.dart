@@ -4,7 +4,7 @@ import 'package:lca/screens/auth/signup.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/profile/profile.dart';
-import 'package:lca/screens/register_device/register_device.dart';
+import 'package:lca/screens/device/register_device.dart';
 import 'package:lca/screens/splash_screen.dart';
 
 class AppRoutes {

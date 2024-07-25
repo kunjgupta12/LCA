@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/screens/auth/otp.dart';
 import 'package:lca/screens/auth/signup.dart';
-import 'package:lca/screens/view_schedule/view_schedule.dart';
+import 'package:lca/screens/schedule/view_schedule.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/app_decoration.dart';
 import '../../widgets/custom_button_style.dart';
@@ -254,28 +255,30 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
 
   /// Section Widget
   Widget _buildLoginButtonSection(BuildContext context) {
-    return CustomOutlinedButton(
-      onPressed: () {
-        if (_formKey.currentState!.validate())
-        {
-         Api().loginUser(
-              emailSectionController.text, passwordSectionController.text);
-        }
-        else {
-          for (int i = 0; i < _focusNode.length; i++) {
-            if (_focusNode[i].hasFocus) {
-              FocusScope.of(context).requestFocus(_focusNode[i]);
-              // break;
+    return Consumer<RegisterNotifier>(
+        builder: (context, dataProvider, child) { if (dataProvider.isLoading==true) {
+          return Center(child: CircularProgressIndicator());
+        } 
+      if(dataProvider.errorMessage==null){
+        return CustomOutlinedButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate())
+            {
+            dataProvider.loginUser(
+                  emailSectionController.text, passwordSectionController.text);
             }
-          }
-        }
-      },
-      width: 284,
-      height: 50,
-      text: "Login".tr,
-      // margin: EdgeInsets.only(left: 15),
-      alignment: Alignment.center,
-    );
+           
+          },
+          width: 284,
+          height: 50,
+          text: "Login".tr,
+          // margin: EdgeInsets.only(left: 15),
+          alignment: Alignment.center,
+        );
+      }else{
+return CircularProgressIndicator();
+      }}
+  );  
   }
 
   /// Section Widget

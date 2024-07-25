@@ -9,15 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';/*
-class UserEditProvider extends ChangeNotifier {
-  List<User> _user = [];
-  bool _isLoading = false;
-  String? _errorMessage;
-
-  List<User> get devices => _user;
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;*/
+import 'package:shared_preferences/shared_preferences.dart';
 
   Future<void> update_user(String token, String emailController,
       String? passwordController,
@@ -31,11 +23,8 @@ class UserEditProvider extends ChangeNotifier {
       String lat,
       String long,
       String city) async {
-   // _isLoading = true;
-   // _errorMessage = null;
-   // notifyListeners();
+  
   final String apiUrl = user_update;
-  // Replace with your actual API key
       Map<String, dynamic> regBody = {
         "email": emailController,
         "passwordText": passwordController,
@@ -80,16 +69,9 @@ User.fromJson(data);
 
  showToast('Updated');
                  Get.offAll(FrameNineteenContainerScreen());
-      } else {
-
-       // _errorMessage = 'Failed to load devices';
-      }
+      } 
     } catch (e) {
       showToast(e.toString());
-    //  _errorMessage = 'Failed to load devices: $e';
-    } finally {
-    //  _isLoading = false;
-    ///  notifyListeners();
-    }
+    } 
   }
 

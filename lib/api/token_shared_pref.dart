@@ -10,9 +10,9 @@ class SharedPrefManager {
   }
 
   // Retrieve the access token
-  static Future<String?> getAccessToken() async {
+  static Future<String> getAccessToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyAccessToken);
+    return prefs.getString(_keyAccessToken).toString();
   }
 
   // Remove the access token

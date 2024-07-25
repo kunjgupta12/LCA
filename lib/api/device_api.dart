@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:lca/api/config.dart';
+import 'package:lca/api/token_shared_pref.dart';
 import 'package:lca/model/device.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,17 +47,13 @@ class Devices {
         },
         body: jsonEncode(regbody));
     var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
-    print(response.statusCode);
-    print(response.statusCode);
     if (response.statusCode == 201) {
       showToast('Sucessfully Registered');
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setInt('device', 10);
-      DeviceDataService().deviceslist(token);
+     
+       DeviceDataService().deviceslist(token);
       Get.offAll(FrameNineteenContainerScreen());
     } else if(response.statusCode==400){
-      showToast(jsonResponse.toString());}
+      showToast('Name and IEMI are same');}
   }
 
   Future<void> updatedevice(
@@ -132,19 +129,16 @@ Future<void> deletedevice(String id) async {
 }
 
 Future<Device> fetchdevice(int id) async {
-  
-  final prefss = await SharedPreferences.getInstance();
-  String token = prefss.getString('token').toString();
+var token=  SharedPrefManager.getAccessToken();
   try {
     var response = await http.get(
-      Uri.parse('${get_device}/$id'),
+      Uri.parse('$get_device/$id'),
       headers: {
         "Content-Type": "application/json",
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
-    print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return Device.fromJson(data);

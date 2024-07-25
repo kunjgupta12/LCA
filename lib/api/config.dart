@@ -1,5 +1,6 @@
-final url = 'http://34.125.4.88:9002';
-final registration = url + "/api/v1/auth/register/customer"; 
+final url =  //'http://192.168.1.30:9002';
+'http://34.125.4.88:9002';
+String  registration = url + "/api/v1/auth/register/customer"; 
 final login = url + '/api/v1/auth/login';
 final device_register = url + '/api/v1/devices/';
 final devices = device_register + 'self';

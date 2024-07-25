@@ -63,3 +63,26 @@ Future<List<GetSchedule>> schedule_get(int deviceId, String token) async {
   return jsonResponse.map((job) => GetSchedule.fromJson(job)).toList();
   // Construct the URL with query parameters
 }
+
+Future<List<Schedule>> saved_schedule(deviceId, token) async {
+  final String apiUrl = '$schedule$deviceId';
+  final Uri uri = Uri.parse(apiUrl);
+
+  final response = await http.get(
+    uri,
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+  if (response.statusCode == 200) {
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((job) => Schedule.fromJson(job)).toList();
+  } else {
+    print(response.body);
+  }
+
+  List jsonResponse = json.decode(response.body);
+  return jsonResponse.map((job) => Schedule.fromJson(job)).toList();
+}

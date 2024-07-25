@@ -6,6 +6,7 @@ import 'package:lca/api/api.dart';
 import 'package:lca/api/device_api.dart';
 import 'package:lca/api/device_status_api.dart';
 import 'package:lca/model/device_status.dart';
+import 'package:lca/model/type1.dart';
 import 'package:lca/screens/device/update_device.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
@@ -51,6 +52,7 @@ class FrameEightPage extends StatefulWidget {
   State<FrameEightPage> createState() => _FrameEightPageState();
 }
 
+type1? type1data;
 Future<Weather>? _futureWeatherData;
 Future<DeviceStatus>? details;
 
@@ -94,316 +96,330 @@ class _FrameEightPageState extends State<FrameEightPage> {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(context),
-        body: Sizer(builder: (context, orientation, deviceType) {
-          return SizedBox(
-            width: SizeUtils.width,
-            child: SingleChildScrollView(
-                padding: EdgeInsets.only(top: 5.v),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 5.h,
-                    right: 5.h,
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 5.h,
-                      vertical: 7.v,
+        body: RefreshIndicator(
+          onRefresh: () =>
+              Provider.of<DeviceProvider>(context, listen: false).refreshData(),
+          child: Sizer(builder: (context, orientation, deviceType) {
+            return SizedBox(
+              width: SizeUtils.width,
+              child: SingleChildScrollView(
+                  padding: EdgeInsets.only(top: 5.v),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 5.h,
+                      right: 5.h,
                     ),
-                    decoration: AppDecoration.outlinePrimary1.copyWith(
-                        borderRadius: BorderRadiusStyle.roundedBorder41,
-                        color: Colors.grey.shade300),
-                    child: Column(
-                      children: [
-                        _buildTemperatureSection(
-                            context, widget.para.toString()),
-                        SizedBox(height: 14.v),
-                        _buildLoranImage(context),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Consumer<DeviceProvider>(
-                            builder: (context, dataprovider, snapshot) {
-                          if (dataprovider.data == null) {
-                            return const  CircularProgressIndicator();
-                          } else if (dataprovider.data == null) {
-                            return const Center(
-                                child: Text(
-                              'Config...',
-                              style:
-                                  TextStyle(fontSize: 30, color: Colors.green),
-                            ));
-                          } else if (deviceStatus != null) {
-                            var status = dataprovider.data!.c!;
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5.h,
+                        vertical: 7.v,
+                      ),
+                      decoration: AppDecoration.outlinePrimary1.copyWith(
+                          borderRadius: BorderRadiusStyle.roundedBorder41,
+                          color: Colors.grey.shade300),
+                      child: Column(
+                        children: [
+                          _buildTemperatureSection(
+                              context, widget.para.toString()),
+                          SizedBox(height: 14.v),
+                          _buildLoranImage(context),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Consumer<DeviceProvider>(
+                              builder: (context, dataprovider, snapshot) {
+                            if (dataprovider.data == null) {
+                              return const Center(
+                                  child: Text(
+                                'No Live Data...',
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.green),
+                              ));
+                            } else if (deviceStatus != null) {
+                              var status = dataprovider.data!.c!;
 
-                            return Container(
-                              margin: EdgeInsets.only(
-                                left: 10.h,
-                                right: 10.h,
-                                bottom: 24.v,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 5.h,
-                                      right: 5.h,
+                              return Container(
+                                margin: EdgeInsets.only(
+                                  left: 10.h,
+                                  right: 10.h,
+                                  bottom: 24.v,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 5.h,
+                                        right: 5.h,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 22.h,
+                                              vertical: 6.v,
+                                            ),
+                                            decoration: AppDecoration
+                                                .outlinePrimary4
+                                                .copyWith(
+                                              borderRadius: BorderRadiusStyle
+                                                  .roundedBorder10,
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                SizedBox(height: 11.v),
+                                                CustomImageView(
+                                                  imagePath:
+                                                      ImageConstant.imgClock,
+                                                  height: 73.adaptSize,
+                                                  width: 73.adaptSize,
+                                                  color: status.ms == 1
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                ),
+                                                SizedBox(height: 14.v),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 0.1.h),
+                                                  child: status.ms == 1
+                                                      ? const Text("Power On ",
+                                                          style: TextStyle(
+                                                              fontSize: 23,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color:
+                                                                  Colors.green))
+                                                      : const Text("Power off",
+                                                          style: TextStyle(
+                                                              fontSize: 23,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color:
+                                                                  Colors.red)),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 153.v,
+                                            width: 168.h,
+                                            margin: EdgeInsets.only(left: 19.h),
+                                            decoration: AppDecoration
+                                                .outlinePrimary5
+                                                .copyWith(
+                                                    borderRadius:
+                                                        BorderRadiusStyle
+                                                            .roundedBorder10,
+                                                    color: Colors.indigo[900]),
+                                            child: Column(
+                                              children: [
+                                                CustomImageView(
+                                                  imagePath: status.rs == 0
+                                                      ? ImageConstant.imgRain2
+                                                      : ImageConstant
+                                                          .imgRaining,
+                                                  height: 100.adaptSize,
+                                                  fit: BoxFit.fitHeight,
+                                                  width: 106.adaptSize,
+                                                  alignment: Alignment.center,
+                                                ),
+                                                Text(
+                                                  status.rs == 0
+                                                      ? 'No Rain'
+                                                      : 'Raining',
+                                                  style: CustomTextStyles
+                                                      .headlineSmallLilitaOneWhiteA70001,
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 22.h,
-                                            vertical: 6.v,
-                                          ),
-                                          decoration: AppDecoration
-                                              .outlinePrimary4
-                                              .copyWith(
-                                            borderRadius: BorderRadiusStyle
-                                                .roundedBorder10,
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              SizedBox(height: 11.v),
-                                              CustomImageView(
-                                                imagePath:
-                                                    ImageConstant.imgClock,
-                                                height: 73.adaptSize,
-                                                width: 73.adaptSize,
-                                                color: status.ms == 1
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                              ),
-                                              SizedBox(height: 14.v),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 0.1.h),
-                                                child: status.ms == 1
-                                                    ?const  Text(
-                                                        "Power On ",
-                                                        style:TextStyle(fontSize: 23,fontWeight: FontWeight.w700,color: Colors.green)
-                                                      )
-                                                    : const Text(
-                                                        "Power off",
-                                                        style:TextStyle(fontSize: 23,fontWeight: FontWeight.w700,color: Colors.red)
-                                                   
-                                                      ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 153.v,
-                                          width: 168.h,
-                                          margin: EdgeInsets.only(left: 19.h),
-                                        
-                                          decoration: AppDecoration
-                                              .outlinePrimary5
-                                              .copyWith(
-                                                  borderRadius:
-                                                      BorderRadiusStyle
-                                                          .roundedBorder10,
-                                                  color: Colors.indigo[900]),
-                                          child: Column(
-                                            children: [
-                                              CustomImageView(
-                                                imagePath: status.rs == 0
-                                                    ? ImageConstant.imgRain2
-                                                    : ImageConstant.imgRaining,
-                                                height: 100.adaptSize,fit: BoxFit.fitHeight,
-                                                width: 106.adaptSize,
+                                    SizedBox(height: 31.v),
+                                    Center(
+                                        child: status.lf == 0
+                                            ? Stack(
                                                 alignment: Alignment.center,
-                                              ),
-                                              Text(status.rs == 0 ?
-                                                'No Rain':'Raining',
-                                                style: CustomTextStyles.headlineSmallLilitaOneWhiteA70001,)
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 31.v),
-                                  Center(
-                                      child: status.lf == 0
-                                          ? Stack(
-                                              alignment: Alignment.center,
-                                              children: <Widget>[
-                                                  Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20)),
-                                                      child: Image.asset(
-                                                        'assets/images/lowflow.gif',
-                                                        height: 120,
-                                                        width: 370.h,
-                                                        fit: BoxFit.cover,
-                                                      )),
-                                                ])
-                                          : Container(
-                                              color: Color.fromRGBO(
-                                                  180, 200, 199, 1),
-                                              height: 120,
-                                              child:   Center(
-                                                child: Text(
-                                                  'Low Flow',
-                                                  style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                              ),
-                                              width: 370.h,
-                                            )),
-                                  SizedBox(height: 27.v),
-                                  status.p !='null'
-                                 ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomImageView(
-                                        imagePath: ImageConstant.imgArrowLeft,
-                                        color: Colors.green,
-                                        height: 20.v,
-                                        width: 12.h,
-                                        margin: EdgeInsets.only(
-                                          top: 192.v,
-                                          right: 5,
-                                          bottom: 210.v,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 2.h),
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 1.h,
-                                            vertical: 16.v,
-                                          ),
-                                          decoration:
-                                              AppDecoration.fillWhiteA.copyWith(
-                                            borderRadius: BorderRadiusStyle
-                                                .roundedBorder10,
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 12.h, left: 10.h),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
+                                                children: <Widget>[
                                                     Container(
-                                                      decoration: AppDecoration
-                                                          .outlinePrimary,
-                                                      child: Text(
-                                                        "Program ${status.p}",
-                                                        style: CustomTextStyles
-                                                            .headlineSmallRedA70001,
-                                                      ),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20)),
+                                                        child: Image.asset(
+                                                          'assets/images/lowflow.gif',
+                                                          height: 120,
+                                                          width: 370.h,
+                                                          fit: BoxFit.cover,
+                                                        )),
+                                                  ])
+                                            : Container(
+                                                color: Color.fromRGBO(
+                                                    180, 200, 199, 1),
+                                                height: 120,
+                                                child: Center(
+                                                  child: Text(
+                                                    'Low Flow',
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontSize: 25,
                                                     ),
-                                                    CustomOutlinedButton(
-                                                      width: 148.h,
-                                                      text: status.vs == 1
-                                                          ? "Irrigation"
-                                                          : "Fertilization",
-                                                      buttonStyle:
-                                                          CustomButtonStyles
-                                                              .outlineWhiteATL15
-                                                              .copyWith(
-                                                        backgroundColor:
-                                                            WidgetStateProperty
-                                                                .resolveWith(
-                                                                    (states) {
-                                                          return Colors.white;
-                                                        }),
-                                                      ),
-                                                      buttonTextStyle:
-                                                          CustomTextStyles
-                                                              .titleMediumWhiteA70001,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(height: 21.v),
-                                              SizedBox(height: 7.v),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8.h),
-                                                child: GridView.builder(
-                                                  shrinkWrap: true,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    mainAxisExtent: 47.v,
-                                                    crossAxisCount: 2,
-                                                    mainAxisSpacing: 18.h,
-                                                    crossAxisSpacing: 18.h,
                                                   ),
-                                                  physics:
-                                                     const  NeverScrollableScrollPhysics(),
-                                                  itemCount: widget.valve_no,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return _buildValveColumn3(
-                                                        context,
-                                                        index + 1,
-                                                        status.v ?? 0,
-                                                        status.rsf ?? 0,
-                                                        status.p == 'A'
-                                                            ? dataprovider
-                                                                .type2a!
-                                                                .c
-                                                                .vd![index]
-                                                            : dataprovider
-                                                                .type3b!
-                                                                .c
-                                                                .vd![index],
-                                                        status.bal!.toInt());
-                                                  },
                                                 ),
-                                              ),
-                                              SizedBox(height: 7.v),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      CustomImageView(
-                                        imagePath: ImageConstant.imgarrowright,
-                                        color: Colors.green,
-                                        height: 20.v,
-                                        width: 12.h,
-                                        margin: EdgeInsets.only(
-                                          top: 192.v,
-                                          left: 5,
-                                          bottom: 210.v,
-                                        ),
-                                      ),
-                                    ],
-                                  ):Text('Failed To Load Valves',style: CustomTextStyles.titleMediumPoppinsRedA70001,),
-                                  SizedBox(height: 8.v)
-                                ],
-                              ),
-                            );
-                          }
-                          return const  CircularProgressIndicator();
-                        }),
-                      ],
+                                                width: 370.h,
+                                              )),
+                                    SizedBox(height: 27.v),
+                                    FutureBuilder<type1?>(
+                                        future: valve_detail_type1(
+                                            widget.id.toString()),
+                                        builder: (context, snapshot) {
+                                             if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+             
+                                          return Container(
+                                            width: 550.h,
+                                            height: widget.valve_no! * 38,
+                                            child: PageView(children: [
+                                              if (snapshot.data!.c.m[0] != 0)
+                                                _valve(dataprovider.data!.c!,
+                                                    dataprovider,snapshot.data,'A',snapshot.data!.c.m[0]),
+                                              if (snapshot.data!.c.m[1] != 0)
+                                                _valve(dataprovider.data!.c!,
+                                                    dataprovider,snapshot.data,'B',snapshot.data!.c.m[1]),
+                                            ]),
+                                          );
+                                        }),
+                                    SizedBox(height: 8.v)
+                                  ],
+                                ),
+                              );
+                            }
+                            return const CircularProgressIndicator();
+                          }),
+                        ],
+                      ),
                     ),
-                  ),
-                )),
-          );
-        }),
+                  )),
+            );
+          }),
+        ),
       ),
+    );
+  }
+
+  Widget _valve(status, dataprovider,type1? type1data,String p,type){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomImageView(
+          imagePath: ImageConstant.imgArrowLeft,
+          color: Colors.green,
+          height: 20.v,
+          width: 12.h,
+          margin: EdgeInsets.only(
+            top: 192.v,
+            right: 5,
+            bottom: 210.v,
+          ),
+        ),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 2.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 1.h,
+              vertical: 16.v,
+            ),
+            decoration: AppDecoration.fillWhiteA.copyWith(
+              borderRadius: BorderRadiusStyle.roundedBorder10,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 12.h, left: 10.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: AppDecoration.outlinePrimary,
+                        child: Text(
+                          "Program ${p}",
+                          style: CustomTextStyles.headlineSmallRedA70001,
+                        ),
+                      ),
+                      CustomOutlinedButton(
+                        width: 148.h,
+                        text: type== 1 ? "Irrigation" : "Fertilization",
+                        buttonStyle:
+                            CustomButtonStyles.outlineWhiteATL15.copyWith(
+                          backgroundColor:
+                              WidgetStateProperty.resolveWith((states) {
+                            return Colors.white;
+                          }),
+                        ),
+                        buttonTextStyle:
+                            CustomTextStyles.titleMediumWhiteA70001,
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: 21.v),
+                SizedBox(height: 7.v),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.h),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisExtent: 47.v,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 18.h,
+                      crossAxisSpacing: 18.h,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget.valve_no,
+                    itemBuilder: (context, index) {
+                      return _buildValveColumn3(
+                          context,
+                          index + 1,
+                          status.v ?? 0,
+                          status.rsf ?? 0,
+                          status.p == 'A'
+                              ? dataprovider.type2a!.c.vd![index]
+                              : dataprovider.type3b!.c.vd![index],
+                          status.bal!.toInt(),status.sc);
+                    },
+                  ),
+                ),
+                SizedBox(height: 7.v),
+              ],
+            ),
+          ),
+        ),
+        CustomImageView(
+          imagePath: ImageConstant.imgarrowright,
+          color: Colors.green,
+          height: 20.v,
+          width: 12.h,
+          margin: EdgeInsets.only(
+            top: 192.v,
+            left: 5,
+            bottom: 210.v,
+          ),
+        ),
+      ],
     );
   }
 
@@ -744,7 +760,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 .fillOrangeA
                                                 .copyWith(
                                               backgroundColor:
-                                                  MaterialStateProperty
+                                                  WidgetStateProperty
                                                       .resolveWith((states) {
                                                 // If the button is pressed, return green, otherwise blue
                                                 if (states.contains(
@@ -765,7 +781,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           color: Colors.white,
                           size: 45,
                         )),
-                   const  Text(
+                    const Text(
                       'Settings',
                       style: TextStyle(
                           fontSize: 15,
@@ -782,44 +798,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
       //  styleType: Style.bgGradientnamelightgreenA700namegreen800aa,
     );
   }
-
-  /// Section Widget
-/*
-  Widget _device(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        SharedPreferences prefss = await SharedPreferences.getInstance();
-        setState(() {
-          String? token = prefss.getString('token');
-          DeviceDataService dataService = DeviceDataService();
-          dataService.fetchAndCacheData(token.toString());
-        });
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DeeviceList()));
-      },
-      child: Container(
-          width: 370.h,
-          height: 80.v,
-          margin: EdgeInsets.only(
-            left: 3.h,
-            right: 4.h,
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: 26.h,
-            vertical: 16.v,
-          ),
-          decoration: AppDecoration.outlinePrimary2.copyWith(
-            borderRadius: BorderRadiusStyle.roundedBorder15,
-          ),
-          child: Center(
-            child: Text(
-              ' Registered Devices ',
-              style: CustomTextStyles.bodyLargeDMSans,
-            ),
-          )),
-    );
-  }*/
 
   Widget _buildLoranImage(BuildContext context) {
     return Container(
@@ -868,7 +846,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
 
   /// Section Widget
   Widget _buildValveColumn3(BuildContext context, num, int status, int rsf,
-      int duration, int balanace) {
+      int duration, int balanace,int complete) {
     if (rsf == 1) {
       if (duration != 0) {
         return Padding(
@@ -881,16 +859,28 @@ class _FrameEightPageState extends State<FrameEightPage> {
                 style: theme.textTheme.bodyLarge,
               ),
               SizedBox(height: 2.v),
-              if (num == status)
+              if(complete==1)Container(
+                  decoration: BoxDecoration(
+                      color: appTheme.green600,
+                      borderRadius: BorderRadius.circular(10)),
+                  width: MediaQuery.of(context).size.width,
+                  height: 10,
+                )
+              else if (num == status)
                 Stack(
                   children: <Widget>[
                     Container(
-                      color: appTheme.blue900,
+                      decoration: BoxDecoration(
+                          color: appTheme.blue900,
+                          borderRadius: BorderRadius.circular(10)),
                       width: 150.h,
                       height: 10,
                     ),
                     Container(
-                      color: Colors.green,
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10)),
+
                       width: 150.h *
                           (duration - balanace) /
                           duration, // here you can define your percentage of progress, 0.2 = 20%, 0.3 = 30 % .....
@@ -898,39 +888,47 @@ class _FrameEightPageState extends State<FrameEightPage> {
                     ),
                   ],
                 )
-              else if (num < status)
+              else if (num < status )
                 Container(
-                  color: appTheme.green600,
+                  decoration: BoxDecoration(
+                      color: appTheme.green600,
+                      borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 10,
                 )
-                else if(num>status) Container(
-                  color: appTheme.blue900,
+              else if (num > status)
+                Container(
+                  decoration: BoxDecoration(
+                      color: appTheme.blue900,
+                      borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 10,
                 )
             ],
           ),
         );
-      } else {
-        return Padding(
-            padding: EdgeInsets.only(right: 10.h),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                "Valve ${num}",
-                style: theme.textTheme.bodyLarge,
-              ),
-              SizedBox(height: 2.v),
-              Container(
-                color: Colors.grey[600],
-                width: MediaQuery.of(context).size.width,
-                height: 10,
-              ),
-            ]));
       }
+    } else if (rsf == 0) {
+      return Padding(
+          padding: EdgeInsets.only(right: 10.h),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              "Valve ${num}",
+              style: theme.textTheme.bodyLarge,
+            ),
+            SizedBox(height: 2.v),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey[600],
+                  borderRadius: BorderRadius.circular(10)),
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ]));
     }
-    return Text('');
+
+    return CircularProgressIndicator();
   }
 
   /// Common widget

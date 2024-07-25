@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:lca/api/api.dart';
 import 'package:lca/api/complaints.dart';
 import 'package:lca/api/device_status_api.dart';
 import 'package:lca/screens/splash_screen.dart';
@@ -72,7 +73,8 @@ firebaseCloudMessaging_Listeners();
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => IssueProvider()),
-        ChangeNotifierProvider(create: (context) => DeviceProvider()),
+        ChangeNotifierProvider(create: (context) => DeviceProvider()),  ChangeNotifierProvider(create: (context) => RegisterNotifier()),
+    
       ],
       child: MyApp(
         token: prefs.getString('token'),

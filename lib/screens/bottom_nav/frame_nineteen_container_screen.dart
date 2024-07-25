@@ -6,7 +6,7 @@ import '../../app_routes.dart';
 import '../../model/weather_model.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../../widgets/theme_helper.dart';
-import '../complaint_detail/frame_seventeen_screen.dart';
+import '../complaint/home_complaint.dart';
 import '../create_schedule/frame_twenty_screen.dart';
 import 'package:get/get.dart';
 

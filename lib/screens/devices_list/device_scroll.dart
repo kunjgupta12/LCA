@@ -9,7 +9,7 @@ import 'package:lca/model/device.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
-import 'package:lca/screens/register_device/register_device.dart';
+import 'package:lca/screens/device/register_device.dart';
 import 'package:lca/screens/schedule/schedule.dart';
 import 'package:lca/widgets/app_bar/appbar_title.dart';
 import 'package:lca/widgets/app_bar/custom_app_bar.dart';
@@ -246,7 +246,9 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Schedule(
                                         id: device.id,
-                                        token: token.toString(),
+                                        token: token.toString(),  iemi: device.imei,
+                                          name: device.title,
+                                        
                                       )
                                    ));
                             },

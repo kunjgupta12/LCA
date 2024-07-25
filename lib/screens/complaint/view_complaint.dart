@@ -204,7 +204,8 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
                       strokeWidth: 1,
                     ));
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return Center(child: GestureDetector(onTap: (){print(snapshot.error);},
+                      child: Text('Error: ${snapshot.error}')));
                   } else if (snapshot.hasData) {
                     return Text(
                       snapshot.data.toString(),
