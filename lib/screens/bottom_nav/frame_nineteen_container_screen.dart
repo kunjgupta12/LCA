@@ -3,7 +3,7 @@ import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/profile/profile.dart';
 import '../../app_routes.dart';
-import '../../model/weather_model.dart';
+import '../../model/weather/weather_model.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../../widgets/theme_helper.dart';
 import '../complaint/home_complaint.dart';

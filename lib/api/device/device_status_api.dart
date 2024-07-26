@@ -1,14 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
-import 'package:lca/api/token_shared_pref.dart';
-import 'package:lca/model/device_status.dart';
-import 'package:lca/model/type1.dart';
-import 'package:lca/model/type2.dart';
-import 'package:lca/model/type3.dart';
+import 'package:lca/model/device_status/type4.dart';
+import 'package:lca/model/device_status/type1.dart';
+import 'package:lca/model/device_status/type2.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -76,7 +72,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
     
    SharedPreferences tokens=await SharedPreferences.getInstance();
  var token=tokens.getString('token');
-  final String apiUrl = '$url/api/v1/data/${deviceId}/type/1/last';
+  final String apiUrl = '$url/api/v1/data/$deviceId/type/1/last';
   // Replace with your actual API key
 
   final Uri uri = Uri.parse(apiUrl);

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import '../../model/device.dart';
+import '../../model/device/device.dart';
 
 class DeviceListScreen extends StatefulWidget {
   String? data;

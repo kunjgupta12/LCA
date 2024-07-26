@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lca/api/complaints.dart';
-import 'package:lca/model/complaint_register_model.dart';
+import 'package:lca/model/complaint/complaint_register_model.dart';
 import 'package:lca/widgets/app_decoration.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_text_style.dart';
@@ -148,7 +148,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        SizedBox(height: 73.v),
                        CustomElevatedButton(
                         onPressed: () {
-                          reguster_complaint(widget.token, widget.device_id!.toString(), widget.note.toString(), widget.problem_id!.toString());
+                          register_complaint(widget.token, widget.device_id!.toString(), widget.note.toString(), widget.problem_id!.toString());
                        
                         },
                          width: 211.h,

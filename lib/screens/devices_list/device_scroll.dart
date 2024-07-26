@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/formatter.dart';
-import 'package:lca/model/device.dart';
+import 'package:lca/model/device/device.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;

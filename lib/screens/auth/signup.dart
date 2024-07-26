@@ -1,14 +1,15 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:lca/api/api.dart';
+import 'package:lca/api/auth/services/register_service.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-import '../../api/location.dart';
+import '../../services/location.dart';
 import '../../widgets/app_decoration.dart';
 import '../../widgets/custom_checkbox_button.dart';
 import '../../widgets/custom_image.dart';
@@ -50,55 +51,12 @@ class _FrameTwelveScreenState extends State<FrameTwelveScreen> {
 String? fcm_token;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Future<Position> _getGeoLocationPosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      // await Geolocator.requestPermission();
-      await Geolocator.requestPermission()
-          .then((value) {})
-          .onError((error, stackTrace) {
-        print('error');
-      });
-      return await Geolocator.getCurrentPosition();
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-  }
 
 @override
   void initState() {
     // TODO: implement initState
    
-    _getGeoLocationPosition();
+    getGeoLocationPosition();
     super.initState();
   }
   @override
@@ -506,7 +464,7 @@ String? fcm_token;
                 Container(
                     child: IconButton(
                   onPressed: () async {
-                    position = await _getGeoLocationPosition();
+                    position = await getGeoLocationPosition();
                     location =
                         'Lat: ${position!.latitude} , Long: ${position!.longitude}';
                     placemarks = await placemarkFromCoordinates(
@@ -784,7 +742,7 @@ String? fcm_token;
               if (confirmPasswordController.text != passwordController.text) {
                 showToast('Password does not matched');
               } else
-                Api().registerUser(
+             registerUser(
                   emailController.text,
                   passwordController.text,
                   nameController.text.split(' ').first ?? nameController.text,

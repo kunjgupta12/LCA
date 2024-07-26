@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
-import 'package:lca/api/device_status_api.dart';
-import 'package:lca/model/type1.dart';
-import 'package:lca/model/type2.dart';
+import 'package:lca/api/device/device_status_api.dart';
+import 'package:lca/model/device_status/type1.dart';
+import 'package:lca/model/device_status/type2.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
 import 'package:lca/widgets/custom_image.dart';
@@ -815,7 +815,7 @@ class _ViewScheduleState extends State<ViewScedule> {
           ],
         ),
         Container(
-          height: vc * 45.h,
+          height: vc * 50.h,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,

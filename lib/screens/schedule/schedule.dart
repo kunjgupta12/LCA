@@ -2,12 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lca/api/device_status_api.dart';
-import 'package:lca/api/schedule.dart';
-import 'package:lca/model/getschedule.dart';
-import 'package:lca/model/type1.dart';
-import 'package:lca/model/type2.dart';
-import 'package:lca/model/type3.dart';
+import 'package:lca/api/device/device_status_api.dart';
+import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
 import 'package:lca/screens/schedule/view_schedule.dart';
 import 'package:lca/widgets/app_bar/appbar_title.dart';
@@ -16,11 +12,9 @@ import 'package:lca/widgets/app_decoration.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
 import 'package:lca/widgets/custom_text_style.dart';
-import 'package:lca/widgets/floating_button.dart';
 import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-import 'package:provider/provider.dart';
 
 class Schedule extends StatefulWidget {
   String token;

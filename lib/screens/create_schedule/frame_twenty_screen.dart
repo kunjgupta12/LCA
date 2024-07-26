@@ -1,7 +1,7 @@
-import 'package:lca/api/device_status_api.dart';
+import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/schedule.dart';
-import 'package:lca/model/device_status.dart';
-import 'package:lca/model/schedule_model.dart';
+import 'package:lca/model/device_status/type4.dart';
+import 'package:lca/model/schedule/CreateSchedule.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';

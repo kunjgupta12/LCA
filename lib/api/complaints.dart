@@ -2,10 +2,10 @@ import 'dart:convert';
 import "package:get/get.dart";
 import 'package:http/http.dart' as http;
 import 'package:lca/api/api.dart';
-import 'package:lca/model/complaint_count_model.dart';
-import 'package:lca/model/complaint_detail_model.dart';
-import 'package:lca/model/complaint_issue.dart';
-import 'package:lca/model/complaint_register_model.dart';
+import 'package:lca/model/complaint/complaint_count_model.dart';
+import 'package:lca/model/complaint/complaint_detail_model.dart';
+import 'package:lca/model/complaint/complaint_issue.dart';
+import 'package:lca/model/complaint/complaint_register_model.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,55 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class IssueProvider with ChangeNotifier {
-  List<Issue> _issues = [];
-  bool _isLoading = false;
-  String? _errorMessage = '';
-
-  List<Issue> get devices => _issues;
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-  IssueProvider() {
-    fetchissues(token.toString());
-  }
-  Future<void> fetchissues(String token) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    token = pref.getString('token').toString();
-    _isLoading = true;
-    notifyListeners();
-    final String apiUrl = '$url/api/v1/category/';
-    // Replace with your actual API key
-    _errorMessage = null;
-    final Uri uri = Uri.parse(apiUrl);
-
-    try {
-      final response = await http.get(
-        uri,
-        headers: {
-          "Content-Type": "application/json",
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
-      print(response.body);
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        print('Issue data: ${data}');
-
-        List jsonResponse = json.decode(response.body);
-        _issues = jsonResponse.map((job) => Issue.fromJson(job)).toList();
-        _errorMessage = null;
-      } else {
-        _errorMessage = 'Failed to load devices';
-      }
-    } catch (e) {
-      _errorMessage = 'Failed to load devices: $e';
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-}
 
 Future<int> complaint_count_closed(String token) async {
   final String apiUrl = '$complaint_count_api';
@@ -147,7 +98,7 @@ Future<ComplaintDetail> complaint(String token) async {
   }
 }
 
-Future<Complaint> reguster_complaint(
+Future<Complaint> register_complaint(
     String token, String device_id, String des, String problem_id) async {
   final String apiUrl = '$complaint_regiaster';
 

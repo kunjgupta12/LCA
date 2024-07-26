@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/api/config.dart';
-import 'package:lca/model/login_model.dart';
+import 'package:lca/model/auth/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:lca/screens/profile/profile.dart';

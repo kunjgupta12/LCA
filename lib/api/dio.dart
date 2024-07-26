@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/token_shared_pref.dart';
-import 'package:lca/model/complaint_count_model.dart';
+import 'package:lca/model/complaint/complaint_count_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum DioMethod { post, get, put, delete }

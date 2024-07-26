@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lca/api/api.dart';
-import 'package:lca/model/login_model.dart';
+import 'package:lca/model/auth/login_model.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/screens/profile/edit_profile.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
@@ -21,7 +21,6 @@ import '../../widgets/image_constant.dart';
 import '../../widgets/theme_helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import '../auth/signup.dart';
 
 String? jsonString;
 String? token;
@@ -340,11 +339,11 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                                 buttonStyle:
                                     CustomButtonStyles.fillOrangeATL15.copyWith(
                                   backgroundColor:
-                                      MaterialStateProperty.resolveWith(
+                                      WidgetStateProperty.resolveWith(
                                           (states) {
                                     // If the button is pressed, return green, otherwise blue
                                     if (states
-                                        .contains(MaterialState.pressed)) {
+                                        .contains(WidgetState.pressed)) {
                                       return Colors.green;
                                     }
                                     return Colors.green;

@@ -4,11 +4,8 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:lca/api/api.dart';
-import 'package:lca/api/location.dart';
+import 'package:lca/services/location.dart';
 import 'package:lca/api/user.dart';
-import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/widgets/app_decoration.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_checkbox_button.dart';
@@ -19,7 +16,6 @@ import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/image_constant.dart';
 import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-import 'package:provider/provider.dart';
 
 class Edit extends StatefulWidget {
   double? lat;
@@ -53,50 +49,6 @@ class Edit extends StatefulWidget {
   State<Edit> createState() => _EditState();
 }
 
-Future<Position> _getGeoLocationPosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
-    // await Geolocator.requestPermission();
-    await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) {
-      print('error');
-    });
-    return await Geolocator.getCurrentPosition();
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-
-  // When we reach here, permissions are granted and we can
-  // continue accessing the position of the device.
-  return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
-}
-
 Widget _buildFortyEight(BuildContext context) {
   return Container(
     width: 500.h,
@@ -105,29 +57,28 @@ Widget _buildFortyEight(BuildContext context) {
       vertical: 80.h,
     ),
     decoration: AppDecoration.bg,
-    child:    Center(
+    child: Center(
       child: Container(
-              decoration: AppDecoration.outlineBlack,
-              child: Text(
-                "Edit Profile",
-                style: theme.textTheme.displayLarge,
-              ),
-            ),
+        decoration: AppDecoration.outlineBlack,
+        child: Text(
+          "Edit Profile",
+          style: theme.textTheme.displayLarge,
+        ),
+      ),
     ),
   );
 }
 
 class _EditState extends State<Edit> {
-TextEditingController password =TextEditingController();
-TextEditingController confirmPasswordController=TextEditingController();
-bool show_enabled=false;
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  bool show_enabled = false;
   @override
   Widget build(BuildContext context) {
-
     TextEditingController city =
         TextEditingController(text: widget.city.toString());
-    TextEditingController firstNmae =
-        TextEditingController(text: '${widget.firstName.toString()} ${widget.lastName}');
+    TextEditingController firstNmae = TextEditingController(
+        text: '${widget.firstName.toString()} ${widget.lastName}');
     TextEditingController email = TextEditingController(text: widget.email);
     TextEditingController phoneNo = TextEditingController(text: widget.phoneNo);
     TextEditingController country = TextEditingController(text: widget.country);
@@ -136,8 +87,9 @@ bool show_enabled=false;
         TextEditingController(text: widget.pincode.toString());
     TextEditingController fullAddress =
         TextEditingController(text: widget.fullAddress);
-    TextEditingController grs = TextEditingController(text: '${widget.lat},${widget.long}');
-    
+    TextEditingController grs =
+        TextEditingController(text: '${widget.lat},${widget.long}');
+
     return Scaffold(
       body: Sizer(builder: (context, orientation, deviceType) {
         return SingleChildScrollView(
@@ -152,26 +104,31 @@ bool show_enabled=false;
                   _buildName(context, firstNmae),
                   _buildPhoneNumber(context, phoneNo),
                   _buildEmail(context, email),
-                  CustomCheckboxButton( alignment: Alignment.centerLeft,
-                          text: "Change Password",textStyle: CustomTextStyles.titleMediumGreen600,
-                          value: show_enabled,
-                          decoration: BoxDecoration(),
-                          padding: EdgeInsets.symmetric(vertical: 3),
-                          onChange: (value) {
-                            if (show_enabled == false) {
-                              setState(() {
-                                show_enabled = true;
-                              });
-                            } else if (show_enabled = true) {
-                              setState(() {
-                                show_enabled = false;
-                              });
-                            }
-                          },),
-                          SizedBox(height: 10,)
-,                  _buildPassword(context)
-,
-_buildConfirmPassword(context),                  Column(
+                  CustomCheckboxButton(
+                    alignment: Alignment.centerLeft,
+                    text: "Change Password",
+                    textStyle: CustomTextStyles.titleMediumGreen600,
+                    value: show_enabled,
+                    decoration: BoxDecoration(),
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    onChange: (value) {
+                      if (show_enabled == false) {
+                        setState(() {
+                          show_enabled = true;
+                        });
+                      } else if (show_enabled = true) {
+                        setState(() {
+                          show_enabled = false;
+                        });
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _buildPassword(context),
+                  _buildConfirmPassword(context),
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -183,7 +140,7 @@ _buildConfirmPassword(context),                  Column(
                           Container(
                               child: IconButton(
                             onPressed: () async {
-                              position = await _getGeoLocationPosition();
+                              position = await getGeoLocationPosition();
                               location =
                                   'Lat: ${position!.latitude} , Long: ${position!.longitude}';
                               placemarks = await placemarkFromCoordinates(
@@ -280,33 +237,33 @@ _buildConfirmPassword(context),                  Column(
                         buttonStyle:
                             CustomButtonStyles.fillOrangeATL15.copyWith(
                           backgroundColor:
-                              MaterialStateProperty.resolveWith((states) {
+                              WidgetStateProperty.resolveWith((states) {
                             // If the button is pressed, return green, otherwise blue
-                            if (states.contains(MaterialState.pressed)) {
+                            if (states.contains(WidgetState.pressed)) {
                               return Colors.green;
                             }
                             return Colors.green;
                           }),
                         ),
                       ),
-                //      dataProvider.isLoading == false ?
                       CustomElevatedButton(
-                        onPressed: ()  async{
-                         await  update_user
-                        (widget.token,  email.text, show_enabled ? password.text :null,
-                 
-                  firstNmae.text.split(' ').first ?? firstNmae.text.split('').last,
-                  firstNmae.text.split(' ').last  ,
-                  phoneNo.text,
-                  country.text,
-                  pincode.text,
-                  state.text,
-                  fullAddress.text,
-               grs.text.split(',').first,
-               grs.text.split(',').last,
-                  city.text,);
-                 // print(dataProvider.errorMessage);
-         
+                        onPressed: () async {
+                          await update_user(
+                            widget.token,
+                            email.text,
+                            show_enabled ? password.text : null,
+                            firstNmae.text.split(' ').first ??
+                                firstNmae.text.split('').last,
+                            firstNmae.text.split(' ').last,
+                            phoneNo.text,
+                            country.text,
+                            pincode.text,
+                            state.text,
+                            fullAddress.text,
+                            grs.text.split(',').first,
+                            grs.text.split(',').last,
+                            city.text,
+                          );
                         },
                         width: 186.h,
                         text: "Save",
@@ -314,15 +271,14 @@ _buildConfirmPassword(context),                  Column(
                         buttonStyle:
                             CustomButtonStyles.fillOrangeATL15.copyWith(
                           backgroundColor:
-                              MaterialStateProperty.resolveWith((states) {
-                            // If the button is pressed, return green, otherwise blue
-                            if (states.contains(MaterialState.pressed)) {
+                              WidgetStateProperty.resolveWith((states) {
+                            if (states.contains(WidgetState.pressed)) {
                               return Colors.green;
                             }
                             return Colors.green;
                           }),
                         ),
-                      )//:CircularProgressIndicator()
+                      )
                     ],
                   ),
                 ],
@@ -354,7 +310,7 @@ _buildConfirmPassword(context),                  Column(
       hintText: "Password*",
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
-      fillColor: show_enabled ? appTheme.green20030 : appTheme.gray200B7  ,
+      fillColor: show_enabled ? appTheme.green20030 : appTheme.gray200B7,
       prefix: Container(
         margin: EdgeInsets.fromLTRB(15, 12, 27, 12),
         child: CustomImageView(
@@ -426,6 +382,7 @@ _buildConfirmPassword(context),                  Column(
       obscureText: _cobscureText,
     );
   }
+
   Widget _buildAddress(BuildContext context, TextEditingController address) {
     return Container(
       height: 150,

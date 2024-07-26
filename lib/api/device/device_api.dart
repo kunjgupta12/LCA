@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/token_shared_pref.dart';
-import 'package:lca/model/device.dart';
+import 'package:lca/model/device/device.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../screens/bottom_nav/frame_nineteen_container_screen.dart';
-import 'api.dart';
+import '../../screens/bottom_nav/frame_nineteen_container_screen.dart';
+import '../api.dart';
 import 'package:get/get.dart';
 
 class Devices {

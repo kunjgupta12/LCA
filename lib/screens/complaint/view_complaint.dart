@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lca/api/complaints.dart';
 import 'package:lca/api/formatter.dart';
-import 'package:lca/model/complaint_count_model.dart';
-import 'package:lca/model/complaint_detail_model.dart';
+import 'package:lca/model/complaint/complaint_count_model.dart';
+import 'package:lca/model/complaint/complaint_detail_model.dart';
 import 'package:lca/widgets/app_decoration.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_text_style.dart';

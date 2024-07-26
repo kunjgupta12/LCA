@@ -8,16 +8,13 @@ import 'package:lca/widgets/custom_image.dart';
 import 'package:lca/widgets/image_constant.dart';
 import 'package:get/get.dart';
 
-import '../api/weather_api.dart';
-import '../model/weather_model.dart';
-import '../widgets/utils/notification.dart';
+import '../model/weather/weather_model.dart';
 
 class FrameFiveScreen extends StatefulWidget {
   String? token;
-  int? devices;
 
   final Future<Weather>? futureWeatherData;
-  FrameFiveScreen({Key? key, this.token, this.devices, this.futureWeatherData})
+  FrameFiveScreen({Key? key, this.token, this.futureWeatherData})
       : super(
           key: key,
         );
@@ -32,17 +29,15 @@ class _FrameFiveScreenState extends State<FrameFiveScreen> {
     super.initState();
     Timer(const Duration(seconds: 2), () {
       print(widget.token);
-      print(widget.devices);
+
       (widget.token != null &&
               JwtDecoder.isExpired(widget.token.toString()) == false)
           ? {
-              
               Get.offAll(FrameNineteenContainerScreen(
-                devices: widget.devices,
                 futureWeatherData: widget.futureWeatherData,
               )),
             }
-           : Get.offAll(const LanguageSelector());
+          : Get.offAll(const LanguageSelector());
     });
   }
 

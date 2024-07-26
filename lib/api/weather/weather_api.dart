@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/weather_model.dart';
+import '../../model/weather/weather_model.dart';
 
 Future<Weather> fetchData(String query) async {
   final String apiKey = '28c4784792a8416ba8e101453241605';

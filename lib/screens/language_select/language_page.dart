@@ -6,6 +6,15 @@ import 'package:get/get.dart';
 import '../auth/signup.dart';
 import '../../main.dart';
 
+final List locale = [
+  {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
+  {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
+];
+
+updateLanguage(Locale locale) {
+  Get.back();
+  Get.updateLocale(locale);
+}
 class LanguageSelector extends StatefulWidget {
   const LanguageSelector({super.key});
 
