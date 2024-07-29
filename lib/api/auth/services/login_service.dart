@@ -29,7 +29,9 @@ _errorMessage=null;
 _isLoading=false;
           showToast('Logged In with ${loginModel.data!.user!.email}');
           print(prefs.getString('user'));
-          DeviceDataService().fetchData();
+           SharedPreferences prefss = await SharedPreferences.getInstance();
+  prefss.setString('token',myToken);
+          DeviceDataService().fetchData(jsonResponse['token']);
            FirebaseMessaging messaging = FirebaseMessaging.instance;
           String? token = await messaging.getToken();
 
@@ -38,7 +40,7 @@ _isLoading=false;
             print("Subscribed to topic: ${loginModel.data!.user!.id}");
           }
        
-           LoginModel.fromJson(jsonResponse);
+          
         } else {
           showToast(jsonResponse['message']);
         }

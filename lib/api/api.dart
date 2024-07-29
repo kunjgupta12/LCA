@@ -11,20 +11,10 @@ import 'config.dart';
 
 
 class DeviceDataService {
-  Future<List<dynamic>> fetchData() async {
-    String? token;
-
-    SharedPreferences prefss = await SharedPreferences.getInstance();
-    token = prefss.getString('token');
-    print(token);
+  Future<List<dynamic>> fetchData(token) async {
+  
     //  print(cachedData);
     return await fetchAndCacheData(token.toString());
-  }
-
-  Future<ApiResponse> fetchDatafordevices() async {
-    String? token;
-    token = SharedPrefManager.getAccessToken().toString();
-    return await deviceslist(token.toString());
   }
 
   Future<ApiResponse> deviceslist(String token) async {
@@ -37,15 +27,8 @@ class DeviceDataService {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setInt('device', response.body.length);
-
-        var data = jsonDecode(response.body);
-        final prefss = await SharedPreferences.getInstance();
-        prefss.setString('devicelist', jsonEncode(data));
-
         return ApiResponse.fromJson(json.decode(response.body));
       } else {
         throw Exception('Failed to load data');
@@ -65,7 +48,7 @@ class DeviceDataService {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setInt('device', response.body.length);
@@ -74,7 +57,7 @@ class DeviceDataService {
         Get.off(FrameNineteenContainerScreen(
           devices: response.body.length,
         ));
-        response.body.isNotEmpty;
+      
         return json.decode(response.body);
       } else {
         throw Exception('Failed to load data');
