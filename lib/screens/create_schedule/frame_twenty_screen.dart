@@ -1,17 +1,22 @@
+import 'dart:async';
+
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/schedule.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
+import 'package:lca/widgets/custom_button_style.dart';
+import 'package:lca/widgets/custom_elevated_button.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
+import 'package:lca/widgets/utils/messages.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
+import 'package:provider/provider.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/app_decoration.dart';
-import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/theme_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -45,16 +50,96 @@ TextEditingController pumprechargetime = TextEditingController();
 //inal GlobalKey<> childKey = GlobalKey<_A1State>();
 class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   final GlobalKey<A1State> childKeya1 = GlobalKey<A1State>();
+  late CreateSchedule createSchedule;
+  Timer? _timer;
+  int _remainingSeconds = 0; // 9 minutes in seconds
+
+  Future<void> _handleLoadingChange() async {
+    _startTimer();
+  }
+
+  void _startTimer() async {
+    _remainingSeconds = 540;
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds = _remainingSeconds - 1;
+          createSchedule.time = createSchedule.time - 1;
+          _overlayEntry!.markNeedsBuild();
+        } else {
+          _stopTimer();
+          _overlayEntry!.remove();
+        }
+      });
+    });
+  }
+
+  void _stopTimer() {
+    _timer?.cancel();
+  }
+
+  OverlayEntry _createOverlayEntry() {
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        top: MediaQuery.of(context).size.height * .2,
+        left: MediaQuery.of(context).size.width * .25,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 200,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.7),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(
+              child: Text(
+                '$_formattedTime',
+                style: TextStyle(fontSize: 48, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  OverlayEntry? _overlayEntry;
+  void _showOverlay(BuildContext context) {
+    _overlayEntry = _createOverlayEntry();
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  @override
+  void initState() {
+    createSchedule = Provider.of<CreateSchedule>(context, listen: false);
+
+    createSchedule.addListener(_handleLoadingChange);
+    // TODO: implement initState
+    super.initState();
+  }
 
   GlobalKey<a1State> childKeya2 = GlobalKey<a1State>();
   @override
   void dispose() {
     // TODO: implement dispose
 
-    starttime.clear();
-    starttime2.clear();
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      createSchedule.resetLoadingState();
+      _remainingSeconds = 0;
+    });
+    _stopTimer();
+    createSchedule.removeListener(_handleLoadingChange);
+    _overlayEntry!.remove();
     super.dispose();
+  }
+
+  String get _formattedTime {
+    final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
+    final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
+
+    return '$minutes:$seconds';
   }
 
   @override
@@ -112,167 +197,202 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                     ],
                   ),
                 ),
-                CustomOutlinedButton(
-                  text: 'Submit',
-                  onPressed: () {
-                    print(' monday ${schedule.programA?.monday}');
-
-                    setState(() {
-                      showDialog(
-                          context: context,
-                          builder: (context) =>
-                              StatefulBuilder(builder: (context, setState) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.white,
-                                  title: Container(
-                                      height: 220,
-                                      width: 70,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Pump initial time',
-                                            style: CustomTextStyles
-                                                .titleSmallRobotoBlack90001,
-                                          ),
-                                          CustomTextFormField(
-                                            hintText: 'Pump initial time',
-                                            controller: pumpstarttime,
-                                            textInputType: TextInputType.number,
-                                            validator: (value) {
-                                              final number =
-                                                  int.tryParse(value!);
-                                              if (value == 'null' ||
-                                                  value.isEmpty ||
-                                                  number! < 5 ||
-                                                  number > 90) {
-                                                return 'Please enter in range of 5 to 90';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          Text(
-                                            'Pump recharge time',
-                                            style: CustomTextStyles
-                                                .titleSmallRobotoBlack90001,
-                                          ),
-                                          CustomTextFormField(
-                                            hintText: 'Pump recharge time',
-                                            controller: pumprechargetime,
-                                            textInputType: TextInputType.number,
-                                            validator: (value) {
-                                              final number =
-                                                  int.tryParse(value!);
-                                              if (value == 'null' ||
-                                                  value.isEmpty ||
-                                                  number! < 1 ||
-                                                  number > 1440) {
-                                                return 'Please enter in range of 1 to 1440';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Start from today?",
-                                                style: CustomTextStyles
-                                                    .titleMediumBluegray900,
-                                              ),
-                                              Checkbox(
-                                                value: isChecked,
-                                                onChanged: (bool? value) {
-                                                  setState(() {
-                                                    isChecked = value!;
-                                                    print(isChecked);
-                                                  });
+                Consumer<CreateSchedule>(builder: (context, value, child) {
+                  return CustomElevatedButton(
+                    text: 'SUBMIT',
+                    buttonStyle: value.isLoading
+                        ? CustomButtonStyles.fillOrangeA.copyWith(
+                            backgroundColor:
+                                WidgetStateProperty.resolveWith((states) {
+                              // If the button is pressed, return green, otherwise blue
+                              if (states.contains(WidgetState.pressed)) {
+                                return Colors.grey;
+                              }
+                              return Colors.grey;
+                            }),
+                          )
+                        : CustomButtonStyles.fillOrangeATL15.copyWith(
+                            backgroundColor:
+                                WidgetStateProperty.resolveWith((states) {
+                              // If the button is pressed, return green, otherwise blue
+                              if (states.contains(WidgetState.pressed)) {
+                                return Colors.green;
+                              }
+                              return Colors.green;
+                            }),
+                          ),
+                    onPressed: () {
+                      value.isLoading
+                          ? showToast('Please wait for some time')
+                          : setState(() {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          title: Container(
+                                              height: 220,
+                                              width: 70,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Pump initial time',
+                                                    style: CustomTextStyles
+                                                        .titleSmallRobotoBlack90001,
+                                                  ),
+                                                  CustomTextFormField(
+                                                    hintText:
+                                                        'Pump initial time',
+                                                    controller: pumpstarttime,
+                                                    textInputType:
+                                                        TextInputType.number,
+                                                    validator: (value) {
+                                                      final number =
+                                                          int.tryParse(value!);
+                                                      if (value == 'null' ||
+                                                          value.isEmpty ||
+                                                          number! < 5 ||
+                                                          number > 90) {
+                                                        return 'Please enter in range of 5 to 90';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                  Text(
+                                                    'Pump recharge time',
+                                                    style: CustomTextStyles
+                                                        .titleSmallRobotoBlack90001,
+                                                  ),
+                                                  CustomTextFormField(
+                                                    hintText:
+                                                        'Pump recharge time',
+                                                    controller:
+                                                        pumprechargetime,
+                                                    textInputType:
+                                                        TextInputType.number,
+                                                    validator: (value) {
+                                                      final number =
+                                                          int.tryParse(value!);
+                                                      if (value == 'null' ||
+                                                          value.isEmpty ||
+                                                          number! < 1 ||
+                                                          number > 1440) {
+                                                        return 'Please enter in range of 1 to 1440';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "Start from today?",
+                                                        style: CustomTextStyles
+                                                            .titleMediumBluegray900,
+                                                      ),
+                                                      Checkbox(
+                                                        value: isChecked,
+                                                        onChanged:
+                                                            (bool? value) {
+                                                          setState(() {
+                                                            isChecked = value!;
+                                                            print(isChecked);
+                                                          });
+                                                        },
+                                                        activeColor: isChecked
+                                                            ? Colors.green
+                                                            : Colors.red,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              )),
+                                          actionsAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
                                                 },
-                                                activeColor: isChecked
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                  actionsAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(
-                                          'Cancel',
-                                          style: CustomTextStyles
-                                              .titleLargeRedA70002,
-                                        )),
-                                    TextButton(
-                                        onPressed: () async {
-                                          _selectedValue == 0
-                                              ? childKeya1.currentState!
-                                                  .updateA()
-                                              : childKeya2.currentState!
-                                                  .updateB();
-                                          schedule = Schedule(
-                                              programA:
-                                                  programA.programId == null
-                                                      ? null
-                                                      : programA,
-                                              programB:
-                                                  programB.programId == null
-                                                      ? null
-                                                      : programB,
-                                              useToday: isChecked,
-                                              pit: int.tryParse(pumpstarttime
-                                                  .text
-                                                  .toString()),
-                                              prt: int.tryParse(pumprechargetime
-                                                  .text
-                                                  .toString()));
-                                          print(widget.token);
-                                          try {
-                                            deviceStatus=       await device_detail(
-                                                widget.id.toString());
+                                                child: Text(
+                                                  'Cancel',
+                                                  style: CustomTextStyles
+                                                      .titleLargeRedA70002,
+                                                )),
+                                            TextButton(
+                                                onPressed: () async {
+                                                  _selectedValue == 0
+                                                      ? childKeya1.currentState!
+                                                          .updateA()
+                                                      : childKeya2.currentState!
+                                                          .updateB();
+                                                  schedule = Schedule(
+                                                      programA:
+                                                          programA.programId ==
+                                                                  null
+                                                              ? null
+                                                              : programA,
+                                                      programB:
+                                                          programB.programId ==
+                                                                  null
+                                                              ? null
+                                                              : programB,
+                                                      useToday: isChecked,
+                                                      pit: int.tryParse(
+                                                          pumpstarttime.text
+                                                              .toString()),
+                                                      prt: int.tryParse(
+                                                          pumprechargetime.text
+                                                              .toString()));
+                                                  print(widget.token);
 
-                                                if (deviceStatus != null) {
-                                            if (deviceStatus!.c!.ms == 1) {
-                                              schedule_program(
-                                                  widget.token.toString(),
-                                                  widget.id!.toInt(),
-                                                  schedule);
-                                            } else {
-                                              showToast('Mains off/Power Off');
-                                            }
-                                          } else {
-                                            showToast('Device not configured');
-                                          } 
-                                          } catch (e) {
-                                            showToast('Error');
-                                          }
-                                    
-                                        },
-                                        child: Text(
-                                          'Confirm',
-                                          style: CustomTextStyles
-                                              .bodyLargeDMSansBluegray500,
-                                        ))
-                                  ],
-                                );
-                              }));
-                    });
-                  },
-                  height: 50,
-                  width: 305,
-                  decoration: BoxDecoration(
+                                                  deviceStatus =
+                                                      await device_detail(
+                                                          widget.id.toString());
+
+                                                  if (deviceStatus != null) {
+                                                    if (deviceStatus!.c!.ms ==
+                                                        1) {
+                                                      value.createSchedule(
+                                                          widget.token
+                                                              .toString(),
+                                                          widget.id!.toInt(),
+                                                          schedule);
+                                                      showmessages(context);
+                                                      _showOverlay(context);
+                                                    } else {
+                                                      showToast(
+                                                          'Mains off/Power Off');
+                                                    }
+                                                  } else {
+                                                    showToast(
+                                                        'Device not configured');
+                                                  }
+                                                },
+                                                child: Text(
+                                                  'Confirm',
+                                                  style: CustomTextStyles
+                                                      .bodyLargeDMSansBluegray500,
+                                                )),
+                                          ],
+                                        );
+                                      }));
+                            });
+                    },
+                    height: 50,
+                    width: 305,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: Colors.green),
-                  buttonTextStyle:
-                      CustomTextStyles.headlineSmallPoppinsWhiteA70001,
-                )
+                      //   color: value.isLoading ?Colors.grey: Colors.green
+                    ),
+                    buttonTextStyle:
+                        CustomTextStyles.headlineSmallPoppinsWhiteA70001,
+                  );
+                }),
               ],
             ),
           );

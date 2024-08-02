@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/api/device/device_api.dart';
@@ -559,7 +559,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    "Wind ",
+                                    "Wind",
                                     style: CustomTextStyles.bodySmall12_1,
                                   )
                                 ],
@@ -592,7 +592,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                   fontWeight: FontWeight.w700),
                                         ),
                                         Text(
-                                          "Humidity ",
+                                          "Humidity",
                                           style: CustomTextStyles.bodySmall12_1,
                                         )
                                       ],
@@ -698,7 +698,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AppbarTitle(
-                text: "DASHBOARD",
+                text: "DASHBOARD".tr,
                 margin: EdgeInsets.symmetric(vertical: 6.h),
               ),
               Padding(
@@ -721,7 +721,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           CustomElevatedButton(
-                                            text: 'Update Device',
+                                            text: 'Update Device'.tr,
                                             onPressed: () {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
@@ -752,7 +752,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                           CustomElevatedButton(
                                             onPressed: () => deletedevice(
                                                 widget.id.toString()),
-                                            text: 'Delete Device',
+                                            text: 'Delete Device'.tr,
                                             height: 50,
                                             buttonTextStyle: CustomTextStyles
                                                 .headlineSmallLilitaOneWhiteA70001,
@@ -781,8 +781,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           color: Colors.white,
                           size: 45,
                         )),
-                    const Text(
-                      'Settings',
+                     Text(
+                      'Settings'.tr,
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,

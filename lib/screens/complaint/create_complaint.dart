@@ -148,7 +148,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              hint: Text('Select Device Title'),
+                              hint: Text('Select Device Title'.tr),
                               value: selectedDevice,
                               items: devices!.map((Device device) {
                                 return DropdownMenuItem<Device>(
@@ -184,7 +184,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              hint: Text('Select IMEI'),
+                              hint: Text('Select IMEI'.tr),
                               value: selectedImei,
                               items: devices!.map((Device device) {
                                 return DropdownMenuItem<String>(
@@ -203,7 +203,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                             Padding(
                               padding: EdgeInsets.only(left: 6),
                               child: Text(
-                                "Problem",
+                                "Problem".tr,
                                 style: CustomTextStyles.titleMediumBluegray900,
                               ),
                             ),
@@ -213,7 +213,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                             Padding(
                               padding: EdgeInsets.only(left: 6),
                               child: Text(
-                                "Add Note",
+                                "Add Note".tr,
                                 style: CustomTextStyles.titleMediumBluegray900,
                               ),
                             ),
@@ -358,18 +358,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
               child: Text(device.imei.toString()),
             ));
       }).toList(),
-    ); /*Padding(
-      padding: EdgeInsets.only(right: 15),
-      child: CustomTextFormField(
-        controller: nameSectionController,
-        hintText: "Device Name".tr,
-        hintStyle: CustomTextStyles.bodyLargeDMSansBluegray500,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 9,
-        ),
-      ),
-    );*/
+    ); 
   }
 
   String? selectedissue;
@@ -389,7 +378,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Reload"),
+                Text("Reload".tr),
                 IconButton(
                     onPressed: () {
                       dataProvider.fetchissues(token.toString());
@@ -412,12 +401,12 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            hint: Text(selectedissue?.toString() ?? 'Select Issue'),
+            hint: Text(selectedissue?.toString() ?? 'Select Issue'.tr),
             value: null,
             onChanged: (Issue? issue) {
-              print('Selected category: ${issue!.title}');
+            //  print('Selected category: ${issue!.title}');
               setState(() {
-                selectedissue = issue.title;
+                selectedissue = issue!.title;
                 problem_id = issue.id;
               });
             },
@@ -445,7 +434,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
         height: 200,
         child: CustomTextFormField(
             controller: descriptionSectionController,
-            hintText: "Additional Information....",
+            hintText: "Additional Information....".tr,
             hintStyle: CustomTextStyles.bodyLargeDMSansBluegray500,
             textInputAction: TextInputAction.done,
             maxLines: 15,

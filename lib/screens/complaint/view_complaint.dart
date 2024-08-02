@@ -11,7 +11,7 @@ import 'package:lca/widgets/utils/size_utils.dart';
 import '../../widgets/app_bar/appbar_title.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_elevated_button.dart'; // ignore_for_file: must_be_immutable
-
+import 'package:get/get.dart';
 class FrameNineteenPage extends StatefulWidget {
   String? token;
   FrameNineteenPage({Key? key, this.token})
@@ -131,7 +131,7 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
     return CustomAppBar(
       centerTitle: true,
       title: AppbarTitle(
-        text: "My Complaints",
+        text: "My Complaints".tr,
       ),
       styleType: Style.bgGradientnamelightgreenA700namegreen800aa,
     );
@@ -145,7 +145,7 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
         CustomElevatedButton(
           height: 78.v,
           width: 191.h,
-          text: "Pending",
+          text: "Pending".tr,
           rightIcon: Container(
             decoration:
                 BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -252,17 +252,17 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Ticket No",
+            "Ticket No".tr,
             style: theme.textTheme.titleLarge,
           ),
           Text(
-            "Date",
+            "Date".tr,
             style: theme.textTheme.titleLarge,
           ),
           Padding(
             padding: EdgeInsets.only(right: 5.h),
             child: Text(
-              "Status",
+              "Status".tr,
               style: theme.textTheme.titleLarge,
             ),
           )

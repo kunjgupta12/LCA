@@ -9,7 +9,7 @@ import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-Future<DeviceStatus> device_detail(String deviceId) async {
+Future<DeviceStatus?> device_detail(String deviceId) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String token = sharedPreferences.getString('token').toString();
   final String apiUrl = '$url/api/v1/data/${deviceId}/type/4/last';
@@ -32,11 +32,7 @@ Future<DeviceStatus> device_detail(String deviceId) async {
     print('Response data: ${data}');
 
     return DeviceStatus.fromJson(data);
-  } else {
-    return DeviceStatus.fromJson(jsonDecode(response.body));
-    // If the server did not return a 200 OK response, throw an exception.
-  
-  }
+  } 
 }
 
 Future<type2> valve_detail_typeb(String deviceId) async {

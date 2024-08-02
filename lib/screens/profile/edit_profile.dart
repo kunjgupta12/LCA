@@ -16,7 +16,7 @@ import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/image_constant.dart';
 import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-
+import 'package:get/get.dart';
 class Edit extends StatefulWidget {
   double? lat;
   double? long;
@@ -61,7 +61,7 @@ Widget _buildFortyEight(BuildContext context) {
       child: Container(
         decoration: AppDecoration.outlineBlack,
         child: Text(
-          "Edit Profile",
+          "Edit Profile".tr,
           style: theme.textTheme.displayLarge,
         ),
       ),
@@ -106,7 +106,7 @@ class _EditState extends State<Edit> {
                   _buildEmail(context, email),
                   CustomCheckboxButton(
                     alignment: Alignment.centerLeft,
-                    text: "Change Password",
+                    text: "Change Password".tr,
                     textStyle: CustomTextStyles.titleMediumGreen600,
                     value: show_enabled,
                     decoration: BoxDecoration(),
@@ -134,7 +134,7 @@ class _EditState extends State<Edit> {
                       Row(
                         children: [
                           Text(
-                            'Current Location',
+                            'Current Location'.tr,
                             style: TextStyle(color: Colors.green, fontSize: 18),
                           ),
                           Container(
@@ -175,7 +175,7 @@ class _EditState extends State<Edit> {
                           autofocus: true,
                           style: CustomTextStyles.bodyLargeDMSansBlack90001,
                           decoration: InputDecoration(
-                            hintText: "GPS Location",
+                            hintText: "GPS Location".tr,
                             hintStyle: CustomTextStyles.titleLargeGray50003,
                             isDense: true,
                             fillColor: appTheme.gray200B7,
@@ -232,7 +232,7 @@ class _EditState extends State<Edit> {
                           Navigator.pop(context);
                         },
                         width: 186.h,
-                        text: "Cancel",
+                        text: "Cancel".tr,
                         buttonTextStyle: CustomTextStyles.labelLargeWhiteA70001,
                         buttonStyle:
                             CustomButtonStyles.fillOrangeATL15.copyWith(
@@ -266,7 +266,7 @@ class _EditState extends State<Edit> {
                           );
                         },
                         width: 186.h,
-                        text: "Save",
+                        text: "Save".tr,
                         buttonTextStyle: CustomTextStyles.labelLargeWhiteA70001,
                         buttonStyle:
                             CustomButtonStyles.fillOrangeATL15.copyWith(
@@ -307,7 +307,7 @@ class _EditState extends State<Edit> {
         return null;
       },
       controller: password,
-      hintText: "Password*",
+      hintText: "Password*".tr,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       fillColor: show_enabled ? appTheme.green20030 : appTheme.gray200B7,
@@ -349,7 +349,7 @@ class _EditState extends State<Edit> {
     return CustomTextFormField(
       enabled: show_enabled,
       controller: confirmPasswordController,
-      hintText: "Confirm Password*",
+      hintText: "Confirm Password*".tr,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       fillColor: show_enabled ? appTheme.green20030 : appTheme.gray200B7,

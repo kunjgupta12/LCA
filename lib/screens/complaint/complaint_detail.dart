@@ -9,7 +9,7 @@ import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_outlined_button.dart';
-
+import 'package:get/get.dart';
 class FrameThirtyfiveScreen extends StatefulWidget {
   String token;
   String iemi;
@@ -62,14 +62,14 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        Align(
                          alignment: Alignment.center,
                          child: Text(
-                           "Complaint Details",
+                           "Complaint Details".tr,
                            style:
                             TextStyle(color: Colors.black,fontSize: 25)
                          ),
                        ),
                        SizedBox(height: 28.v),
                        Text(
-                         "Device IMEI",
+                         "Device IMEI".tr,
                          style: theme.textTheme.titleMedium,
                        ),
                        SizedBox(height: 6.v),
@@ -82,7 +82,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        ),
                        SizedBox(height: 25.v),
                        Text(
-                         "Device Name",
+                         "Device Name".tr,
                          style: theme.textTheme.titleMedium,
                        ),
                        SizedBox(height: 7.v),
@@ -95,7 +95,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        ),
                        SizedBox(height: 26.v),
                        Text(
-                         "Problem",
+                         "Problem".tr,
                          style: theme.textTheme.titleMedium,
                        ),
                        SizedBox(height: 7.v),
@@ -108,7 +108,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        ),
                        SizedBox(height: 26.v),
                        Text(
-                         "Note",
+                         "Note".tr,
                          style: theme.textTheme.titleMedium,
                        ),
                        SizedBox(height: 9.v),
@@ -132,7 +132,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        Padding(
                          padding: EdgeInsets.only(left: 6.h),
                          child: Text(
-                           "Are all the details correct?",
+                           "Are all the details correct?".tr,
                            style: CustomTextStyles.titleMediumPoppinsRedA70001,
                          ),
                        ),
@@ -140,7 +140,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                        Padding(
                          padding: EdgeInsets.only(left: 6.h),
                          child: Text(
-                           "Click Submit to confirm.",
+                           "Click Submit to confirm.".tr,
                            style:
                                CustomTextStyles.titleMediumPoppinsRedA70001
                          ),
@@ -153,7 +153,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                         },
                          width: 211.h,
                          height: 60.v,
-                         text: "SUBMIT",  buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
+                         text: "SUBMIT".tr,  buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
                    
                          buttonStyle: CustomButtonStyles.outlineWhiteATL15,
                          //decoration: CustomButtonStyles.outlineWhiteATL15,
@@ -166,7 +166,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
                         },
                          width: 211.h,
                          height: 60.v,
-                         text: "EDIT",
+                         text: "EDIT".tr,
                          buttonStyle: CustomButtonStyles.outlineWhiteATL15.copyWith(
                           backgroundColor:   WidgetStateProperty.resolveWith((states) {
                         return Colors.purple;})
@@ -209,52 +209,34 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
               child: Padding(
                 padding: EdgeInsets.only(left: 1.h),
                 child: Text(
-                  "< Back",
+                  "< Back".tr,
                   style: CustomTextStyles.titleMediumBluegray900,
                 ),
               ),
             ),
             SizedBox(height: 25.v),
-            Container(
-              margin: EdgeInsets.only(left: 10.h),
-          //    decoration: AppDecoration.outlineOnPrimaryContainer,
-              child: Text(
-                "Register Complaint",
-                style: theme.textTheme.displayMedium,
-                //style: CustomTextStyles.titleLargeGray50003,
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(left: 10.h),
+                        //    decoration: AppDecoration.outlineOnPrimaryContainer,
+                child: Text(
+                  "Register Complaint".tr,
+                  style: theme.textTheme.displayMedium,
+                  //style: CustomTextStyles.titleLargeGray50003,
+                ),
               ),
             ),
-            SizedBox(height: 31.v),
-            Padding(
-              padding: EdgeInsets.only(left: 8.h),
-              child: Text(
-                "Please Fill Out The Form To Register Your Complaint",
-                style: CustomTextStyles.bodyLargeDMSans,
+            SizedBox(height: 15.v),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.h),
+                child: Text(
+                  "Please Fill Out The Form To Register Your Complaint".tr,
+                  style: CustomTextStyles.bodyLargeDMSans,
+                ),
               ),
             ),
             SizedBox(height: 60.v)
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Section Widget
-  Widget _buildColumn(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: 29.h,
-          right: 29.h,
-          bottom: 5.v,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomOutlinedButton(
-              text: "Submit",
-            )
           ],
         ),
       ),

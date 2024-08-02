@@ -7,6 +7,9 @@ import 'package:lca/api/auth/auth_repository.dart';
 import 'package:lca/api/complaints.dart';
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/issues_des/issue_repository.dart';
+import 'package:lca/api/schedule.dart';
+import 'package:lca/api/token_shared_pref.dart';
+import 'package:lca/screens/language_select/language_page.dart';
 import 'package:lca/screens/splash_screen.dart';
 import 'package:lca/services/push_notification.dart';
 import 'package:lca/widgets/theme_helper.dart';
@@ -35,13 +38,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   );
   print("Handling a background message: ${message.messageId}");
 }
-
+String? locale_stored;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await Future.delayed(const Duration(milliseconds: 1500));
   ThemeHelper().changeTheme('primary');
-  
+  locale_stored=await getlang();
   
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -61,7 +64,8 @@ Firebaseservices().startservices();
       providers: [
         ChangeNotifierProvider(create: (context) => IssueProvider()),
         ChangeNotifierProvider(create: (context) => DeviceProvider()),  ChangeNotifierProvider(create: (context) => RegisterNotifier()),
-    
+     ChangeNotifierProvider(create: (context) => CreateSchedule()),
+       
       ],
       child: MyApp(
         token: prefs.getString('token'),
@@ -85,7 +89,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
           title: 'LCA',
           translations: LocaleString(),
-          locale:const Locale('en', 'US'),
+          locale:Locale(locale_stored=='null' ? 'en':locale_stored!.split("_")[0].toString(), locale_stored =='null' ? 'US':locale_stored!.split("_")[1]),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: Colors.white,

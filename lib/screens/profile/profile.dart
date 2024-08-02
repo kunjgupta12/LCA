@@ -128,7 +128,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                                         Get.offAll(() => FrameThirteenScreen());
                                       },
                                       width: 130.h,
-                                      text: "Logout",
+                                      text: "Logout".tr,
                                       buttonTextStyle: CustomTextStyles
                                           .labelLargeWhiteA70001,
                                       buttonStyle: CustomButtonStyles
@@ -333,7 +333,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                                           )));
                                 },
                                 width: 186.h,
-                                text: "Edit Profile",
+                                text: "Edit Profile".tr,
                                 buttonTextStyle:
                                     CustomTextStyles.labelLargeWhiteA70001,
                                 buttonStyle:
@@ -415,7 +415,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
             alignment: Alignment.topCenter,
             child: Container(
               padding: EdgeInsets.symmetric(
-                horizontal: 89.h,
+                horizontal: 79.h,
                 vertical: 90.v,
               ),
               decoration: BoxDecoration(
@@ -429,11 +429,11 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                 children: [
                   // SizedBox(height: 10.v),
                   SizedBox(
-                    width: 380.h,
+                    width: 390.h,
                     child: Text(
-                      "User Name",
+                      "User Name".tr,
                       style: theme.textTheme.displayMedium,
-                    ),
+                    )
                   )
                 ],
               ),

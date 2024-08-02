@@ -21,3 +21,14 @@ class SharedPrefManager {
     await prefs.remove(_keyAccessToken);
   }
 }
+
+Future<void> save_pref(lang) async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+
+  pref.setString('lang', lang).toString();
+}
+
+Future<String?> getlang() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  return pref.getString('lang').toString();
+}

@@ -4,17 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:lca/api/api.dart';
 import 'package:lca/model/complaint/complaint_count_model.dart';
 import 'package:lca/model/complaint/complaint_detail_model.dart';
-import 'package:lca/model/complaint/complaint_issue.dart';
 import 'package:lca/model/complaint/complaint_register_model.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/create_schedule/frame_twenty_screen.dart';
 import 'config.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 
 Future<int> complaint_count_closed(String token) async {
   final String apiUrl = '$complaint_count_api';
@@ -121,7 +114,7 @@ Future<Complaint> register_complaint(
   if (response.statusCode == 201) {
     // If the server returns a 200 OK response, parse the JSON data
     var data = jsonDecode(response.body);
-    print('Response data: ${data}');
+    print('${data}');
     showToast(Complaint.fromJson(data).status!.status.toString());
     Get.offAll(FrameNineteenContainerScreen());
     return Complaint.fromJson(data);

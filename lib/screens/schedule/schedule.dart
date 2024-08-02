@@ -15,7 +15,7 @@ import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-
+import 'package:get/get.dart';
 class Schedule extends StatefulWidget {
   String token;
   int id;
@@ -97,7 +97,7 @@ class _ScheduleState extends State<Schedule> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Text(
-                      "Device Name:",
+                      "Device Name".tr+":",
                       style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
                     ),
                   ),
@@ -123,7 +123,7 @@ class _ScheduleState extends State<Schedule> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: Text(
-                      "Device IEMI:",
+                      "Device ID".tr+":",
                       style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
                     ),
                   ),
@@ -162,8 +162,8 @@ class _ScheduleState extends State<Schedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(index == 0
-                                                    ? 'Program A'
-                                                    : "Program B"),
+                                                    ? 'Program A'.tr
+                                                    : "Program B".tr),
                                                 CircularProgressIndicator(),
                                                 CustomElevatedButton(
                                                     isDisabled: true,
@@ -193,7 +193,7 @@ class _ScheduleState extends State<Schedule> {
                                                     buttonStyle:
                                                         CustomButtonStyles
                                                             .fillOnError,
-                                                    text: 'View')
+                                                    text: 'View'.tr)
                                               ],
                                             ),
                                             Divider()
@@ -217,11 +217,11 @@ class _ScheduleState extends State<Schedule> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(index == 0
-                                                    ? 'Program A'
-                                                    : "Program B"),
+                                                    ? 'Program A'.tr
+                                                    : "Program B".tr),
                                                 Text(check[index] != 0
-                                                    ? 'SET'
-                                                    : 'NOT SET'),
+                                                    ? 'SET'.tr
+                                                    : 'NOT SET'.tr),
                                                 CustomElevatedButton(
                                                     isDisabled:
                                                         check[index] != 0
@@ -256,7 +256,7 @@ class _ScheduleState extends State<Schedule> {
                                                                 .fillOrangeA
                                                             : CustomButtonStyles
                                                                 .fillOnError,
-                                                    text: 'View')
+                                                    text: 'View'.tr)
                                               ],
                                             ),
                                             Divider(),

@@ -23,49 +23,6 @@ class FrameFifteenScreen extends StatefulWidget {
   State<FrameFifteenScreen> createState() => _FrameFifteenScreenState();
 }
 
-Future<Position> _getGeoLocationPosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
-    // await Geolocator.requestPermission();
-    await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) {
-      print('error');
-    });
-    return await Geolocator.getCurrentPosition();
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-
-  // When we reach here, permissions are granted and we can
-  // continue accessing the position of the device.
-  return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
-}
 
 int? selectedValue = 1;
 int? _selectedValue = 1;
@@ -75,7 +32,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    _getGeoLocationPosition();
+    getGeoLocationPosition();
     gettoken();
     super.initState();
   }
@@ -148,7 +105,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                           children: [
                             SizedBox(height: 6),
                             Text(
-                              "Device Details ".tr,
+                              "Device Details".tr,
                               style: CustomTextStyles
                                   .headlineSmallDMSansBlack90001Bold,
                             ),
@@ -289,7 +246,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                             SizedBox(
                                               width: 5,
                                             ),
-                                            Text('Connected')
+                                            Text('Connected'.tr)
                                           ],
                                         ),
                                       ),
@@ -328,7 +285,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            Text('Not Connected')
+                                            Text('Not Connected'.tr)
                                           ],
                                         ),
                                       ),
@@ -345,7 +302,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Total valve Count',
+                                          'Total valve Count'.tr,
                                           style: CustomTextStyles
                                               .titleMediumBluegray900,
                                         ),
@@ -430,7 +387,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                               height: 50,
                               //margin: EdgeInsets.only(left: 10),
                               width: 365.h,
-                              text: "Submit",
+                              text: "Submit".tr,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: Colors.green),
@@ -462,7 +419,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
         width: 150.h,
         child: CustomTextFormField(
           controller: country,
-          hintText: "Country".tr,
+          hintText: "Country*".tr,
           //   textInputAction: TextInputAction.done,
           //textInputType: TextInputType.visiblePassword,
           prefixConstraints: const BoxConstraints(
@@ -484,7 +441,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
         width: 150.h,
         child: CustomTextFormField(
           controller: region,
-          hintText: "State".tr,
+          hintText: "State*".tr,
           //  textInputAction: TextInputAction.done,
           //textInputType: TextInputType.number,
           prefixConstraints: const BoxConstraints(
@@ -506,7 +463,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
         width: 150.h,
         child: CustomTextFormField(
           controller: pincode,
-          hintText: "Pincode".tr,
+          hintText: "Pincode*".tr,
           //maxLines: 6,
 
           textInputType: TextInputType.number,
@@ -531,7 +488,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
         width: 150.h,
         child: CustomTextFormField(
           controller: city,
-          hintText: "City".tr,
+          hintText: "City*".tr,
           textInputAction: TextInputAction.done,
           //       textInputType: TextInputType.visiblePassword,
           prefixConstraints: const BoxConstraints(
@@ -557,7 +514,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
           style: CustomTextStyles.bodyLargeDMSansBlack90001,
           maxLines: 5,
           decoration: InputDecoration(
-            hintText: "Full Address",
+            hintText: "Full Address".tr,
             hintStyle: CustomTextStyles.titleLargeGray50003,
             isDense: true,
             contentPadding:
@@ -615,7 +572,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
               right: 23,
             ),
             child: Text(
-              "Please fill the form below to register you device.\nAdd all the required details",
+              "Please fill the form below to register you device.\nAdd all the required details".tr,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -633,16 +590,16 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
       children: [
         Row(
           children: [
-            const Padding(
+             Padding(
               padding: EdgeInsets.only(left: 5.0),
               child: Text(
-                'Current Location',
+                'Current Location'.tr,
                 style: TextStyle(color: Colors.green, fontSize: 18),
               ),
             ),
             IconButton(
                 onPressed: () async {
-                  position = await _getGeoLocationPosition();
+                  position = await getGeoLocationPosition();
                   location =
                       'Lat: ${position!.latitude} , Long: ${position!.longitude}';
                   placemarks = await placemarkFromCoordinates(

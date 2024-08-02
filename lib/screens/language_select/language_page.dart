@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:lca/api/token_shared_pref.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/image_constant.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../auth/signup.dart';
 import '../../main.dart';
 
@@ -11,10 +15,16 @@ final List locale = [
   {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
 ];
 
-updateLanguage(Locale locale) {
+updateLanguage(Locale locale)async {
   Get.back();
+
   Get.updateLocale(locale);
+  log(locale.toString());
+  save_pref(locale.toString());
+  // locale_stored= await save_pref(locale.toString()).toString();
 }
+
+
 class LanguageSelector extends StatefulWidget {
   const LanguageSelector({super.key});
 
@@ -87,7 +97,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                                   ],
                                 ),
                               );
-                             },
+                            },
                             separatorBuilder: (context, index) {
                               return Divider(
                                 color: Colors.blue,
