@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:lca/api/config.dart';
-import 'package:lca/api/token_shared_pref.dart';
 import 'package:lca/model/device/device.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -129,7 +128,8 @@ Future<void> deletedevice(String id) async {
 }
 
 Future<Device> fetchdevice(int id) async {
-var token=  SharedPrefManager.getAccessToken();
+SharedPreferences pref=await SharedPreferences.getInstance();
+var token=pref.getString('token');
   try {
     var response = await http.get(
       Uri.parse('$get_device/$id'),

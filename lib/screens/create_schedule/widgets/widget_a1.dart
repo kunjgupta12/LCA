@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
@@ -135,7 +135,7 @@ class A1State extends State<a1> {
               Padding(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  "Select Days",
+                  "Select Days".tr,
                   style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
                 ),
               ),
@@ -166,7 +166,7 @@ class A1State extends State<a1> {
                 child: Row(
                   children: [
                     Text(
-                      'Reset All',
+                      'Reset All'.tr,
                       style: CustomTextStyles.bodyLargeDMSansRegular,
                     ),
                    const Icon(
@@ -183,7 +183,7 @@ class A1State extends State<a1> {
           Padding(
             padding: EdgeInsets.only(left: 5),
             child: Text(
-              "to follow the schedule",
+              "to follow the schedule".tr,
               style: CustomTextStyles.bodyLargeDMSans,
             ),
           ),
@@ -191,7 +191,7 @@ class A1State extends State<a1> {
           _buildDaysGrid(context),
           SizedBox(height: 45),
           Text(
-            "Mode",
+            "Mode".tr,
             style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
           ),
           SizedBox(height: 10),
@@ -242,7 +242,7 @@ class A1State extends State<a1> {
                                         height: 20,
                                       ),
                                       Text(
-                                        "Irrigation",
+                                        "Irrigation".tr,
                                         style: TextStyle(
                                           color: appTheme.black900,
                                           fontSize: 18,
@@ -299,7 +299,7 @@ class A1State extends State<a1> {
                                         height: 20,
                                       ),
                                       Text(
-                                        "Fertigation",
+                                        "Fertigation".tr,
                                         style: TextStyle(
                                           color: appTheme.black900,
                                           fontSize: 18,
@@ -317,38 +317,7 @@ class A1State extends State<a1> {
                   )
                 ]),
           ),
-          /*  SizedBox(height: 45),
-          Text(
-            "Program title",
-            style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  hintText: 'Give your schedule a name',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ),*/
+        
           SizedBox(height: 41),
           Padding(
             padding: const EdgeInsets.only(
@@ -360,7 +329,7 @@ class A1State extends State<a1> {
                 Padding(
                   padding: EdgeInsets.only(top: 5, bottom: 25, right: 5),
                   child: Text(
-                    "Start Time  : ",
+                    "Start Time: ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -405,7 +374,7 @@ class A1State extends State<a1> {
           Padding(
             padding: EdgeInsets.only(left: 3),
             child: Text(
-              "Valve Duration  : ",
+              "Valve Duration  : ".tr,
               style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
             ),
           ),
@@ -449,7 +418,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "End Time  : ",
+                    "End Time  : ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -457,9 +426,7 @@ class A1State extends State<a1> {
                   width: 26.h,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    setState(() {});
-                  },
+            
                   child: CustomTextFormField(
                     width: 110.h,
                     enabled: false,
@@ -507,7 +474,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "Start Time 2 : ",
+                    "Start Time 2 : ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -579,7 +546,7 @@ class A1State extends State<a1> {
                       child: Row(
                         children: [
                           Text(
-                            'Reset',
+                            'Reset'.tr,
                             style: CustomTextStyles.bodyLargeDMSansRegular,
                           ),
                           Icon(
@@ -607,7 +574,7 @@ class A1State extends State<a1> {
                           0)*/
               ? Center(
                   child: Text(
-                  'Time exceeds 24 hours',
+                  'Time exceeds 24 hours'.tr,
                   style: CustomTextStyles.titleMediumPoppinsRedA70001,
                 ))
               : SizedBox(height: 4),
@@ -864,13 +831,13 @@ class A1State extends State<a1> {
   }
 
   List days = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thrusday',
-    'Friday',
-    'Saturday',
-    'Sunday'
+    'Monday'.tr,
+    'Tuesday'.tr,
+    'Wednesday'.tr,
+    'Thrusday'.tr,
+    'Friday'.tr,
+    'Saturday'.tr,
+    'Sunday'.tr
   ];
 
   Widget _buildDaysGrid(BuildContext context) {

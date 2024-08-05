@@ -17,7 +17,7 @@ import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/app_decoration.dart';
 import '../../widgets/theme_helper.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 class ViewScedule extends StatefulWidget {
   String? token;
   int? id;
@@ -162,7 +162,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    "Device Name:",
+                                    "Device Name".tr+":",
                                     style: CustomTextStyles
                                         .headlineSmallDMSansBlack90001Bold,
                                   ),
@@ -189,7 +189,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    "Device IEMI:",
+                                    "Device ID".tr+':',
                                     style: CustomTextStyles
                                         .headlineSmallDMSansBlack90001Bold,
                                   ),
@@ -215,7 +215,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    "Program:",
+                                    "Program".tr+":",
                                     style: CustomTextStyles
                                         .headlineSmallDMSansBlack90001Bold,
                                   ),
@@ -236,8 +236,8 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         children: [
                                           Text(
                                             snapshot.data!.typeId == 2
-                                                ? "Program A"
-                                                : "Program B",
+                                                ? "Program A".tr
+                                                : "Program B".tr,
                                             style: TextStyle(
                                               color: appTheme.black900,
                                               fontSize: 16,
@@ -272,7 +272,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    "Days",
+                                    "Days".tr,
                                     style: CustomTextStyles
                                         .headlineSmallDMSansBlack90001Bold,
                                   ),
@@ -298,7 +298,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           width: 6,
                                         ),
                                         Text(
-                                          "Mode:",
+                                          "Mode".tr,
                                           style: CustomTextStyles
                                               .headlineSmallDMSansBlack90001Bold,
                                         ),
@@ -360,7 +360,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                                                     height: 20,
                                                                   ),
                                                                   Text(
-                                                                    "Irrigation",
+                                                                    "Irrigation".tr,
                                                                     style:
                                                                         TextStyle(
                                                                       color: appTheme
@@ -436,7 +436,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                                                     height: 20,
                                                                   ),
                                                                   Text(
-                                                                    "Fertigation",
+                                                                    "Fertigation".tr,
                                                                     style:
                                                                         TextStyle(
                                                                       color: appTheme
@@ -472,7 +472,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         padding: EdgeInsets.only(
                                             top: 5, bottom: 25, right: 5),
                                         child: Text(
-                                          "Start Time  : ",
+                                          "Start Time: ".tr,
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
@@ -505,7 +505,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 3),
                                   child: Text(
-                                    "Valve Duration  : ",
+                                    "Valve Duration  : ".tr,
                                     style: CustomTextStyles
                                         .headlineSmallDMSansBlack90001Bold,
                                   ),
@@ -553,7 +553,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           bottom: 25,
                                         ),
                                         child: Text(
-                                          "End Time  : ",
+                                          "End Time  : ".tr,
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
@@ -592,7 +592,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           bottom: 25,
                                         ),
                                         child: Text(
-                                          "Start Time 2 : ",
+                                          "Start Time 2 : ".tr,
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
@@ -672,13 +672,13 @@ class _ViewScheduleState extends State<ViewScedule> {
   }
 
   List days = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thrusday',
-    'Friday',
-    'Saturday',
-    'Sunday'
+    'Monday'.tr,
+    'Tuesday'.tr,
+    'Wednesday'.tr,
+    'Thrusday'.tr,
+    'Friday'.tr,
+    'Saturday'.tr,
+    'Sunday'.tr
   ];
   List checkedday = [0, 0, 0, 0, 0, 0, 0];
   Widget _buildDaysGrid(BuildContext context) {
@@ -913,7 +913,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                text: "Program",
+                text: "Program".tr,
                 margin: EdgeInsets.only(left: 6),
               ),
             ),
@@ -958,7 +958,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              type == 2 ? "Program A" : "Program B",
+                              type == 2 ? "Program A".tr : "Program B".tr,
                               style: TextStyle(
                                 color: appTheme.black900,
                                 fontSize: 16,

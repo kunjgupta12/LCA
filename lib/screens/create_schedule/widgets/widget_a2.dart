@@ -12,7 +12,7 @@ import 'package:lca/widgets/image_constant.dart';
 import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
-
+import 'package:get/get.dart';
   TextEditingController starttimeb = TextEditingController();
 
   TextEditingController starttime2b = TextEditingController();
@@ -121,13 +121,13 @@ class a1State extends State<a2> {
   }
 
   List day = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thrusday',
-    'Friday',
-    'Saturday',
-    'Sunday'
+    'Monday'.tr,
+    'Tuesday'.tr,
+    'Wednesday'.tr,
+    'Thrusday'.tr,
+    'Friday'.tr,
+    'Saturday'.tr,
+    'Sunday'.tr
   ];
 
   Widget _buildDaysGrid(BuildContext context) {
@@ -219,7 +219,7 @@ class a1State extends State<a2> {
               Padding(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  "Select Days ",
+                  "Select Days".tr,
                   style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
                 ),
               ),TextButton(
@@ -249,7 +249,7 @@ class a1State extends State<a2> {
                 child: Row(
                   children: [
                     Text(
-                      'Reset All',
+                      'Reset All'.tr,
                       style: CustomTextStyles.bodyLargeDMSansRegular,
                     ),
                    const Icon(
@@ -266,7 +266,7 @@ class a1State extends State<a2> {
           Padding(
             padding: EdgeInsets.only(left: 5),
             child: Text(
-              "to follow the schedule",
+              "to follow the schedule".tr,
               style: CustomTextStyles.bodyLargeDMSans,
             ),
           ),
@@ -274,7 +274,7 @@ class a1State extends State<a2> {
           _buildDaysGrid(context),
           SizedBox(height: 45),
           Text(
-            "Mode",
+            "Mode".tr,
             style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
           ),
           SizedBox(height: 10),
@@ -325,7 +325,7 @@ class a1State extends State<a2> {
                                         height: 20,
                                       ),
                                       Text(
-                                        "Irrigation",
+                                        "Irrigation".tr,
                                         style: TextStyle(
                                           color: appTheme.black900,
                                           fontSize: 18,
@@ -382,7 +382,7 @@ class a1State extends State<a2> {
                                         height: 20,
                                       ),
                                       Text(
-                                        "Fertigation",
+                                        "Fertigation".tr,
                                         style: TextStyle(
                                           color: appTheme.black900,
                                           fontSize: 18,
@@ -411,7 +411,7 @@ class a1State extends State<a2> {
                 Padding(
                   padding: EdgeInsets.only(top: 5, bottom: 25, right: 5),
                   child: Text(
-                    "Start Time  : ",
+                    "Start Time: ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -456,7 +456,7 @@ class a1State extends State<a2> {
           Padding(
             padding: EdgeInsets.only(left: 3),
             child: Text(
-              "Valve Duration  : ",
+              "Valve Duration  : ".tr,
               style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
             ),
           ),
@@ -500,7 +500,7 @@ class a1State extends State<a2> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "End Time  : ",
+                    "End Time  : ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -556,7 +556,7 @@ class a1State extends State<a2> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "Start Time 2 : ",
+                    "Start Time 2 : ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -628,7 +628,7 @@ class a1State extends State<a2> {
                       child: Row(
                         children: [
                           Text(
-                            'Reset',
+                            'Reset'.tr,
                             style: CustomTextStyles.bodyLargeDMSansRegular,
                           ),
                           Icon(
@@ -1010,28 +1010,28 @@ class a1State extends State<a2> {
               width: 15,
             ),
             Text(
-              'Prewet(hrs)',
+              'Prewet(hrs)'.tr,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Fertilize(hrs)',
+              'Fertilize(hrs)'.tr,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Flush(hrs)',
+              'Flush(hrs)'.tr,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Total',
+              'Total'.tr,
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,

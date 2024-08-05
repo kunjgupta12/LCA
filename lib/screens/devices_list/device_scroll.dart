@@ -313,7 +313,7 @@ String? stored_lang_home;
                                               Color>(
                                           Color.fromRGBO(218, 188, 255, 1))),
                               height: 40,
-                              text: 'Schedules'.tr,
+                              text: 'Program'.tr,
                               buttonTextStyle:
                                   CustomTextStyles.titleSmallff000000,
                               onPressed: () {

@@ -26,7 +26,7 @@ import '../../widgets/custom_text_style.dart';
 import '../../widgets/image_constant.dart';
 import '../../widgets/theme_helper.dart';
 // ignore_for_file: must_be_immutable
-
+import 'package:get/get.dart';
 class FrameEightPage extends StatefulWidget {
   int? devices;
   String? para;
@@ -187,7 +187,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                   padding: EdgeInsets.only(
                                                       right: 0.1.h),
                                                   child: status.ms == 1
-                                                      ? const Text("Power On ",
+                                                      ?  Text("Power On".tr,
                                                           style: TextStyle(
                                                               fontSize: 23,
                                                               fontWeight:
@@ -195,7 +195,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                                       .w700,
                                                               color:
                                                                   Colors.green))
-                                                      : const Text("Power off",
+                                                      :  Text("Power off".tr,
                                                           style: TextStyle(
                                                               fontSize: 23,
                                                               fontWeight:
@@ -232,8 +232,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 ),
                                                 Text(
                                                   status.rs == 0
-                                                      ? 'No Rain'
-                                                      : 'Raining',
+                                                      ? 'No Rain'.tr
+                                                      : 'Raining'.tr,
                                                   style: CustomTextStyles
                                                       .headlineSmallLilitaOneWhiteA70001,
                                                 )
@@ -268,7 +268,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 height: 120,
                                                 child: Center(
                                                   child: Text(
-                                                    'Low Flow',
+                                                    'Low Flow'.tr,
                                                     style: TextStyle(
                                                       color: Colors.red,
                                                       fontSize: 25,
@@ -356,13 +356,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
                       Container(
                         decoration: AppDecoration.outlinePrimary,
                         child: Text(
-                          "Program ${p}",
+                          "Program".tr +p,
                           style: CustomTextStyles.headlineSmallRedA70001,
                         ),
                       ),
                       CustomOutlinedButton(
                         width: 148.h,
-                        text: type== 1 ? "Irrigation" : "Fertilization",
+                        text: type== 1 ? "Irrigation".tr : "Fertilization".tr,
                         buttonStyle:
                             CustomButtonStyles.outlineWhiteATL15.copyWith(
                           backgroundColor:
@@ -764,7 +764,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                       .resolveWith((states) {
                                                 // If the button is pressed, return green, otherwise blue
                                                 if (states.contains(
-                                                    MaterialState.pressed)) {
+                                                    WidgetState.pressed)) {
                                                   return Colors.red;
                                                 }
                                                 return Colors.red;

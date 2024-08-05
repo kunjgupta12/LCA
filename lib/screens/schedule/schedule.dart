@@ -264,7 +264,7 @@ class _ScheduleState extends State<Schedule> {
                                         )));
                               }))),Padding(
                                 padding: const EdgeInsets.only(bottom: 20.0,left: 10,right: 10),
-                                child: CustomElevatedButton(text: 'Configure', buttonStyle: CustomButtonStyles.fillOrangeA,buttonTextStyle: CustomTextStyles.titleLargeWhiteA70001,  onPressed: () {
+                                child: CustomElevatedButton(text: 'Configure'.tr, buttonStyle: CustomButtonStyles.fillOrangeA,buttonTextStyle: CustomTextStyles.titleLargeWhiteA70001,  onPressed: () {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -295,15 +295,15 @@ class _ScheduleState extends State<Schedule> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Program",
+              "Program".tr,
               style: theme.textTheme.titleLarge,
             ),
             Text(
-              "Status",
+              "Status".tr,
               style: theme.textTheme.titleLarge,
             ),
             Text(
-              'Action',
+              'Action'.tr,
               style: theme.textTheme.titleLarge,
             )
           ],
@@ -325,7 +325,7 @@ class _ScheduleState extends State<Schedule> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppbarTitle(
-              text: "My Programs",
+              text: "My Programs".tr,
             ),
           ],
         ),
