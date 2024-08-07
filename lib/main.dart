@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,12 @@ void main() async {
   await Future.delayed(const Duration(milliseconds: 1500));
   ThemeHelper().changeTheme('primary');
   locale_stored = await getlang();
- await dotenv.load();
+  try {
+    await dotenv.load(fileName: '.env');
+  } catch (e) {
+    log(e.toString())
+;  }
+ 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
