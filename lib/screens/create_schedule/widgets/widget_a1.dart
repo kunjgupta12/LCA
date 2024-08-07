@@ -14,8 +14,6 @@ import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 
-/// Section Widget
-///
 ///
 int? _selectedButtonIndex = 1;
 TimeOfDay _selectedTime = TimeOfDay(hour: 00, minute: 00);
@@ -36,9 +34,9 @@ int? totalh = 0;
 
 class a1 extends StatefulWidget {
   int? transition;
-  TimeOfDay? end;
-  final ValueChanged<int> onValueChanged;
-  a1({Key? key, this.end, this.transition, required this.onValueChanged})
+  TimeOfDay? end;int valve;
+  
+  a1({Key? key, this.end, this.transition,required this.valve})
       : super(key: key);
 
   @override
@@ -116,7 +114,7 @@ class A1State extends State<a1> {
                       _selectedTime.hour.toInt() * 60 +
                       _selectedTime.minute &&
               _selectedButtonIndex == 2) {
-        showToast("Please select after end time");
+        showToast(context,"Please select after end time");
       }
     }
   }
@@ -778,36 +776,16 @@ class A1State extends State<a1> {
     return programA;
   }
 
-  Widget _buildCreateButton(BuildContext context, int transitioon) {
-    return Center(
-      child: CustomOutlinedButton(
-        onPressed: () {
-          if (a1_end!.hour >= 24 && a1_end!.minute >= 0) {
-            showToast('Time exceeds 24 hour');
-          } else {
-            widget.onValueChanged(1);
-            updateA();
-          }
-        },
-        height: 50,
-        width: 305,
-        text: "Next",
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5), color: Colors.green),
-        buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
-      ),
-    );
-  }
-
+ 
   Widget _durationtwo(BuildContext context) {
     return SizedBox(
-      height: 850,
+      height: widget.valve*70,
       width: 500.h,
       child: ListView.builder(
 
           //  scrollDirection: Axis.vertical,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 12,
+          itemCount:widget.valve,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
@@ -951,7 +929,7 @@ class A1State extends State<a1> {
           });
         }
         if (_selectedTime.hour + _selectedTime.minute == 0) {
-          showToast('Please select start time first');
+          showToast(context,'Please select start time first');
         }
       }
     }
@@ -1056,11 +1034,11 @@ class A1State extends State<a1> {
           ],
         ),
         Container(
-          height: 1100.h,
+          height: widget.valve*70,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 12,
+              itemCount: widget.valve,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 12, right: 9, bottom: 4),
@@ -1170,10 +1148,10 @@ class A1State extends State<a1> {
       }
     }
     if (totalHoursfer > 24) {
-      showToast('Time exceeds');
+      showToast(context,'Time exceeds');
     }
     if (_selectedTime.hour + _selectedTime.minute == 0) {
-      showToast('Please select start time first');
+      showToast(context,'Please select start time first');
     }
   }
 }

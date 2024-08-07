@@ -1,5 +1,7 @@
-final url =  //'http://192.168.1.30:9002';
-'http://34.125.4.88:9002';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+final url = dotenv.env['BASE_URL'] ?? ''; //'http://192.168.1.30:9002';
+
 String  registration = url + "/api/v1/auth/register/customer"; 
 final login = url + '/api/v1/auth/login';
 final device_register = url + '/api/v1/devices/';

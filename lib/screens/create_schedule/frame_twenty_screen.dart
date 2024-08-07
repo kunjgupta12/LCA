@@ -27,8 +27,8 @@ Schedule schedule = Schedule();
 class FrameTwentyScreen extends StatefulWidget {
   final String? token;
   final int? id;
-
-  FrameTwentyScreen({Key? key, this.id, this.token}) : super(key: key);
+int valve;
+  FrameTwentyScreen({Key? key, this.id, this.token,required this.valve}) : super(key: key);
 
   @override
   State<FrameTwentyScreen> createState() => _FrameTwentyScreenState();
@@ -42,7 +42,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   final TextEditingController pumprechargetime = TextEditingController();
   final GlobalKey<a1State> childKeya2 = GlobalKey<a1State>();
  
-  late CreateSchedule createSchedule;
+  late CreateScheduleProvider createSchedule;
   Timer? _timer;
   int _remainingSeconds = 540; // 9 minutes in seconds
   OverlayEntry? _overlayEntry;
@@ -53,7 +53,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   @override
   void initState() {
     super.initState();
-    createSchedule = Provider.of<CreateSchedule>(context, listen: false);
+    createSchedule = Provider.of<CreateScheduleProvider>(context, listen: false);
     createSchedule.addListener(_handleLoadingChange);
   }
 
@@ -81,7 +81,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
       setState(() {
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
-          createSchedule.time--;
+        
           _overlayEntry!.markNeedsBuild();
         } else {
           _stopTimer();
@@ -140,7 +140,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
 
   Future<void> _onSubmit() async {
     if (createSchedule.isLoading) {
-      showToast('Please wait for some time');
+      showToast(context,'Please wait for some time');
     } else {
       showDialog(
         context: context,
@@ -243,10 +243,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                         showmessages(context);
                         _showOverlay(context);
                       } else {
-                        showToast('Mains off/Power Off');
+                        showToast(context,'Mains off/Power Off');
                       }
                     } else {
-                      showToast('Device not configured');
+                      showToast(context,'Device not configured');
                     }
                   },
                   child: Text(
@@ -410,13 +410,13 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                         const SizedBox(height: 10),
                         _buildProgramsGrid(context),
                         _selectedValue == 0
-                            ? a1(
+                            ? a1(valve: widget.valve,
                                 key: childKeya1,
                                 end: a1_end,
                                 transition: _selectedValue,
-                                onValueChanged: _handleValueChanged,
+                               
                               )
-                            : a2(
+                            : a2(valve:widget.valve,
                                 starttime: a1_end,
                                 id: widget.id,
                                 key: childKeya2,
@@ -424,7 +424,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                       ],
                     ),
                   ),
-                  Consumer<CreateSchedule>(
+                  Consumer<CreateScheduleProvider>(
                     builder: (context, value, child) {
                       return CustomElevatedButton(
                         text: 'SUBMIT'.tr,

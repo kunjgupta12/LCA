@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ import 'package:get/get.dart';
 import 'screens/language_select/locateregister.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -38,34 +37,34 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   );
   print("Handling a background message: ${message.messageId}");
 }
+
 String? locale_stored;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await Future.delayed(const Duration(milliseconds: 1500));
   ThemeHelper().changeTheme('primary');
-  locale_stored=await getlang();
-  
+  locale_stored = await getlang();
+ await dotenv.load();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
- FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
     }
   });
-  
-  
-Firebaseservices().firebaseCloudMessaging_Listeners();
-Firebaseservices().startservices();
+
+  Firebaseservices().firebaseCloudMessaging_Listeners();
+  Firebaseservices().startservices();
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => IssueProvider()),
-        ChangeNotifierProvider(create: (context) => DeviceProvider()),  ChangeNotifierProvider(create: (context) => RegisterNotifier()),
-     ChangeNotifierProvider(create: (context) => CreateSchedule()),
-       
+        ChangeNotifierProvider(create: (context) => DeviceProvider()),
+        ChangeNotifierProvider(create: (context) => LoginNotifier()),
+        ChangeNotifierProvider(create: (context) => CreateScheduleProvider()),
       ],
       child: MyApp(
         token: prefs.getString('token'),
@@ -73,7 +72,6 @@ Firebaseservices().startservices();
       )));
 }
 
-  
 class MyApp extends StatelessWidget {
   final token;
   final devices;
@@ -89,7 +87,11 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
           title: 'LCA',
           translations: LocaleString(),
-          locale:Locale(locale_stored=='null' ? 'en':locale_stored!.split("_")[0].toString(), locale_stored =='null' ? 'US':locale_stored!.split("_")[1]),
+          locale: Locale(
+              locale_stored == 'null'
+                  ? 'en'
+                  : locale_stored!.split("_")[0].toString(),
+              locale_stored == 'null' ? 'US' : locale_stored!.split("_")[1]),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: Colors.white,
@@ -97,9 +99,7 @@ class MyApp extends StatelessWidget {
           ),
           home: FrameFiveScreen(
             token: token,
-           
           ));
     });
   }
 }
-

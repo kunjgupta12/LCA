@@ -1,14 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:lca/api/api.dart';
+import 'package:lca/api/auth/auth_repository.dart';
 import 'package:lca/api/auth/services/register_service.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
+import 'package:provider/provider.dart';
 import '../../services/location.dart';
 import '../../widgets/app_decoration.dart';
 import '../../widgets/custom_checkbox_button.dart';
@@ -48,20 +49,20 @@ class _FrameTwelveScreenState extends State<FrameTwelveScreen> {
   TextEditingController address = TextEditingController();
 
   bool contrast = false;
-String? fcm_token;
+  String? fcm_token;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
-   
+
     getGeoLocationPosition();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-     return MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -98,16 +99,19 @@ String? fcm_token;
                                   child: AlertDialog(
                                     content: Container(
                                       height: 50.h,
-                                      child:const  Column(
+                                      child: const Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                       
-                                         
                                           Text(
-                                              'Must be of at least 8 characters\nin length',style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500,fontSize: 15),)
+                                            'Must be of at least 8 characters\nin length',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -132,10 +136,10 @@ String? fcm_token;
                                 )),
                         child: Padding(
                           padding: const EdgeInsets.only(right: 25.0, top: 0),
-                          child:  Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                            const   Icon(
+                              const Icon(
                                 Icons.info,
                                 color: Colors.green,
                               ),
@@ -175,11 +179,11 @@ String? fcm_token;
                       SizedBox(height: 10),
                       _buildAddress(context),
                       SizedBox(height: 5),
-                       Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding:  EdgeInsets.only(left: 25.0),
+                            padding: EdgeInsets.only(left: 25.0),
                             child: Text(
                               '* Required Fields'.tr,
                               style: TextStyle(color: Colors.grey),
@@ -457,7 +461,7 @@ String? fcm_token;
           children: [
             Row(
               children: [
-                 Text(
+                Text(
                   'Current Location'.tr,
                   style: TextStyle(color: Colors.green, fontSize: 18),
                 ),
@@ -565,7 +569,7 @@ String? fcm_token;
         child: CustomTextFormField(
           controller: region,
           hintText: "State*".tr,
-         prefixConstraints: BoxConstraints(
+          prefixConstraints: BoxConstraints(
             maxHeight: 45,
           ),
           //obscureText: true,
@@ -585,7 +589,7 @@ String? fcm_token;
         child: CustomTextFormField(
           controller: pincode,
           hintText: "Pincode*".tr,
-        
+
           textInputType: TextInputType.number,
           //  textInputAction: TextInputAction.done,
           //    textInputType: TextInputType.visiblePassword,
@@ -690,7 +694,7 @@ String? fcm_token;
                       "Already have an Account?".tr,
                       style: CustomTextStyles.titleMediumGreen600,
                     ),
-                     CustomOutlinedButton(
+                    CustomOutlinedButton(
                       text: 'Login'.tr,
                       onPressed: () {
                         Navigator.push(
@@ -735,35 +739,35 @@ String? fcm_token;
           try {
             if (_formKey.currentState!.validate()) {
               if (contrast == false) {
-               showToast(
-                   'Please Accept Terms and Conditions',
-                  );
+                showToast(
+             context,     'Please Accept Terms and Conditions',
+                );
               }
               if (confirmPasswordController.text != passwordController.text) {
-                showToast('Password does not matched');
-              } else
-             registerUser(
-                  emailController.text,
-                  passwordController.text,
-                  nameController.text.split(' ').first ?? nameController.text,
-                  nameController.text.split(' ').last ?? "",
-                  phoneNumberController.text,
-                  country.text,
-                  pincode.text,
-                  region.text,
-                  address.text,
-                  position!.latitude,
-                  position!.longitude,
-                  city.text,fcm_token.toString()
-                );
-            } 
-            else {
-               FocusScope.of(context).requestFocus();
+                showToast(context,'Password does not matched');
+              } else {
+                registerUser(
+                    emailController.text,
+                    passwordController.text,
+                    nameController.text.split(' ').first ?? nameController.text,
+                    nameController.text.split(' ').last ?? "",
+                    phoneNumberController.text,
+                    country.text,
+                    pincode.text,
+                    region.text,
+                    address.text,
+                    position!.latitude,
+                    position!.longitude,
+                    city.text,
+                    fcm_token.toString(),
+                    Provider.of<LoginNotifier>(context, listen: false),context);
+              }
+            } else {
+              FocusScope.of(context).requestFocus();
             }
           } catch (e) {
-            showToast(e.toString());
+            showToast(context,e.toString());
           }
-        } 
-        );
+        });
   }
 }

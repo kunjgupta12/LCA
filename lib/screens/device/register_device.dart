@@ -2,7 +2,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/device/device_api.dart';
+import 'package:lca/api/device/functions.dart';
+import 'package:lca/api/device/devices.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/location.dart';
@@ -367,7 +368,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                               onPressed: () {
                                 print(selectedValue);
                                 if (_formKey.currentState!.validate()) {
-                                  Devices().registerdevice(
+                                  Devices().registerDevice(
                                       deviceIDvalueController.text,
                                       nameController.text,
                                       latitudedb.text,
@@ -381,7 +382,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                       selectedValue == 1
                                           ? total.toString()
                                           : default_value.toString(),
-                                      city.text);
+                                      city.text,context);
                                 }
                               },
                               height: 50,

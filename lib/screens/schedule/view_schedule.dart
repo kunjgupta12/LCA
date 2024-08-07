@@ -872,22 +872,6 @@ class _ViewScheduleState extends State<ViewScedule> {
       ],
     );
   }
-
-  String _calculateTotal(List<TimeOfDay> times) {
-    int totalHours = 0;
-    int totalMinutes = 0;
-    times.forEach((time) {
-      totalHours += time.hour;
-      totalMinutes += time.minute;
-    });
-    totalHours += totalMinutes ~/ 60;
-    totalMinutes %= 60;
-    return '${totalHours.toString().padLeft(2, '0')}:${totalMinutes.toString().padLeft(2, '0')}';
-  }
-
-  int totalhfer = 0;
-  int totalmfer = 0;
-
   /// Section Widget
   Widget _buildAppBar(BuildContext context) {
     return Container(

@@ -1,11 +1,13 @@
 import 'dart:convert';
 import "package:get/get.dart";
 import 'package:http/http.dart' as http;
-import 'package:lca/api/api.dart';
+import 'package:lca/api/device/functions.dart';
 import 'package:lca/model/complaint/complaint_count_model.dart';
 import 'package:lca/model/complaint/complaint_detail_model.dart';
 import 'package:lca/model/complaint/complaint_register_model.dart';
+import 'package:lca/model/device/device.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
+import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'config.dart';
 
@@ -74,11 +76,7 @@ Future<ComplaintDetail> complaint(String token) async {
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers: await getHeaders()
   );
   if (response.statusCode == 200) {
     // If the server returns a 200 OK response, parse the JSON data
@@ -93,7 +91,7 @@ Future<ComplaintDetail> complaint(String token) async {
 
 Future<Complaint> register_complaint(
     String token, String device_id, String des, String problem_id) async {
-  final String apiUrl = '$complaint_regiaster';
+  
 
   Map<String, dynamic> regBody = {
     "deviceId": device_id,
@@ -101,25 +99,32 @@ Future<Complaint> register_complaint(
     "description": des
   };
 
-  final Uri uri = Uri.parse(apiUrl);
+  final Uri uri = Uri.parse(complaint_regiaster);
 
   final response = await http.post(uri,
-      headers: {
-        "Content-Type": "application/json",
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+      headers: await getHeaders(),
       body: jsonEncode(regBody));
-  print(response.statusCode);
   if (response.statusCode == 201) {
     // If the server returns a 200 OK response, parse the JSON data
     var data = jsonDecode(response.body);
-    print('${data}');
-    showToast(Complaint.fromJson(data).status!.status.toString());
+     showToasttoast(Complaint.fromJson(data).status!.status.toString());
     Get.offAll(FrameNineteenContainerScreen());
     return Complaint.fromJson(data);
   } else {
     // If the server did not return a 200 OK response, throw an exception.
     throw Exception('Failed to load data');
+  }
+}
+
+Future<List<Device>> fetchDevicesissues() async {
+  final response = await http.get(
+    Uri.parse('${devices}?pageNumber=0&pageSize=100'),
+    headers: await getHeaders()
+  );
+  if (response.statusCode == 200) {
+    final List<dynamic> jsonResponse = json.decode(response.body)['content'];
+    return jsonResponse.map((json) => Device.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load devices');
   }
 }

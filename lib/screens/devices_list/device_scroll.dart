@@ -320,7 +320,7 @@ String? stored_lang_home;
                                 print(token);
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Schedule(
-                                          id: device.id,
+                                          id: device.id,valve:device.valveCount,
                                           token: token.toString(),
                                           iemi: device.imei,
                                           name: device.title,

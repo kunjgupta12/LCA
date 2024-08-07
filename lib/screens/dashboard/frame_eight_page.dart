@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/api.dart';
-import 'package:lca/api/device/device_api.dart';
+import 'package:lca/api/device/functions.dart';
 import 'package:lca/api/device/device_status_api.dart';
+import 'package:lca/api/device/devices.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/screens/device/update_device.dart';
@@ -27,6 +28,7 @@ import '../../widgets/image_constant.dart';
 import '../../widgets/theme_helper.dart';
 // ignore_for_file: must_be_immutable
 import 'package:get/get.dart';
+
 class FrameEightPage extends StatefulWidget {
   int? devices;
   String? para;
@@ -187,7 +189,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                   padding: EdgeInsets.only(
                                                       right: 0.1.h),
                                                   child: status.ms == 1
-                                                      ?  Text("Power On".tr,
+                                                      ? Text("Power On".tr,
                                                           style: TextStyle(
                                                               fontSize: 23,
                                                               fontWeight:
@@ -195,7 +197,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                                       .w700,
                                                               color:
                                                                   Colors.green))
-                                                      :  Text("Power off".tr,
+                                                      : Text("Power off".tr,
                                                           style: TextStyle(
                                                               fontSize: 23,
                                                               fontWeight:
@@ -282,22 +284,35 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                         future: valve_detail_type1(
                                             widget.id.toString()),
                                         builder: (context, snapshot) {
-                                             if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-             
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          } else if (snapshot.hasError) {
+                                            return Center(
+                                                child: Text(
+                                                    'Error: ${snapshot.error}'));
+                                          }
+
                                           return Container(
                                             width: 550.h,
                                             height: widget.valve_no! * 38,
                                             child: PageView(children: [
                                               if (snapshot.data!.c.m[0] != 0)
-                                                _valve(dataprovider.data!.c!,
-                                                    dataprovider,snapshot.data,'A',snapshot.data!.c.m[0]),
+                                                _valve(
+                                                    dataprovider.data!.c!,
+                                                    dataprovider,
+                                                    snapshot.data,
+                                                    'A',
+                                                    snapshot.data!.c.m[0]),
                                               if (snapshot.data!.c.m[1] != 0)
-                                                _valve(dataprovider.data!.c!,
-                                                    dataprovider,snapshot.data,'B',snapshot.data!.c.m[1]),
+                                                _valve(
+                                                    dataprovider.data!.c!,
+                                                    dataprovider,
+                                                    snapshot.data,
+                                                    'B',
+                                                    snapshot.data!.c.m[1]),
                                             ]),
                                           );
                                         }),
@@ -319,7 +334,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
     );
   }
 
-  Widget _valve(status, dataprovider,type1? type1data,String p,type){
+  Widget _valve(status, dataprovider, type1? type1data, String p, type) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,13 +371,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
                       Container(
                         decoration: AppDecoration.outlinePrimary,
                         child: Text(
-                          "Program".tr +p,
+                          "Program".tr + p,
                           style: CustomTextStyles.headlineSmallRedA70001,
                         ),
                       ),
                       CustomOutlinedButton(
                         width: 148.h,
-                        text: type== 1 ? "Irrigation".tr : "Fertilization".tr,
+                        text: type == 1 ? "Irrigation".tr : "Fertilization".tr,
                         buttonStyle:
                             CustomButtonStyles.outlineWhiteATL15.copyWith(
                           backgroundColor:
@@ -391,15 +406,16 @@ class _FrameEightPageState extends State<FrameEightPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: widget.valve_no,
                     itemBuilder: (context, index) {
-                      return _buildValveColumn3(
-                          context,
+                      return _buildValveColumn3(p,
+                          context,status.p,
                           index + 1,
                           status.v ?? 0,
                           status.rsf ?? 0,
                           status.p == 'A'
                               ? dataprovider.type2a!.c.vd![index]
                               : dataprovider.type3b!.c.vd![index],
-                          status.bal!.toInt(),status.sc);
+                          status.bal!.toInt(),
+                          status.sc);
                     },
                   ),
                 ),
@@ -750,8 +766,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                           ),
                                           Divider(),
                                           CustomElevatedButton(
-                                            onPressed: () => deletedevice(
-                                                widget.id.toString()),
+                                            onPressed: () => Devices().deleteDevice(
+                                                widget.id.toString(),context),
                                             text: 'Delete Device'.tr,
                                             height: 50,
                                             buttonTextStyle: CustomTextStyles
@@ -781,7 +797,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           color: Colors.white,
                           size: 45,
                         )),
-                     Text(
+                    Text(
                       'Settings'.tr,
                       style: TextStyle(
                           fontSize: 15,
@@ -845,8 +861,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
   int? num;
 
   /// Section Widget
-  Widget _buildValveColumn3(BuildContext context, num, int status, int rsf,
-      int duration, int balanace,int complete) {
+  Widget _buildValveColumn3(p,BuildContext context,type4p, num, int status, int rsf,
+      int duration, int balanace, int complete) {
     if (rsf == 1) {
       if (duration != 0) {
         return Padding(
@@ -859,9 +875,26 @@ class _FrameEightPageState extends State<FrameEightPage> {
                 style: theme.textTheme.bodyLarge,
               ),
               SizedBox(height: 2.v),
-              if(complete==1)Container(
+            
+              if (complete == 1)
+                Container(
                   decoration: BoxDecoration(
                       color: appTheme.green600,
+                      borderRadius: BorderRadius.circular(10)),
+                  width: MediaQuery.of(context).size.width,
+                  height: 10,
+                )
+                else if(p=='A'&&type4p =='B')
+                 Container(
+                  decoration: BoxDecoration(
+                      color: appTheme.green600,
+                      borderRadius: BorderRadius.circular(10)),
+                  width: MediaQuery.of(context).size.width,
+                  height: 10,
+                ) else if(p=='B'&&type4p =='A')
+                 Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[600],
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 10,
@@ -888,7 +921,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                     ),
                   ],
                 )
-              else if (num < status )
+              else if (num < status)
                 Container(
                   decoration: BoxDecoration(
                       color: appTheme.green600,

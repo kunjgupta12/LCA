@@ -256,7 +256,7 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
 
   /// Section Widget
   Widget _buildLoginButtonSection(BuildContext context) {
-    return Consumer<RegisterNotifier>(
+    return Consumer<LoginNotifier>(
         builder: (context, dataProvider, child) { if (dataProvider.isLoading==true) {
           return Center(child: CircularProgressIndicator());
         } 
@@ -266,7 +266,7 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
             if (_formKey.currentState!.validate())
             {
             dataProvider.loginUser(
-                  emailSectionController.text, passwordSectionController.text);
+                  emailSectionController.text, passwordSectionController.text,context);
             }
            
           },

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lca/api/complaints.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/issues_des/issue_repository.dart';
 import 'package:lca/model/complaint/complaint_issue.dart';
@@ -470,13 +471,11 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
           } else if (selectedDevice!.imei == 'null' ||
               selectedDevice!.title == "null" ||
               selectedissue == 'null') {
-            showToast('Enter All Fields');
+            showToast(context,'Enter All Fields');
           }
         }
       },
-      //buttonStyle: CustomButtonStyles.none,
-      //  decoration: CustomButtonStyles.gradientIndigoAToPurpleADecoration,
-      buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
+       buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
       buttonStyle: CustomButtonStyles.fillOnError.copyWith(
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           // If the button is pressed, return green, otherwise blue
@@ -491,20 +490,3 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
   }
 }
 
-Future<List<Device>> fetchDevicesissues() async {
-  final response = await http.get(
-    Uri.parse('${devices}?pageNumber=0&pageSize=100'),
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-  );
-  print(response.body);
-  if (response.statusCode == 200) {
-    final List<dynamic> jsonResponse = json.decode(response.body)['content'];
-    return jsonResponse.map((json) => Device.fromJson(json)).toList();
-  } else {
-    throw Exception('Failed to load devices');
-  }
-}

@@ -90,7 +90,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
   } else {
     throw Exception('Failed to load data');
   }}catch (e) {
-   showToast('Waiting for device to respond');
+   showToasttoast('Waiting for device to respond');
     
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -8,7 +10,8 @@ class Firebaseservices{
     print('Got a message whilst in the foreground!');
     if (message.notification != null) {
       print('Notification Title: ${message.notification!.title}');
-      print('Notification Body: ${message.notification!.body}');
+      log(message.messageId.toString());
+      print('Notification Body: ${message.data}');
       NotificationService().showNotification(
           title: message.notification!.title, body: message.notification!.body);
     }

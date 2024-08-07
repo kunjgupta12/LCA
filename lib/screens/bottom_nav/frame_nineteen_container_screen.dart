@@ -81,8 +81,7 @@ class _FrameNineteenContainerScreenState
       case AppRoutes.frameEightScreen:
         return DeviceListScreen();
 
-      case AppRoutes.frameTwentyScreen:
-        return FrameTwentyScreen();
+   
       case AppRoutes.frameSeventeenScreen:
         return FrameSeventeenScreen();
       case AppRoutes.profile:

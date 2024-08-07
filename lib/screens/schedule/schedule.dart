@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
@@ -16,62 +15,61 @@ import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:get/get.dart';
+
 class Schedule extends StatefulWidget {
-  String token;
-  int id;
-  String iemi;
-  String name;
-  Schedule(
-      {super.key,
-      required this.id,
-      required this.token,
-      required this.name,
-      required this.iemi});
+  final String token;
+  final int id;
+  final String iemi;
+  final String name;
+int valve;
+   Schedule({
+    Key? key,required this.valve,
+    required this.token,
+    required this.id,
+    required this.iemi,
+    required this.name,
+  }) : super(key: key);
 
   @override
-  State<Schedule> createState() => _ScheduleState();
+  _ScheduleState createState() => _ScheduleState();
 }
 
-Timer? _timer;
-
 class _ScheduleState extends State<Schedule> {
+  Timer? _timer;
+  type1? type1data;
+
   @override
   void initState() {
-    // TODO: implement initState
-    getdata();
-    _startTimer();
-
     super.initState();
+    getData();
+    _startTimer();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose'
     _stopTimer();
-
     super.dispose();
   }
 
-  Future<void> getdata() async {
+  Future<void> getData() async {
     type1data = await valve_detail_type1(widget.id.toString());
     setState(() {
-      type1data=type1data;
+      type1data = type1data;
     });
   }
 
-  type1? type1data;
-  void _startTimer() async {
+  void _startTimer() {
     _timer = Timer.periodic(const Duration(minutes: 1), (timer) async {
       try {
-        if (type1data == null)
-          setState(() async {
-            type1data = await valve_detail_type1(widget.id.toString());
+        if (type1data == null) {
+          type1data = await valve_detail_type1(widget.id.toString());
+          setState(() {
+            type1data = type1data;
           });
+        }
       } catch (e) {
-        showToast('Waiting for device to respond');
+        showToast(context,'Waiting for device to respond');
       }
-     
-      print('send');
     });
   }
 
@@ -79,10 +77,10 @@ class _ScheduleState extends State<Schedule> {
     _timer?.cancel();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      appBar: _buildAppBar(context),
+      appBar: _buildAppBar(),
       body: Sizer(builder: (context, orientation, deviceType) {
         return Container(
           height: MediaQuery.of(context).size.height,
@@ -90,188 +88,12 @@ class _ScheduleState extends State<Schedule> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      "Device Name".tr+":",
-                      style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    widget.name,
-                    style: TextStyle(
-                      color: appTheme.gray70001,
-                      fontSize: 20,
-                      fontFamily: 'DM Sans',
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
-              ),
+              _buildDeviceInfoRow("Device Name", widget.name),
               const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      "Device ID".tr+":",
-                      style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    widget.iemi,
-                    style: TextStyle(
-                      color: appTheme.gray70001,
-                      fontSize: 20,
-                      fontFamily: 'DM Sans',
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
-              ),
-              _buildRowTicketNo(context),
-              Expanded(
-                  flex: 2,
-                  child: Container(
-                      child: type1data == null
-                          ? ListView.builder(
-                              itemCount: 2,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    height: 60,
-                                    child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20.0, right: 5),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(index == 0
-                                                    ? 'Program A'.tr
-                                                    : "Program B".tr),
-                                                CircularProgressIndicator(),
-                                                CustomElevatedButton(
-                                                    isDisabled: true,
-                                                    buttonTextStyle:
-                                                        CustomTextStyles
-                                                            .titleMediumWhiteA70001,
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      ViewScedule(
-                                                                        iemi: widget
-                                                                            .iemi,
-                                                                        name: widget
-                                                                            .name,
-                                                                        type:
-                                                                            index,
-                                                                        type1data:
-                                                                            type1data,
-                                                                        id: widget
-                                                                            .id,
-                                                                      )));
-                                                    },
-                                                    width: 110.h,
-                                                    buttonStyle:
-                                                        CustomButtonStyles
-                                                            .fillOnError,
-                                                    text: 'View'.tr)
-                                              ],
-                                            ),
-                                            Divider()
-                                          ],
-                                        )));
-                              })
-                          : ListView.builder(
-                              itemCount: 2,
-                              itemBuilder: (context, index) {
-                                var check = type1data!.c.m;
-                                return Container(
-                                    height: 60,
-                                    child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 25.0, right: 15),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(index == 0
-                                                    ? 'Program A'.tr
-                                                    : "Program B".tr),
-                                                Text(check[index] != 0
-                                                    ? 'SET'.tr
-                                                    : 'NOT SET'.tr),
-                                                CustomElevatedButton(
-                                                    isDisabled:
-                                                        check[index] != 0
-                                                            ? false
-                                                            : true,
-                                                    buttonTextStyle:
-                                                        CustomTextStyles
-                                                            .titleMediumWhiteA70001,
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      ViewScedule(
-                                                                        iemi: widget
-                                                                            .iemi,
-                                                                        name: widget
-                                                                            .name,
-                                                                        type:
-                                                                            index,
-                                                                        type1data:
-                                                                            type1data,
-                                                                        id: widget
-                                                                            .id,
-                                                                      )));
-                                                    },
-                                                    width: 110.h,
-                                                    buttonStyle:
-                                                        check[index] != 0
-                                                            ? CustomButtonStyles
-                                                                .fillOrangeA
-                                                            : CustomButtonStyles
-                                                                .fillOnError,
-                                                    text: 'View'.tr)
-                                              ],
-                                            ),
-                                            Divider(),
-                                          ],
-                                        )));
-                              }))),Padding(
-                                padding: const EdgeInsets.only(bottom: 20.0,left: 10,right: 10),
-                                child: CustomElevatedButton(text: 'Configure'.tr, buttonStyle: CustomButtonStyles.fillOrangeA,buttonTextStyle: CustomTextStyles.titleLargeWhiteA70001,  onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      FrameTwentyScreen(token: widget.token, id: widget.id)));
-                                        },),
-                              )
+              _buildDeviceInfoRow("Device ID", widget.iemi),
+              _buildHeaderRow(context),
+              _buildScheduleList(),
+              _buildConfigureButton(),
             ],
           ),
         );
@@ -279,54 +101,184 @@ class _ScheduleState extends State<Schedule> {
     );
   }
 
-  Widget _buildRowTicketNo(BuildContext context) {
+  Widget _buildDeviceInfoRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Text(
+            "$label:".tr,
+            style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          value,
+          style: TextStyle(
+            color: appTheme.gray70001,
+            fontSize: 20,
+            fontFamily: 'DM Sans',
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeaderRow(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         margin: EdgeInsets.only(right: 1.h),
-        padding: EdgeInsets.symmetric(
-          horizontal: 14.h,
-          vertical: 11.v,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 11.v),
         decoration: AppDecoration.fillGrayF.copyWith(
-            borderRadius: BorderRadiusStyle.roundedBorder4,
-            color: Colors.amber),
+          borderRadius: BorderRadiusStyle.roundedBorder4,
+          color: Colors.amber,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Program".tr,
-              style: theme.textTheme.titleLarge,
-            ),
-            Text(
-              "Status".tr,
-              style: theme.textTheme.titleLarge,
-            ),
-            Text(
-              'Action'.tr,
-              style: theme.textTheme.titleLarge,
-            )
+            Text("Program".tr, style: theme.textTheme.titleLarge),
+            Text("Status".tr, style: theme.textTheme.titleLarge),
+            Text("Action".tr, style: theme.textTheme.titleLarge),
           ],
         ),
       ),
     );
   }
 
-  /// Section Widget
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
+  Widget _buildScheduleList() {
+    return Expanded(
+      flex: 2,
+      child: type1data == null ? _buildLoadingList() : _buildLoadedList(),
+    );
+  }
+
+  Widget _buildLoadingList() {
+    return ListView.builder(
+      itemCount: 2,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(index == 0 ? 'Program A'.tr : "Program B".tr),
+                  CircularProgressIndicator(),
+                  CustomElevatedButton(
+                    isDisabled: true,
+                    buttonTextStyle: CustomTextStyles.titleMediumWhiteA70001,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewScedule(
+                            iemi: widget.iemi,
+                            name: widget.name,
+                            type: index,
+                            type1data: type1data,
+                            id: widget.id,
+                          ),
+                        ),
+                      );
+                    },
+                    width: 110.h,
+                    buttonStyle: CustomButtonStyles.fillOnError,
+                    text: 'View'.tr,
+                  ),
+                ],
+              ),
+              Divider(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadedList() {
+    var check = type1data!.c.m;
+    return ListView.builder(
+      itemCount: 2,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(index == 0 ? 'Program A'.tr : "Program B".tr),
+                  Text(check[index] != 0 ? 'SET'.tr : 'NOT SET'.tr),
+                  CustomElevatedButton(
+                    isDisabled: check[index] == 0,
+                    buttonTextStyle: CustomTextStyles.titleMediumWhiteA70001,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewScedule(
+                            iemi: widget.iemi,
+                            name: widget.name,
+                            type: index,
+                            type1data: type1data,
+                            id: widget.id,
+                          ),
+                        ),
+                      );
+                    },
+                    width: 110.h,
+                    buttonStyle: check[index] != 0
+                        ? CustomButtonStyles.fillOrangeA
+                        : CustomButtonStyles.fillOnError,
+                    text: 'View'.tr,
+                  ),
+                ],
+              ),
+              Divider(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildConfigureButton() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
+      child: CustomElevatedButton(
+        text: 'Configure'.tr,
+        buttonStyle: CustomButtonStyles.fillOrangeA,
+        buttonTextStyle: CustomTextStyles.titleLargeWhiteA70001,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FrameTwentyScreen(valve:widget.valve,
+                token: widget.token,
+                id: widget.id,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       title: Padding(
-        padding: EdgeInsets.only(
-          left: 2,
-          top: 27,
-          bottom: 3,
-        ),
+        padding: const EdgeInsets.only(left: 2, top: 27, bottom: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AppbarTitle(
-              text: "My Programs".tr,
-            ),
+            AppbarTitle(text: "My Programs".tr),
           ],
         ),
       ),

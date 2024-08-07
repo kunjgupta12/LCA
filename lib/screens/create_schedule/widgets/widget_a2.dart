@@ -20,8 +20,8 @@ List<Color> _colorContainer = List.generate(7, (index) => Colors.white);
 
 class a2 extends StatefulWidget {
   TimeOfDay? starttime;
-  int? id;
-  a2({super.key, this.starttime, this.id});
+  int? id;int valve;
+  a2({super.key, this.starttime, this.id,required this.valve});
 
   @override
   State<a2> createState() => a1State();
@@ -58,7 +58,7 @@ class a1State extends State<a2> {
     }
     if (picked!.hour * 60 + picked.minute <
         a1_end!.hour * 60 + a1_end!.minute) {
-      showToast("Please select after ${a1_end!.hour}:${a1_end!.minute} hrs");
+      showToast(context,"Please select after ${a1_end!.hour}:${a1_end!.minute} hrs");
     }
   }
 
@@ -115,7 +115,7 @@ class a1State extends State<a2> {
                   _selectedTime2.hour.toInt() * 60 +
                   _selectedTime2.minute &&
           _selectedButtonIndex == 2 ) {
-        showToast("Please set after end time");
+        showToast(context,"Please set after end time");
       }
     }
   }
@@ -700,13 +700,13 @@ class a1State extends State<a2> {
 
   Widget _durationtwo(BuildContext context) {
     return SizedBox(
-      height: 850,
+      height: widget.valve*70,
       width: 500.h,
       child: ListView.builder(
 
           //  scrollDirection: Axis.vertical,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: 12,
+          itemCount: widget.valve,
           itemBuilder: (context, index) {
             return Padding(
               padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
@@ -935,7 +935,7 @@ class a1State extends State<a2> {
           });
         }
         if (_selectedTime.hour + _selectedTime.minute == 0) {
-          showToast('Please select start time first');
+          showToast(context,'Please select start time first');
         }
       }
     }
@@ -1040,11 +1040,11 @@ class a1State extends State<a2> {
           ],
         ),
         Container(
-          height: 1100.h,
+          height: widget.valve*70,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 12,
+              itemCount: widget.valve,
               itemBuilder: (context, index) {
                 return Padding(
                   padding:
@@ -1164,10 +1164,10 @@ class a1State extends State<a2> {
       }
     }
     if (totalHoursfer > 24) {
-      showToast('Time exceeds');
+      showToast(context,'Time exceeds');
     }
     if (_selectedTime.hour + _selectedTime.minute == 0) {
-      showToast('Please select start time first');
+      showToast(context,'Please select start time first');
     }
   }
 }

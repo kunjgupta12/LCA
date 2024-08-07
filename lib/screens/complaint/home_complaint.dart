@@ -22,7 +22,6 @@ void storedevice() async {
   token = prefs.getString("token");
   print('stored data:${jsonString}');
 }
-//TODO NEED NEW DEVICE LIST API WITH ONLY NAME AND ID
 class FrameSeventeenScreen extends StatefulWidget {
   FrameSeventeenScreen({Key? key})
       : super(

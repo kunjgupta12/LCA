@@ -2,7 +2,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/device/device_api.dart';
+import 'package:lca/api/device/functions.dart';
+import 'package:lca/api/device/devices.dart';
 import 'package:lca/model/device/device.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
   }
 
   int? selectedValue=1;
-  int? _selectedValue=1;
+  int? _selectedValue=5;
   int? default_value = 4;
   Future<void> _handleValueChanged(int? value) async {
   setState(() {
@@ -78,7 +79,10 @@ class _UpdateDeviceState extends State<UpdateDevice> {
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: FutureBuilder<Device>(
-              future: fetchdevice(widget.id!),
+              future: Devices().fetchDevice(widget.id!)
+              
+              
+              ,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
@@ -364,9 +368,9 @@ class _UpdateDeviceState extends State<UpdateDevice> {
                                                       8,
                                                       (index) =>
                                                           DropdownMenuItem<int>(
-                                                        value: index + 1,
+                                                        value: index + 5,
                                                         child: Text(
-                                                            '${index + 1}'),
+                                                            '${index + 5}'),
                                                       ),
                                                     ),
                                                   ),
@@ -416,7 +420,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
                                           if (_formKey.currentState!
                                               .validate()) {
                                               print(nameController!.text);
-                                           Devices().updatedevice(widget.id.toString(),
+                                           Devices().updateDevice(widget.id.toString(),
                                                 deviceIDvalueController.text,
                                                 nameController!.text,
                                                 latitudedb.text,
@@ -432,7 +436,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
                                                 selectedValue == 1
                                                     ? _selectedValue.toString()
                                                     : default_value.toString(),
-                                                city.text);
+                                                city.text,context);
                                           }
                                         },
                                         height: 50,

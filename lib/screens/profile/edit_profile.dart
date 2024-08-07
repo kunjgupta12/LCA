@@ -5,7 +5,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:lca/services/location.dart';
-import 'package:lca/api/user.dart';
+import 'package:lca/api/user/user.dart';
 import 'package:lca/widgets/app_decoration.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_checkbox_button.dart';
