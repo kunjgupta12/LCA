@@ -332,6 +332,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                     height: 2,
                                   ),
                             const SizedBox(height: 2),
+                            Text('This expansion count will reflect on next schedule save',style: CustomTextStyles.bodyLargeDMSansRegular,),
                             _buildLatitudeSection(context),
                             const SizedBox(height: 5),
                             Padding(
@@ -363,7 +364,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                             SizedBox(height: 20.v),
                             _buildAddress(context),
                             SizedBox(height: 20.v),
-                            const SizedBox(height: 12),
+                         
                             CustomOutlinedButton(
                               onPressed: () {
                                 print(selectedValue);

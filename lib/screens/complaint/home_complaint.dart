@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lca/api/api.dart';
 import 'package:lca/screens/complaint/view_complaint.dart';
-import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/app_bar/appbar_title.dart';
@@ -78,17 +76,17 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Container(
-                            width: 350,
+                            width: 380,
                             child: RichText(
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "Having Issues?\n".tr,
+                                    text: "Having Issues?".tr,
                                     style: CustomTextStyles
                                         .displayMediumPoppinsff000000,
                                   ),
                                   TextSpan(
-                                    text: "Don’t Worry,We got you!".tr,
+                                    text: "\nDon’t Worry,We got you!".tr,
                                     style: CustomTextStyles.titleSmallff000000,
                                   ),
                                 ],

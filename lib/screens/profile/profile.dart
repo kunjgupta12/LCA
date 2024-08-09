@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lca/api/api.dart';
 import 'package:lca/model/auth/login_model.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/screens/profile/edit_profile.dart';

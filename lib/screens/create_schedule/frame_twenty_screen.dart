@@ -23,7 +23,14 @@ import 'package:flutter/material.dart';
 ProgramB programB = ProgramB();
 ProgramA programA = ProgramA();
 Schedule schedule = Schedule();
-
+OverlayEntry? overlayEntry;
+ String get formattedTime {
+    final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
+    final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+  int _remainingSeconds = 540; // 9 minutes in seconds
+  
 class FrameTwentyScreen extends StatefulWidget {
   final String? token;
   final int? id;
@@ -44,8 +51,6 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
  
   late CreateScheduleProvider createSchedule;
   Timer? _timer;
-  int _remainingSeconds = 540; // 9 minutes in seconds
-  OverlayEntry? _overlayEntry;
 
   int _selectedValue = 0;
   DeviceStatus? deviceStatus;
@@ -65,7 +70,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     });
     _stopTimer();
     createSchedule.removeListener(_handleLoadingChange);
-  _overlayEntry?.remove();
+  overlayEntry?.remove();
   
     super.dispose();
   }
@@ -82,10 +87,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
         
-          _overlayEntry!.markNeedsBuild();
+          overlayEntry!.markNeedsBuild();
         } else {
           _stopTimer();
-          _overlayEntry!.remove();
+          overlayEntry!.remove();
         }
       });
     });
@@ -95,42 +100,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     _timer?.cancel();
   }
 
-  OverlayEntry _createOverlayEntry() {
-    return OverlayEntry(
-      builder: (context) => Positioned(
-        top: MediaQuery.of(context).size.height * .2,
-        left: MediaQuery.of(context).size.width * .25,
-        child: Material(
-          color: Colors.transparent,
-          child: Container(
-            width: 200,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.7),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                _formattedTime,
-                style: TextStyle(fontSize: 48, color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
-  String get _formattedTime {
-    final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
-    final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
-  }
-
-  void _showOverlay(BuildContext context) {
-    _overlayEntry = _createOverlayEntry();
-    Overlay.of(context).insert(_overlayEntry!);
-  }
+ 
 
   void _handleValueChanged(int value) {
     setState(() {
@@ -238,10 +209,9 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                         createSchedule.createSchedule(
                           widget.token!,
                           widget.id!,
-                          schedule,
+                          schedule,context
                         );
-                        showmessages(context);
-                        _showOverlay(context);
+                     
                       } else {
                         showToast(context,'Mains off/Power Off');
                       }

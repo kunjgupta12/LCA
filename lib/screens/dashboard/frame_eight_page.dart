@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/api.dart';
 import 'package:lca/api/device/functions.dart';
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/device/devices.dart';

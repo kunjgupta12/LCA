@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
+import 'package:lca/api/device/functions.dart';
 import 'package:lca/model/complaint/complaint_issue.dart';
 import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,17 +26,10 @@ class IssueProvider with ChangeNotifier {
     // Replace with your actual API key
     _errorMessage = null;
     final Uri uri = Uri.parse(apiUrl);
- SharedPreferences pref = await SharedPreferences.getInstance();
-    token = pref.getString('token').toString();
-  
-    try {
+  try {
       final response = await http.get(
         uri,
-        headers: {
-          "Content-Type": "application/json",
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
+        headers:await getHeaders()
       );
       print(response.body);
       if (response.statusCode == 200) {

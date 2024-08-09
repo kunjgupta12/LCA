@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/device/register_device.dart';
 import 'package:lca/screens/language_select/language_page.dart';
-import 'package:lca/screens/schedule/schedule.dart';
+import 'package:lca/screens/schedule/schedule_home.dart';
 import 'package:lca/widgets/app_bar/appbar_title.dart';
 import 'package:lca/widgets/app_bar/custom_app_bar.dart';
 import 'package:lca/widgets/custom_button_style.dart';

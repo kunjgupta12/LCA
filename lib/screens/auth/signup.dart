@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:lca/api/api.dart';
+import 'package:lca/api/device/device_list.dart';
 import 'package:lca/api/auth/auth_repository.dart';
 import 'package:lca/api/auth/services/register_service.dart';
 import 'package:lca/screens/auth/login.dart';

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../widgets/utils/notification.dart';
+import 'notification.dart';
 class Firebaseservices{
   void startservices(){
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {

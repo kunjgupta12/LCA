@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/api.dart';
+import 'package:lca/api/device/device_list.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
 import 'package:lca/screens/device/register_device.dart';

@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:lca/api/config.dart';
 import 'package:lca/api/device/functions.dart';
 import 'package:lca/api/token_shared_pref.dart';
 import 'package:lca/model/device/device.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/bottom_nav/frame_nineteen_container_screen.dart';
-import 'config.dart';
-
+import '../../../screens/bottom_nav/frame_nineteen_container_screen.dart';
 class DeviceDataService {
   Future<List<dynamic>> fetchData(token) async {
     return await fetchAndCacheData(token.toString());

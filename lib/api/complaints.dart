@@ -7,26 +7,19 @@ import 'package:lca/model/complaint/complaint_detail_model.dart';
 import 'package:lca/model/complaint/complaint_register_model.dart';
 import 'package:lca/model/device/device.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
-import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'config.dart';
 
 Future<int> complaint_count_closed(String token) async {
   final String apiUrl = '$complaint_count_api';
-  // Replace with your actual API key
-
+  
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers: await getHeaders()
   );
   if (response.statusCode == 200) {
-    // If the server returns a 200 OK response, parse the JSON data
     var data = jsonDecode(response.body);
     print('Response data: ${data}');
     final List<dynamic> jsonData = json.decode(response.body);
@@ -42,17 +35,11 @@ Future<int> complaint_count_closed(String token) async {
 
 Future<int> complaint_count(String token) async {
   final String apiUrl = '$complaint_count_api';
-  // Replace with your actual API key
-
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers: await getHeaders()
   );
   if (response.statusCode == 200) {
     var data = jsonDecode(response.body);
@@ -67,7 +54,6 @@ Future<int> complaint_count(String token) async {
     throw Exception('Failed to load data');
   }
 
-  // Construct the URL with query parameters
 }
 
 Future<ComplaintDetail> complaint(String token) async {
@@ -79,7 +65,6 @@ Future<ComplaintDetail> complaint(String token) async {
     headers: await getHeaders()
   );
   if (response.statusCode == 200) {
-    // If the server returns a 200 OK response, parse the JSON data
     var data = jsonDecode(response.body);
     print('complaint data: ${data}');
 
@@ -105,14 +90,12 @@ Future<Complaint> register_complaint(
       headers: await getHeaders(),
       body: jsonEncode(regBody));
   if (response.statusCode == 201) {
-    // If the server returns a 200 OK response, parse the JSON data
     var data = jsonDecode(response.body);
      showToasttoast(Complaint.fromJson(data).status!.status.toString());
     Get.offAll(FrameNineteenContainerScreen());
     return Complaint.fromJson(data);
   } else {
-    // If the server did not return a 200 OK response, throw an exception.
-    throw Exception('Failed to load data');
+     throw Exception('Failed to load data');
   }
 }
 

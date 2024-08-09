@@ -47,8 +47,8 @@ class LocaleString extends Translations {
           'Submit': "Submit",
           "My Complaints": "My Complaints",
           "Complaint": "Complaint",
-          "Having Issues?\n": "Having Issues?\n",
-          "Don’t Worry,We got you!": "Don’t Worry,We got you!",
+          "Having Issues?": "Having Issues?",
+          "\nDon’t Worry,We got you!": "\nDon’t Worry,We got you!",
           "Register Complaint": "Register Complaint",
           "View Complaints": "View Complaints",
           "For further Assistance \nContact us at +910101010 ":
@@ -141,9 +141,14 @@ class LocaleString extends Translations {
           "Start from today?": "Start from today?",
           'Pump initial time': 'Pump initial time',
           'Pump recharge time': 'Pump recharge time',
-        "Days":"Days",
-        "Power On":"Power On","Power off":"Power off",'No Rain':'No Rain','Raining':'Raining', 'Low Flow': 'Low Flow',         "Please fill the form below to edit you device.\nAdd all the required details": "Please fill the form below to edit you device.\nAdd all the required details"
-    
+          "Days": "Days",
+          "Power On": "Power On",
+          "Power off": "Power off",
+          'No Rain': 'No Rain',
+          'Raining': 'Raining',
+          'Low Flow': 'Low Flow',
+          "Please fill the form below to edit you device.\nAdd all the required details":
+              "Please fill the form below to edit you device.\nAdd all the required details"
         },
         'hi_IN': {
           'User Registration': 'उपभोक्ता पंजीकरण',
@@ -185,14 +190,14 @@ class LocaleString extends Translations {
           'Supported Protocol': "कार्यरत प्रोटोकॉल",
           'MQTT': 'MQTT',
           "* Required Fields": "*अनिवार्य ",
-          "Agree to terms and conditions": "मैं नियम एवं शर्तों से सहमत हूँ", // 
+          "Agree to terms and conditions": "मैं नियम एवं शर्तों से सहमत हूँ", //
           'Submit': 'भेजें ',
           "My Complaints": 'मेरी समस्याएं',
           "Create": "दर्ज करें ",
           "Complaint": 'समस्या',
-          "Having Issues?\n": 'समस्या हो रही है?',
+          "Having Issues?": 'समस्या हो रही है?',
           "Change Password": "पासवर्ड बदलें",
-          "Don’t Worry,We got you!": ' आपके लिए हम हैं,चिंता ना करें!',
+          "\nDon’t Worry,We got you!": '\nआपके लिए हम हैं,चिंता ना करें!',
           "Register Complaint": 'शिकायत दर्ज करें',
           "View Complaints": 'शिकायतों को देखें ',
           "For further Assistance \nContact us at +910101010 ":
@@ -211,7 +216,7 @@ class LocaleString extends Translations {
           "Name": "नाम",
           "Created On": "जोड़ने की तारीख",
           "Dashboard": "डैशबोर्ड",
-          "Schedules": "प्रोग्राम", // schedules to program 
+          "Schedules": "प्रोग्राम", // schedules to program
           "< Back": "<वापस",
           "Reload": 'पुनः लोड करें',
           "Next": 'आगामी',
@@ -261,9 +266,10 @@ class LocaleString extends Translations {
           'Please Select the program and mode to create schedule':
               "कृपया शेड्यूल बनाने के लिए प्रोग्राम और मोड का चयन करें",
           "Select Days": "दिन चुनें",
-          "Days":"दिन",
+          "Days": "दिन",
           'Reset All': 'रिसेट ऑल',
-          "to follow the schedule": "प्रोग्राम का पालन करने के लिए", // schedule to program
+          "to follow the schedule":
+              "प्रोग्राम का पालन करने के लिए", // schedule to program
           "Mode": "मोड",
           'Monday': 'सोमवार',
           'Tuesday': 'मंगलवार',
@@ -283,8 +289,13 @@ class LocaleString extends Translations {
           "Start from today?": "आज से शुरू करें?",
           'Pump initial time': 'पम्प प्रारंभ समय',
           'Pump recharge time': 'पम्प रिचार्ज समय',
-          "Power On":"विधुत ON","Power off":"विधुत OFF",'No Rain':'बारिश नहीं','Raining':'बारिश', 'Low Flow':'धीमा प्रवाह',  "Please fill the form below to edit you device.\nAdd all the required details":"कृपया अपने डिवाइस को संपादित करने के लिए नीचे दिया गया फॉर्म भरें।\nसभी आवश्यक विवरण जोड़ें"
-        
+          "Power On": "विधुत ON",
+          "Power off": "विधुत OFF",
+          'No Rain': 'साफ़ मौसम',
+          'Raining': 'बारिश',
+          'Low Flow': 'Low Flow',
+          "Please fill the form below to edit you device.\nAdd all the required details":
+              "कृपया अपने डिवाइस को संपादित करने के लिए नीचे दिया गया फॉर्म भरें।\nसभी आवश्यक विवरण जोड़ें"
         },
       };
 }

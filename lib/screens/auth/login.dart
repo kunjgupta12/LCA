@@ -1,7 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lca/api/api.dart';
+import 'package:lca/api/device/device_list.dart';
 import 'package:lca/api/auth/auth_repository.dart';
 import 'package:lca/screens/auth/otp.dart';
 import 'package:lca/screens/auth/signup.dart';

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
+import 'package:lca/api/device/functions.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/model/device_status/type2.dart';
@@ -66,8 +67,6 @@ Future<type2> valve_detail_typeb(String deviceId) async {
 Future<type1?> valve_detail_type1(String deviceId) async {
   try {
     
-   SharedPreferences tokens=await SharedPreferences.getInstance();
- var token=tokens.getString('token');
   final String apiUrl = '$url/api/v1/data/$deviceId/type/1/last';
   // Replace with your actual API key
 
@@ -75,11 +74,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers: await getHeaders()
   );
   print(response.body);
   if (response.statusCode == 200) {
@@ -95,23 +90,17 @@ Future<type1?> valve_detail_type1(String deviceId) async {
   }
 }
 Future<type2> valve_detail_typea(String deviceId) async {
- SharedPreferences tokens=await SharedPreferences.getInstance();
- var token = tokens.getString('token');
   final String apiUrl = '$url/api/v1/data/${deviceId}/type/2/last';
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers:await getHeaders()
   );
   print(response.body);
   if (response.statusCode == 200) {
      var data = jsonDecode(response.body);
-    print('a ${data}');
+
      return type2.fromJson(data);
   } else {
     throw Exception('Failed to load data');

@@ -1,17 +1,15 @@
 import 'dart:convert';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/api.dart';
+import 'package:get/get.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/device/functions.dart';
 import 'package:lca/model/auth/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
-import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> update_user(
+Future<void> update_user(BuildContext context,
     String token,
     String emailController,
     String? passwordController,
@@ -62,7 +60,7 @@ Future<void> update_user(
 
       showToasttoast('Updated');
       Get.offAll(FrameNineteenContainerScreen());
-    }
+    }else{showToast(context, response.body);}
   } catch (e) {
     showToasttoast(e.toString());
   }

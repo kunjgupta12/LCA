@@ -248,7 +248,7 @@ class _EditState extends State<Edit> {
                       ),
                       CustomElevatedButton(
                         onPressed: () async {
-                          await update_user(
+                          await update_user(context,
                             widget.token,
                             email.text,
                             show_enabled ? password.text : null,

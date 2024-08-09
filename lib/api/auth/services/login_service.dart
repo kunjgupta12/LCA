@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/api.dart';
+import 'package:lca/api/device/device_list.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/model/auth/login_model.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
@@ -41,7 +42,7 @@ Future<void> loginApi(Map<String, dynamic> reqBody, ValueNotifier<String?> myTok
 
         if (token != null) {
           await messaging.subscribeToTopic('${loginModel.data?.user?.id}-');
-          print("Subscribed to topic: ${loginModel.data?.user?.id}");
+          log("Subscribed to topic: ${loginModel.data?.user?.id}");
         }
       } else {
         errorMessage.value = jsonResponse['message'];
