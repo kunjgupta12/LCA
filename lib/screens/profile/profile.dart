@@ -64,7 +64,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       File image = File(pickedFile.path);
-      String url = image_upload; // Replace with your API endpoint
+      String url = imageUpload; // Replace with your API endpoint
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse(url),

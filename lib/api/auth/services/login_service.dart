@@ -10,8 +10,12 @@ import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-Future<void> loginApi(Map<String, dynamic> reqBody, ValueNotifier<String?> myToken, ValueNotifier<String?> errorMessage, ValueNotifier<bool> isLoading,BuildContext context
-) async {
+Future<void> loginApi(
+    Map<String, dynamic> reqBody,
+    ValueNotifier<String?> myToken,
+    ValueNotifier<String?> errorMessage,
+    ValueNotifier<bool> isLoading,
+    BuildContext context) async {
   isLoading.value = true;
 
   try {
@@ -34,7 +38,8 @@ Future<void> loginApi(Map<String, dynamic> reqBody, ValueNotifier<String?> myTok
         await prefs.setString('image', loginModel.data?.user?.imgUrl ?? '');
         await prefs.setString('token', myToken.value!);
 
-        showToast(context,'Logged In with ${loginModel.data?.user?.email ?? ''}');
+        showToast(
+            context, 'Logged In with ${loginModel.data?.user?.email ?? ''}');
         await DeviceDataService().fetchData(jsonResponse['token']);
 
         final FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -46,16 +51,16 @@ Future<void> loginApi(Map<String, dynamic> reqBody, ValueNotifier<String?> myTok
         }
       } else {
         errorMessage.value = jsonResponse['message'];
-        showToast(context,jsonResponse['message']);
+        showToast(context, jsonResponse['message']);
       }
     } else {
       final jsonResponse = jsonDecode(response.body);
       errorMessage.value = jsonResponse['message'] ?? 'An error occurred';
-      showToast(context,errorMessage.value!);
+      showToast(context, errorMessage.value!);
     }
   } catch (e) {
     errorMessage.value = 'An error occurred: $e';
-    showToast(context,errorMessage.value!);
+    showToast(context, errorMessage.value!);
   } finally {
     isLoading.value = false;
   }

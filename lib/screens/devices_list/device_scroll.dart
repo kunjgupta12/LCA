@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
+import 'package:lca/api/device/device_list.dart';
+import 'package:lca/api/device/functions.dart';
 import 'package:lca/api/formatter.dart';
-import 'package:lca/api/token_shared_pref.dart';
+import 'package:lca/api/language_shared_pref.dart';
 import 'package:lca/main.dart';
 import 'package:lca/model/device/device.dart';
 import 'package:get/get.dart';
@@ -342,25 +344,3 @@ String? stored_lang_home;
   }
 }
 
-Future<ApiResponse> fetchDevices(int pageNumber) async {
-  String? token;
-
-  SharedPreferences prefss = await SharedPreferences.getInstance();
-  token = prefss.getString('token');
-  print(token);
-
-  final response = await http.get(
-    Uri.parse('${devices}?pageNumber=$pageNumber&pageSize=10'),
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-  );
-
-  if (response.statusCode == 200) {
-    return ApiResponse.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load devices');
-  }
-}

@@ -11,7 +11,7 @@ import 'package:lca/widgets/utils/showtoast.dart';
 import 'config.dart';
 
 Future<int> complaint_count_closed(String token) async {
-  final String apiUrl = '$complaint_count_api';
+  final String apiUrl = '$complaintCountApi';
   
   final Uri uri = Uri.parse(apiUrl);
 
@@ -34,7 +34,7 @@ Future<int> complaint_count_closed(String token) async {
 }
 
 Future<int> complaint_count(String token) async {
-  final String apiUrl = '$complaint_count_api';
+  final String apiUrl = '$complaintCountApi';
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
@@ -57,7 +57,7 @@ Future<int> complaint_count(String token) async {
 }
 
 Future<ComplaintDetail> complaint(String token) async {
-  final String apiUrl = '$complaint_get';
+  final String apiUrl = '$complaintGet';
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
@@ -84,7 +84,7 @@ Future<Complaint> register_complaint(
     "description": des
   };
 
-  final Uri uri = Uri.parse(complaint_regiaster);
+  final Uri uri = Uri.parse(complaintRegister);
 
   final response = await http.post(uri,
       headers: await getHeaders(),

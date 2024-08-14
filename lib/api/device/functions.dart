@@ -22,7 +22,7 @@ class DeviceService {
 
   Future<void> registerDevice(Map<String, dynamic> regBody, String token,BuildContext context) async {
     var response = await http.post(
-      Uri.parse(device_register),
+      Uri.parse(deviceRegister),
       headers: await getHeaders(),
       body: jsonEncode(regBody),
     );
@@ -32,7 +32,7 @@ class DeviceService {
 
   Future<void> updateDevice(String id, Map<String, dynamic> regBody, String token,BuildContext context) async {
     var response = await http.put(
-      Uri.parse('$device_register$id'),
+      Uri.parse('$deviceRegister$id'),
       headers: await getHeaders(),
       body: jsonEncode(regBody),
     );
@@ -42,7 +42,7 @@ class DeviceService {
 
   Future<void> deleteDevice(String id,BuildContext context) async {
     var response = await http.delete(
-      Uri.parse('$get_device/$id'),
+      Uri.parse('$deviceRegister/$id'),
       headers: await getHeaders(),
     );
 
@@ -51,7 +51,7 @@ class DeviceService {
 
   Future<Device> fetchDevice(int id) async {
     var response = await http.get(
-      Uri.parse('$get_device/$id'),
+      Uri.parse('$getDevice/$id'),
       headers: await getHeaders(),
     );
 
@@ -73,5 +73,6 @@ class DeviceService {
     } else {
       showToast(context,jsonResponse['message'] ?? 'Something went wrong');
     }
+    print(response.body);
   }
 }

@@ -11,20 +11,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 Future<DeviceStatus?> device_detail(String deviceId) async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  String token = sharedPreferences.getString('token').toString();
-  final String apiUrl = '$url/api/v1/data/${deviceId}/type/4/last';
-  // Replace with your actual API key
-
+   final String apiUrl = '$url/api/v1/data/${deviceId}/type/4/last';
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers: await getHeaders()
   );
   print(response.body);
   if (response.statusCode == 200) {
@@ -37,30 +29,21 @@ Future<DeviceStatus?> device_detail(String deviceId) async {
 }
 
 Future<type2> valve_detail_typeb(String deviceId) async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  String token = sharedPreferences.getString('token').toString();
-  final String apiUrl = '$url/api/v1/data/${deviceId}/type/3/last';
+   final String apiUrl = '$url/api/v1/data/${deviceId}/type/3/last';
   // Replace with your actual API key
 
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
     uri,
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
+    headers:await  getHeaders()
   );
   print(response.body);
   if (response.statusCode == 200) {
-    // If the server returns a 200 OK response, parse the JSON data
-    var data = jsonDecode(response.body);
+   var data = jsonDecode(response.body);
     print('b: ${data}');
-    //sharedPreferences.setString('durationb',type3.);
     return type2.fromJson(data);
   } else {
-    // If the server did not return a 200 OK response, throw an exception.
     throw Exception('Failed to load data');
   }
 }
@@ -68,8 +51,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
   try {
     
   final String apiUrl = '$url/api/v1/data/$deviceId/type/1/last';
-  // Replace with your actual API key
-
+ 
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(

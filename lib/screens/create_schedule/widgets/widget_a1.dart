@@ -15,6 +15,8 @@ import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 
 ///
+  List<Color> _colorContainera1 = List.generate(7, (index) => Colors.white);
+  
 int? _selectedButtonIndex = 1;
 TimeOfDay _selectedTime = TimeOfDay(hour: 00, minute: 00);
 TimeOfDay _selectedTime2 = TimeOfDay(hour: 00, minute: 00);
@@ -118,9 +120,7 @@ class A1State extends State<a1> {
       }
     }
   }
-
-  List<Color> _colorContainera1 = List.generate(7, (index) => Colors.white);
-  @override
+@override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return Column(

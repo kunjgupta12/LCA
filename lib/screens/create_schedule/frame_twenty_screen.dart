@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:lca/api/device/device_status_api.dart';
-import 'package:lca/api/schedule.dart';
+import 'package:lca/api/schedule/get_schedule.dart';
+import 'package:lca/api/schedule/schedule_provider.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
@@ -10,7 +11,6 @@ import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
-import 'package:lca/widgets/utils/messages.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
@@ -24,31 +24,34 @@ ProgramB programB = ProgramB();
 ProgramA programA = ProgramA();
 Schedule schedule = Schedule();
 OverlayEntry? overlayEntry;
- String get formattedTime {
-    final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
-    final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
-  }
-  int _remainingSeconds = 540; // 9 minutes in seconds
-  
+String get formattedTime {
+  final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
+  final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
+  return '$minutes:$seconds';
+}
+
+int _remainingSeconds = 540; // 9 minutes in seconds
+
 class FrameTwentyScreen extends StatefulWidget {
   final String? token;
   final int? id;
-int valve;
-  FrameTwentyScreen({Key? key, this.id, this.token,required this.valve}) : super(key: key);
+  int valve;
+  FrameTwentyScreen({Key? key, this.id, this.token, required this.valve})
+      : super(key: key);
 
   @override
   State<FrameTwentyScreen> createState() => _FrameTwentyScreenState();
 }
 
-  bool isChecked = false;
-  TimeOfDay? a1_end = TimeOfDay(hour: 0, minute: 0);
+bool isChecked = false;
+TimeOfDay? a1_end = TimeOfDay(hour: 0, minute: 0);
+
 class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   final GlobalKey<A1State> childKeya1 = GlobalKey<A1State>();
   final TextEditingController pumpstarttime = TextEditingController();
   final TextEditingController pumprechargetime = TextEditingController();
   final GlobalKey<a1State> childKeya2 = GlobalKey<a1State>();
- 
+
   late CreateScheduleProvider createSchedule;
   Timer? _timer;
 
@@ -58,7 +61,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   @override
   void initState() {
     super.initState();
-    createSchedule = Provider.of<CreateScheduleProvider>(context, listen: false);
+    createSchedule =
+        Provider.of<CreateScheduleProvider>(context, listen: false);
     createSchedule.addListener(_handleLoadingChange);
   }
 
@@ -70,8 +74,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     });
     _stopTimer();
     createSchedule.removeListener(_handleLoadingChange);
-  overlayEntry?.remove();
-  
+    overlayEntry?.remove();
+
     super.dispose();
   }
 
@@ -86,8 +90,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
       setState(() {
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
-        
-          overlayEntry!.markNeedsBuild();
+
+         // overlayEntry!.markNeedsBuild();
         } else {
           _stopTimer();
           overlayEntry!.remove();
@@ -100,9 +104,6 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     _timer?.cancel();
   }
 
-
- 
-
   void _handleValueChanged(int value) {
     setState(() {
       _selectedValue = value;
@@ -111,7 +112,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
 
   Future<void> _onSubmit() async {
     if (createSchedule.isLoading) {
-      showToast(context,'Please wait for some time');
+      showToast(context, 'Please wait for some time');
     } else {
       showDialog(
         context: context,
@@ -135,7 +136,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                       textInputType: TextInputType.number,
                       validator: (value) {
                         final number = int.tryParse(value!);
-                        if (value.isEmpty || number == null || number < 5 || number > 90) {
+                        if (value.isEmpty ||
+                            number == null ||
+                            number < 5 ||
+                            number > 90) {
                           return 'Please enter in range of 5 to 90';
                         }
                         return null;
@@ -151,7 +155,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                       textInputType: TextInputType.number,
                       validator: (value) {
                         final number = int.tryParse(value!);
-                        if (value.isEmpty || number == null || number < 1 || number > 1440) {
+                        if (value.isEmpty ||
+                            number == null ||
+                            number < 1 ||
+                            number > 1440) {
                           return 'Please enter in range of 1 to 1440';
                         }
                         return null;
@@ -207,16 +214,12 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                     if (deviceStatus != null) {
                       if (deviceStatus!.c!.ms == 1) {
                         createSchedule.createSchedule(
-                          widget.token!,
-                          widget.id!,
-                          schedule,context
-                        );
-                     
+                            widget.token!, widget.id!, schedule, context);
                       } else {
-                        showToast(context,'Mains off/Power Off');
+                        showToast(context, 'Mains off/Power Off');
                       }
                     } else {
-                      showToast(context,'Device not configured');
+                      showToast(context, 'Device not configured');
                     }
                   },
                   child: Text(
@@ -255,7 +258,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
             ),
           ),
           SizedBox(height: 30),
-          Container(
+     Container(
             width: 315,
             margin: const EdgeInsets.symmetric(horizontal: 62),
             child: Text(
@@ -265,8 +268,21 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
               textAlign: TextAlign.center,
               style: CustomTextStyles.bodyLargeDMSansRegular,
             ),
-          ),
-          SizedBox(height: 39),
+          ) ,
+       SizedBox(height: 10,),   formattedTime =='09:00' ||   formattedTime =='00:00' ? Text(''): Container(
+            width: 200,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.7),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(
+              child: Text(
+                formattedTime,
+                style: TextStyle(fontSize: 48, color: Colors.white),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -296,11 +312,10 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                    index != 0
-                        ? childKeya1.currentState!.updateA()
-                    :
-                        childKeya2.currentState!.updateB();
-                      
+                      index != 0
+                          ? childKeya1.currentState!.updateA()
+                          : childKeya2.currentState!.updateB();
+
                       _handleValueChanged(index);
                     });
                   },
@@ -324,7 +339,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: _selectedValue == index ? Colors.blue : Colors.white,
+                      color:
+                          _selectedValue == index ? Colors.blue : Colors.white,
                       borderRadius: BorderRadiusStyle.roundedBorder10,
                       boxShadow: [
                         BoxShadow(
@@ -362,7 +378,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                   SizedBox(height: 10),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 5.h, vertical: 5),
-                    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 28),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 9, vertical: 28),
                     decoration: AppDecoration.ko.copyWith(
                       borderRadius: BorderRadiusStyle.roundedBorder52,
                     ),
@@ -374,19 +391,21 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                           padding: EdgeInsets.only(left: 5),
                           child: Text(
                             "Program".tr,
-                            style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
+                            style: CustomTextStyles
+                                .headlineSmallDMSansBlack90001Bold,
                           ),
                         ),
                         const SizedBox(height: 10),
                         _buildProgramsGrid(context),
                         _selectedValue == 0
-                            ? a1(valve: widget.valve,
+                            ? a1(
+                                valve: widget.valve,
                                 key: childKeya1,
                                 end: a1_end,
-                                transition: _selectedValue,
-                               
+                                
                               )
-                            : a2(valve:widget.valve,
+                            : a2(
+                                valve: widget.valve,
                                 starttime: a1_end,
                                 id: widget.id,
                                 key: childKeya2,
@@ -400,7 +419,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                         text: 'SUBMIT'.tr,
                         buttonStyle: value.isLoading
                             ? CustomButtonStyles.fillOrangeA.copyWith(
-                                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith((states) {
                                   if (states.contains(MaterialState.pressed)) {
                                     return Colors.grey;
                                   }
@@ -408,7 +428,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                 }),
                               )
                             : CustomButtonStyles.fillOrangeATL15.copyWith(
-                                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith((states) {
                                   if (states.contains(MaterialState.pressed)) {
                                     return Colors.green;
                                   }
@@ -421,7 +442,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
+                        buttonTextStyle:
+                            CustomTextStyles.headlineSmallPoppinsWhiteA70001,
                       );
                     },
                   ),

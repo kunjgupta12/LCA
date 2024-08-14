@@ -23,7 +23,7 @@ Future<void> update_user(BuildContext context,
     String lat,
     String long,
     String city) async {
-  final String apiUrl = user_update;
+  final String apiUrl = userUpdate;
   Map<String, dynamic> regBody = {
     "email": emailController,
     "passwordText": passwordController,

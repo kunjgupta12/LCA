@@ -3,15 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/device/functions.dart';
-import 'package:lca/api/token_shared_pref.dart';
 import 'package:lca/model/device/device.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../screens/bottom_nav/frame_nineteen_container_screen.dart';
 class DeviceDataService {
   Future<List<dynamic>> fetchData(token) async {
     return await fetchAndCacheData(token.toString());
   }
-
   Future<ApiResponse> deviceslist(String token) async {
     try {
       var response =
@@ -36,7 +33,6 @@ class DeviceDataService {
         Get.off(FrameNineteenContainerScreen(
           devices: response.body.length,
         ));
-
         return json.decode(response.body);
       } else {
         throw Exception('Failed to load data');
@@ -44,5 +40,18 @@ class DeviceDataService {
     } catch (e) {
       return [];
     }
+  }
+}
+Future<ApiResponse> fetchDevices(int pageNumber) async {
+  
+  final response = await http.get(
+    Uri.parse('${devices}?pageNumber=$pageNumber&pageSize=10'),
+    headers: await getHeaders()
+  );
+
+  if (response.statusCode == 200) {
+    return ApiResponse.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load devices');
   }
 }

@@ -100,9 +100,7 @@ class a1State extends State<a2> {
           starttime2b.text = _selectedTime2.hour.toString().padLeft(2, '0') +
               ":" +
               _selectedTime2.minute.toString().padLeft(2, '0');
-          // totalh = _selectedTime.hour;
-          // totalh += _selectedTime.hour.toInt();
-        });
+            });
       } 
        else if (picked2.hour * 60 + picked2.minute <
               totalh! * 60 +
@@ -165,7 +163,7 @@ class a1State extends State<a2> {
                     child: Container(
                       height: 250.v,
                       width: 1552.h,
-                      child: Center(
+                      child:  Center(
                           child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -225,8 +223,9 @@ class a1State extends State<a2> {
               ),TextButton(
                 onPressed: () {
                   setState(() {
+                    _selectedTime2=TimeOfDay(hour: 0, minute: 0);
                     _selectedTime = TimeOfDay(hour: 0, minute: 0);
-                    starttime.text = '00:00';
+                  starttimeb.text='00:00';
                     for (int i = 0; i < _colorContainer.length; i++) {
                       _colorContainer[i] = Colors.white;
                     }for (int i = 0; i < 12; i++) {

@@ -6,7 +6,6 @@ import 'package:lca/api/config.dart';
 import 'package:lca/api/device/functions.dart';
 import 'package:lca/model/complaint/complaint_issue.dart';
 import 'package:lca/screens/devices_list/device_scroll.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 class IssueProvider with ChangeNotifier {
   List<Issue> _issues = [];
@@ -23,8 +22,7 @@ class IssueProvider with ChangeNotifier {
      _isLoading = true;
     notifyListeners();
     final String apiUrl = '$url/api/v1/category/';
-    // Replace with your actual API key
-    _errorMessage = null;
+   _errorMessage = null;
     final Uri uri = Uri.parse(apiUrl);
   try {
       final response = await http.get(

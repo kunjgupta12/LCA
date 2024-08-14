@@ -296,7 +296,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
 
                                           return Container(
                                             width: 550.h,
-                                            height: widget.valve_no! * 38,
+                                            height:widget.valve_no!=null ? widget.valve_no! * 38 :100,
                                             child: PageView(children: [
                                               if (snapshot.data!.c.m[0] != 0)
                                                 _valve(
@@ -862,7 +862,25 @@ class _FrameEightPageState extends State<FrameEightPage> {
   /// Section Widget
   Widget _buildValveColumn3(p,BuildContext context,type4p, num, int status, int rsf,
       int duration, int balanace, int complete) {
-    if (rsf == 1) {
+         if (complete == 1){
+       return      Padding(
+          padding: EdgeInsets.only(right: 10.h),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              "Valve ${num}",
+              style: theme.textTheme.bodyLarge,
+            ),
+            SizedBox(height: 2.v),
+            Container(
+              decoration: BoxDecoration(
+                  color:duration !=0 ? Colors.green[600] : Colors.grey,
+                  borderRadius: BorderRadius.circular(10)),
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ]));}
+   else if (rsf == 1) {
       if (duration != 0) {
         return Padding(
           padding: EdgeInsets.only(right: 10.h),
@@ -875,15 +893,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
               ),
               SizedBox(height: 2.v),
             
-              if (complete == 1)
-                Container(
-                  decoration: BoxDecoration(
-                      color: appTheme.green600,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 10,
-                )
-                else if(p=='A'&&type4p =='B')
+             
+                 if(p=='A'&&type4p =='B')
                  Container(
                   decoration: BoxDecoration(
                       color: appTheme.green600,

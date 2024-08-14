@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:lca/api/token_shared_pref.dart';
+import 'package:lca/api/language_shared_pref.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/image_constant.dart';

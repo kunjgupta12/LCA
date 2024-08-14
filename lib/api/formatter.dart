@@ -5,5 +5,5 @@ String formatTime(String timeString) {
   DateTime time = DateTime.parse(timeString);
 
   // Format the time using the desired format
-  return DateFormat('dd MMMM yyyy').format(time); // Example: 01:30 PM
+  return DateFormat('dd MMMM yyyy').format(time);
 }
