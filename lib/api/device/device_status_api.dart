@@ -7,7 +7,6 @@ import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/model/device_status/type2.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 Future<DeviceStatus?> device_detail(String deviceId) async {
@@ -69,6 +68,24 @@ Future<type1?> valve_detail_type1(String deviceId) async {
   }}catch (e) {
    showToasttoast('Waiting for device to respond');
     
+  }
+}
+Future<void> resetValve(deviceId) async{
+   final String apiUrl = '$url/device/${deviceId}/reset';
+  final Uri uri = Uri.parse(apiUrl);
+ Map<String, dynamic> regBody = {'lfr':"1"};
+  final response = await http.post(
+    body: jsonEncode(regBody),
+    uri,
+    headers:await getHeaders()
+  );
+  print(response.body);
+  if (response.statusCode == 200) {
+     var data = jsonDecode(response.body);
+
+   
+  } else {
+    throw Exception('Failed to load data');
   }
 }
 Future<type2> valve_detail_typea(String deviceId) async {

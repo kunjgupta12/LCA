@@ -736,6 +736,33 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           CustomElevatedButton(
+                                            text: 'Flow Reset'.tr,
+                                            onPressed: () async{
+
+                                              resetValve(widget.id);
+
+                                            },
+                                            height: 50,
+                                            buttonTextStyle: CustomTextStyles
+                                                .headlineSmallDMSansBlack90001Bold,
+                                            buttonStyle: CustomButtonStyles
+                                                .fillOrangeA
+                                                .copyWith(
+                                              backgroundColor:
+                                                  WidgetStateProperty
+                                                      .resolveWith((states) {
+                                                // If the button is pressed, return green, otherwise blue
+                                                if (states.contains(
+                                                    WidgetState.pressed)) {
+                                                  return Colors.white;
+                                                }
+                                                return Colors.white;
+                                              }),
+                                            ),
+                                          ),
+                                          Divider(),
+                                          
+                                          CustomElevatedButton(
                                             text: 'Update Device'.tr,
                                             onPressed: () {
                                               Navigator.of(context).push(

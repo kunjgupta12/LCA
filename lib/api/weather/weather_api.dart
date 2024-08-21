@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/weather/weather_model.dart';
 
 Future<Weather> fetchData(String query) async {
-  final String apiKey = '28c4784792a8416ba8e101453241605';
+  final String? apiKey = dotenv.env['WEATHER_API_KEY'];
   final String apiUrl =
       'http://api.weatherapi.com/v1/forecast.json?q=$query&key=$apiKey';
   // Replace with your actual API key

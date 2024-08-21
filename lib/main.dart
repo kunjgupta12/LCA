@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:lca/api/auth/auth_repository.dart';
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/issues_des/issue_repository.dart';
-import 'package:lca/api/schedule/get_schedule.dart';
 import 'package:lca/api/schedule/schedule_provider.dart';
 import 'package:lca/api/language_shared_pref.dart';
 import 'package:lca/screens/splash_screen.dart';
 import 'package:lca/services/push_notification.dart';
 import 'package:lca/widgets/theme_helper.dart';
-import 'package:lca/services/notification.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +19,7 @@ import 'screens/language_select/locateregister.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -48,9 +47,9 @@ void main() async {
   try {
     await dotenv.load(fileName: '.env');
   } catch (e) {
-    log(e.toString())
-;  }
- 
+    log(e.toString());
+  }
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -73,16 +72,16 @@ void main() async {
       ],
       child: MyApp(
         token: prefs.getString('token'),
-        devices: prefs.getInt('device'),
+    
       )));
 }
 
 class MyApp extends StatelessWidget {
   final token;
-  final devices;
+  
   const MyApp({
     @required this.token,
-    this.devices,
+  
     Key? key,
   }) : super(key: key);
 
