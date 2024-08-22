@@ -16,7 +16,6 @@ class CreateScheduleProvider extends ChangeNotifier {
   bool _isLoading = false;
   String? _errorMessage = null;
   bool get isLoading => _isLoading;
-  bool _isDisposed = false;
 
   String? get errorMessage => _errorMessage;
   String createSchedule(myToken, deviceId, Schedule schedule,BuildContext context) {

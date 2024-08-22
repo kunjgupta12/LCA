@@ -26,12 +26,12 @@ class UpdateDevice extends StatefulWidget {
   State<UpdateDevice> createState() => _UpdateDeviceState();
 }
 
+  TextEditingController? nameController ;
 class _UpdateDeviceState extends State<UpdateDevice> {
-  TextEditingController? nameController = TextEditingController();
   @override
   void initState() {
     getGeoLocationPosition();
-    gettoken();
+  nameController = TextEditingController();
     super.initState();
   }
 
@@ -51,10 +51,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
   String? latlong;
   TextEditingController address = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  void gettoken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token');
-  }
+ 
 
   int? selectedValue=1;
   int? _selectedValue=5;
@@ -621,7 +618,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
           Container(
             decoration: AppDecoration.outlineBlack,
             child: Text(
-              "Register Device".tr,
+              "Update Device".tr,
               style: CustomTextStyles.displayMedium48,
             ),
           ),
@@ -670,8 +667,8 @@ class _UpdateDeviceState extends State<UpdateDevice> {
                 ///  setState(() {
                     latitude.text =
                         "${position!.longitude.toString() + "," + position!.latitude.toString()}";
-                    latitudedb.text = "${position!.longitude.toString()}";
-                    longitudedb.text = "${position!.latitude.toString()}";
+                    latitudedb.text = "${position!.latitude.toString()}";
+                    longitudedb.text = "${position!.longitude.toString()}";
                     region.text = place!.administrativeArea.toString();
                     pincode.text = place!.postalCode.toString();
                     city.text = place!.locality.toString();

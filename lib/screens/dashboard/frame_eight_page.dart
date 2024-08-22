@@ -69,7 +69,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
     _startTimer();
 
     _futureWeatherData = fetchData(widget.para.toString());
-    getWeatherData(); // Adjust the query as needed
+   
   }
 
   Timer? _timer;
@@ -296,22 +296,22 @@ class _FrameEightPageState extends State<FrameEightPage> {
 
                                           return Container(
                                             width: 550.h,
-                                            height:widget.valve_no!=null ? widget.valve_no! * 38 :100,
+                                            height: snapshot.data!.c.vc * 40,
                                             child: PageView(children: [
                                               if (snapshot.data!.c.m[0] != 0)
-                                                _valve(
+                                                _valve( snapshot.data!.c.vc,
                                                     dataprovider.data!.c!,
                                                     dataprovider,
                                                     snapshot.data,
                                                     'A',
-                                                    snapshot.data!.c.m[0]),
+                                                    snapshot.data!.c.m[0],0),
                                               if (snapshot.data!.c.m[1] != 0)
-                                                _valve(
+                                                _valve( snapshot.data!.c.vc,
                                                     dataprovider.data!.c!,
                                                     dataprovider,
                                                     snapshot.data,
                                                     'B',
-                                                    snapshot.data!.c.m[1]),
+                                                    snapshot.data!.c.m[1],1),
                                             ]),
                                           );
                                         }),
@@ -333,7 +333,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
     );
   }
 
-  Widget _valve(status, dataprovider, type1? type1data, String p, type) {
+  Widget _valve(valvecount,status, dataprovider, type1? type1data, String p, type,index_v) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -369,13 +369,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
                     children: [
                       Container(
                         decoration: AppDecoration.outlinePrimary,
-                        child: Text(
-                          "Program".tr + p,
+                        child: Text(index_v ==0?
+                          "Program A".tr :"Program B".tr,
                           style: CustomTextStyles.headlineSmallRedA70001,
                         ),
                       ),
                       CustomOutlinedButton(
-                        width: 148.h,
+                        width: 152.h,
                         text: type == 1 ? "Irrigation".tr : "Fertilization".tr,
                         buttonStyle:
                             CustomButtonStyles.outlineWhiteATL15.copyWith(
@@ -385,7 +385,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           }),
                         ),
                         buttonTextStyle:
-                            CustomTextStyles.titleMediumWhiteA70001,
+                           TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15),
                       )
                     ],
                   ),
@@ -403,14 +403,16 @@ class _FrameEightPageState extends State<FrameEightPage> {
                       crossAxisSpacing: 18.h,
                     ),
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.valve_no,
+                    itemCount:valvecount,
                     itemBuilder: (context, index) {
-                      return _buildValveColumn3(p,
-                          context,status.p,
+                      return _buildValveColumn3(
+                          p,
+                          context,
+                          status.p,
                           index + 1,
                           status.v ?? 0,
                           status.rsf ?? 0,
-                          status.p == 'A'
+                         index_v==0
                               ? dataprovider.type2a!.c.vd![index]
                               : dataprovider.type3b!.c.vd![index],
                           status.bal!.toInt(),
@@ -436,16 +438,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
         ),
       ],
     );
-  }
-
-  Future<Weather?> getWeatherData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonString = prefs.getString('weather');
-    print('stored data:${jsonString}');
-    if (jsonString != null) {
-      return Weather.fromJson(jsonDecode(jsonString));
-    }
-    return null;
   }
 
   /// Section Widget
@@ -737,10 +729,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                         children: [
                                           CustomElevatedButton(
                                             text: 'Flow Reset'.tr,
-                                            onPressed: () async{
-
+                                            onPressed: () async {
                                               resetValve(widget.id);
-
                                             },
                                             height: 50,
                                             buttonTextStyle: CustomTextStyles
@@ -761,7 +751,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                             ),
                                           ),
                                           Divider(),
-                                          
                                           CustomElevatedButton(
                                             text: 'Update Device'.tr,
                                             onPressed: () {
@@ -792,8 +781,10 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                           ),
                                           Divider(),
                                           CustomElevatedButton(
-                                            onPressed: () => Devices().deleteDevice(
-                                                widget.id.toString(),context),
+                                            onPressed: () => Devices()
+                                                .deleteDevice(
+                                                    widget.id.toString(),
+                                                    context),
                                             text: 'Delete Device'.tr,
                                             height: 50,
                                             buttonTextStyle: CustomTextStyles
@@ -887,10 +878,10 @@ class _FrameEightPageState extends State<FrameEightPage> {
   int? num;
 
   /// Section Widget
-  Widget _buildValveColumn3(p,BuildContext context,type4p, num, int status, int rsf,
-      int duration, int balanace, int complete) {
-         if (complete == 1){
-       return      Padding(
+  Widget _buildValveColumn3(p, BuildContext context, type4p, num, int status,
+      int rsf, int duration, int balanace, int complete) {
+    if (complete == 1) {
+      return Padding(
           padding: EdgeInsets.only(right: 10.h),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -901,13 +892,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
             SizedBox(height: 2.v),
             Container(
               decoration: BoxDecoration(
-                  color:duration !=0 ? Colors.green[600] : Colors.grey,
+                  color: duration != 0 ? Colors.green[600] : Colors.grey,
                   borderRadius: BorderRadius.circular(10)),
               width: MediaQuery.of(context).size.width,
               height: 10,
             ),
-          ]));}
-   else if (rsf == 1) {
+          ]));
+    } else if (rsf == 1) {
       if (duration != 0) {
         return Padding(
           padding: EdgeInsets.only(right: 10.h),
@@ -919,17 +910,16 @@ class _FrameEightPageState extends State<FrameEightPage> {
                 style: theme.textTheme.bodyLarge,
               ),
               SizedBox(height: 2.v),
-            
-             
-                 if(p=='A'&&type4p =='B')
-                 Container(
+              if (p == 'A' && type4p == 'B')
+                Container(
                   decoration: BoxDecoration(
                       color: appTheme.green600,
                       borderRadius: BorderRadius.circular(10)),
                   width: MediaQuery.of(context).size.width,
                   height: 10,
-                ) else if(p=='B'&&type4p =='A')
-                 Container(
+                )
+              else if (p == 'B' && type4p == 'A')
+                Container(
                   decoration: BoxDecoration(
                       color: Colors.grey[600],
                       borderRadius: BorderRadius.circular(10)),
@@ -998,7 +988,22 @@ class _FrameEightPageState extends State<FrameEightPage> {
           ]));
     }
 
-    return CircularProgressIndicator();
+    return Padding(
+        padding: EdgeInsets.only(right: 10.h),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            "Valve ${num}",
+            style: theme.textTheme.bodyLarge,
+          ),
+          SizedBox(height: 2.v),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[600],
+                borderRadius: BorderRadius.circular(10)),
+            width: MediaQuery.of(context).size.width,
+            height: 10,
+          ),
+        ]));
   }
 
   /// Common widget

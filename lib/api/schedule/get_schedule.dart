@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:lca/widgets/utils/showtoast.dart';
 
 Future<List<GetSchedule>> schedule_get(int deviceId, String token) async {
-  final String apiUrl = '$url+/api/v1/schedule/all/"+$deviceId';
+  final String apiUrl = '$url/api/v1/schedule/all/$deviceId';
   final Uri uri = Uri.parse(apiUrl);
 
   final response = await http.get(
