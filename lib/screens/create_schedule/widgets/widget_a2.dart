@@ -15,6 +15,13 @@ import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:get/get.dart';
   TextEditingController starttimeb = TextEditingController();
 
+  int? _selectedButtonIndex = 1;
+  TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
+  TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+  List<TimeOfDay> selectedTimes =
+      List.generate(12, (index) => const TimeOfDay(hour: 0, minute: 0));
+int? totalm = 0;
+  int? totalh = 0;
   TextEditingController starttime2b = TextEditingController();
 List<Color> _colorContainer = List.generate(7, (index) => Colors.white);
 
@@ -28,14 +35,7 @@ class a2 extends StatefulWidget {
 }
 
 class a1State extends State<a2> {
-  int? totalm = 0;
-  int? totalh = 0;
-
-  int? _selectedButtonIndex = 1;
-  TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
-  TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
-  List<TimeOfDay> selectedTimes =
-      List.generate(12, (index) => const TimeOfDay(hour: 0, minute: 0));
+  
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(

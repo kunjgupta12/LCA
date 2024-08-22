@@ -704,9 +704,12 @@ class _FrameEightPageState extends State<FrameEightPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppbarTitle(
-                text: "DASHBOARD".tr,
-                margin: EdgeInsets.symmetric(vertical: 6.h),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: AppbarTitle(
+                  text: "DASHBOARD".tr,
+                  margin: EdgeInsets.symmetric(vertical: 7.h),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),

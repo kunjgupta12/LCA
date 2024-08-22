@@ -96,7 +96,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
                  country!.text = adress.country.toString();
                   region.text = adress.state.toString();
                   pincode.text = adress.pincode.toString();
-                  address.text = adress.fullAddress.toString();
+                  address.text = adress.fullAddress=='null'? adress.fullAddress.toString() :'';
                   return Sizer(builder: (context, orientation, deviceType) {
                     return SizedBox(
                       child: SingleChildScrollView(
@@ -378,7 +378,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
                                               height: 2,
                                             ),
                                       const SizedBox(height: 2),
-                                            Text('This expansion count will reflect on next schedule save',style: CustomTextStyles.bodyLargeDMSansRegular,),
+                                     selectedValue == 1 ?          Text('This expansion count will reflect on next schedule save',style: CustomTextStyles.bodyLargeDMSansRegular,):Text(""),
                       
                                       _buildLatitudeSection(context),
                                       const SizedBox(height: 5),
