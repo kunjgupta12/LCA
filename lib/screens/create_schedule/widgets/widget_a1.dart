@@ -603,9 +603,7 @@ ProgramA updateA() {
         valve11: valves[10],
         valve12: valves[11],
       );
-    } else {
-      programA = null as ProgramA;
-    }
+    } 
   });
 
   return programA;

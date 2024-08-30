@@ -65,7 +65,7 @@ Future<void> resetValve(deviceId) async {
   final String apiUrl = '$url/api/v1/devices/${deviceId}/reset';
   final Uri uri = Uri.parse(apiUrl);
   Map<String, dynamic> regBody = {'lfr': "1"};
-  final response = await http.post(
+  final response = await http.put(
       body: jsonEncode(regBody), uri, headers: await getHeaders());
   print(response.body);
   if (response.statusCode == 200) {

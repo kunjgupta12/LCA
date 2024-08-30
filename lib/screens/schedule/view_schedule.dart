@@ -68,8 +68,6 @@ String ampm(int minutes) {
   String formattedTime = DateFormat.jm().format(time);
   return minutes == 0 ? '00' : formattedTime;
 }
-
-//inal GlobalKey<> childKey = GlobalKey<_A1State>();
 class _ViewScheduleState extends State<ViewScedule> {
   final GlobalKey<A1State> childKeya1 = GlobalKey<A1State>();
   GlobalKey<a1State> childKeya2 = GlobalKey<a1State>();
@@ -278,13 +276,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                   ),
                                 ),
                                 const SizedBox(height: 5),
-                                /*    Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Text(
-                                  "to follow the schedule",
-                                  style: CustomTextStyles.bodyLargeDMSans,
-                                ),
-                              ),*/
+                       
                                 SizedBox(height: 7),
                                 _buildDaysGrid(context),
                                 SizedBox(height: 45),
@@ -476,27 +468,22 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          //    _selectTime(context);
-                                        },
-                                        child: CustomTextFormField(
-                                          autofocus: false,
-                                          focusNode: FocusNode(),
-                                          controller: starttime,
-                                          enabled: false,
-                                          width: 120,
-                                          hintText: snapshot.data!.typeId == 2
-                                              ? ampm(widget.type1data!.c.st[0])
-                                              : ampm(widget.type1data!.c.st[2]),
-                                          hintStyle: CustomTextStyles
-                                              .titleMediumLibreFranklinOnPrimary,
-                                          textInputType: TextInputType.number,
-
-                                          contentPadding: EdgeInsets.only(
-                                              left: 10, top: 20),
-                                          //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
-                                        ),
+                                      CustomTextFormField(
+                                        autofocus: false,
+                                        focusNode: FocusNode(),
+                                                                            
+                                        enabled: false,
+                                        width: 120,
+                                        hintText: snapshot.data!.typeId == 2
+                                            ? ampm(widget.type1data!.c.st[0])
+                                            : ampm(widget.type1data!.c.st[2]),
+                                        hintStyle: CustomTextStyles
+                                            .titleMediumLibreFranklinOnPrimary,
+                                        textInputType: TextInputType.number,
+                                      
+                                        contentPadding: EdgeInsets.only(
+                                            left: 10, top: 20),
+                                        //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                                       ),
                                     ],
                                   ),
@@ -516,18 +503,14 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         context,
                                         widget.type1data!.c.vc,
                                         snapshot.data!.c.vd)
-                                    : (_selectedButtonIndex == 2
-                                        ? _durationfour(
+                                    :  _durationfour(
                                             context,
                                             widget.type1data!.c.vc,
                                             snapshot.data!.c.vd,
                                             snapshot.data!.c.pwd,
                                             snapshot.data!.c.frtd,
                                             snapshot.data!.c.fd)
-                                        : _durationtwo(
-                                            context,
-                                            widget.type1data!.c.vc,
-                                            snapshot.data!.c.vd)),
+                                   ,
                                 SizedBox(height: 25),
                                 Container(
                                     width: 286.h,
@@ -707,7 +690,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                 alignment: Alignment.center,
                 child: Ink(
                   child: InkWell(
-                    onTap: () {},
+                  
                     child: Container(
                       height: 250.v,
                       width: 1552.h,

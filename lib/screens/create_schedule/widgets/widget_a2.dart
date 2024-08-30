@@ -196,6 +196,8 @@ class a1State extends State<a2> {
               TextButton(
                 onPressed: () {
                   setState(() {
+               updateB().startTime=   null;
+      
                     _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
                     _selectedTime = TimeOfDay(hour: 0, minute: 0);
                     starttimeb.text = '00:00';
@@ -215,9 +217,9 @@ class a1State extends State<a2> {
                       selectedTimefer[i][2] = TimeOfDay(hour: 00, minute: 00);
                       selectedTimefer[i][1] = TimeOfDay(hour: 00, minute: 00);
                     }
-                    a1_end = TimeOfDay(hour: 00, minute: 00);
+                    a1_end = TimeOfDay(hour: 00, minute: 00); programB = updateB();
                   });
-                  programA = ProgramA();
+                
                 },
                 child: Row(
                   children: [

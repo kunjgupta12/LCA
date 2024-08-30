@@ -5,6 +5,10 @@ import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/device/devices.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
+import 'package:lca/screens/dashboard/widget/dashboard_dialog.dart';
+import 'package:lca/screens/dashboard/widget/loran_info.dart';
+import 'package:lca/screens/dashboard/widget/valve_grid.dart';
+import 'package:lca/screens/dashboard/widget/valves_indicator.dart';
 import 'package:lca/screens/device/update_device.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
@@ -70,7 +74,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
   @override
   void dispose() {
     _stopTimer();
-    deviceStatus = null;
+
     super.dispose();
   }
 
@@ -120,17 +124,10 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Consumer<DeviceProvider>(
+                          Consumer<DeviceProvider?>(
                               builder: (context, dataprovider, snapshot) {
-                            if (dataprovider.data == null) {
-                              return const Center(
-                                  child: Text(
-                                'No Live Data...',
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.green),
-                              ));
-                            } else if (deviceStatus != null) {
-                              var status = dataprovider.data!.c!;
+                            if (deviceStatus != null) {
+                              var status = dataprovider!.data!.c!;
 
                               return Container(
                                 margin: EdgeInsets.only(
@@ -178,28 +175,20 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 ),
                                                 SizedBox(height: 14.v),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 0.1.h),
-                                                  child: status.ms == 1
-                                                      ? Text("Power On".tr,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 23,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: Colors
-                                                                      .green))
-                                                      : Text("Power off".tr,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 23,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: Colors
-                                                                      .red)),
-                                                )
+                                                    padding: EdgeInsets.only(
+                                                        right: 0.1.h),
+                                                    child: Text(
+                                                        status.ms == 1
+                                                            ? "Power On".tr
+                                                            : "Power off",
+                                                        style: TextStyle(
+                                                            fontSize: 23,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: status.ms ==
+                                                                    1
+                                                                ? Colors.green
+                                                                : Colors.red)))
                                               ],
                                             ),
                                           ),
@@ -287,35 +276,37 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                             return Center(
                                                 child: Text(
                                                     'Error: ${snapshot.error}'));
-                                          } else if (snapshot.hasData ==
-                                              false) {
-                                            return Center(
-                                                child: Text(
-                                                    'Error: ${snapshot.error}'));
+                                          } else if (snapshot.hasData) {
+                                            return Container(
+                                              width: 550.h,
+                                              height: snapshot.data!.c.vc * 40,
+                                              child: PageView(children: [
+                                                if (snapshot.data!.c.m[0] != 0)
+                                                  valve(
+                                                      snapshot.data!.c.vc,
+                                                      dataprovider.data!.c!,
+                                                      dataprovider,
+                                                      snapshot.data,
+                                                      'A',
+                                                      snapshot.data!.c.m[0],
+                                                      0),
+                                                if (snapshot.data!.c.m[1] != 0)
+                                                  valve(
+                                                      snapshot.data!.c.vc,
+                                                      dataprovider.data!.c!,
+                                                      dataprovider,
+                                                      snapshot.data,
+                                                      'B',
+                                                      snapshot.data!.c.m[1],
+                                                      1),
+                                              ]),
+                                            );
                                           }
-                                          return Container(
-                                            width: 550.h,
-                                            height: snapshot.data!.c.vc * 40,
-                                            child: PageView(children: [
-                                              if (snapshot.data!.c.m[0] != 0)
-                                                _valve(
-                                                    snapshot.data!.c.vc,
-                                                    dataprovider.data!.c!,
-                                                    dataprovider,
-                                                    snapshot.data,
-                                                    'A',
-                                                    snapshot.data!.c.m[0],
-                                                    0),
-                                              if (snapshot.data!.c.m[1] != 0)
-                                                _valve(
-                                                    snapshot.data!.c.vc,
-                                                    dataprovider.data!.c!,
-                                                    dataprovider,
-                                                    snapshot.data,
-                                                    'B',
-                                                    snapshot.data!.c.m[1],
-                                                    1),
-                                            ]),
+                                          return Text(
+                                            'No Data...',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                color: Colors.green),
                                           );
                                         }),
                                     SizedBox(height: 8.v)
@@ -323,7 +314,12 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                 ),
                               );
                             }
-                            return const CircularProgressIndicator();
+                            return const Center(
+                                child: Text(
+                              'No Live Data...',
+                              style:
+                                  TextStyle(fontSize: 30, color: Colors.green),
+                            ));
                           }),
                         ],
                       ),
@@ -333,142 +329,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
           }),
         ),
       ),
-    );
-  }
-
-  Widget _valve(valvecount, status, dataprovider, type1? type1data, String p,
-      type, index_v) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomImageView(
-          imagePath: ImageConstant.imgArrowLeft,
-          color: Colors.green,
-          height: 20.v,
-          width: 12.h,
-          margin: EdgeInsets.only(
-            top: 192.v,
-            right: 5,
-            bottom: 210.v,
-          ),
-        ),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(left: 2.h),
-            padding: EdgeInsets.symmetric(
-              horizontal: 1.h,
-              vertical: 16.v,
-            ),
-            decoration: AppDecoration.fillWhiteA.copyWith(
-              borderRadius: BorderRadiusStyle.roundedBorder10,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 12.h, left: 10.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: AppDecoration.outlinePrimary,
-                            child: Text(
-                              index_v == 0 ? "Program A".tr : "Program B".tr,
-                              style: CustomTextStyles.headlineSmallRedA70001,
-                            ),
-                          ),
-                          if ((status.vn <= 11&&index_v==0)  ||
-                              (status.vn >= 24 && status.vn <= 35&&index_v==1))
-                            Container(
-                              decoration: AppDecoration.outlinePrimary,
-                              child: Text(
-                                "Start Time 1".tr,
-                                style: CustomTextStyles.titleMediumBluegray900,
-                              ),
-                            ),
-                            if ((status.vn >= 12  && status.vn <= 23 && index_v==0) ||
-                              (status.vn >= 36 && status.vn <= 47&& index_v==1))
-                            Container(
-                              decoration: AppDecoration.outlinePrimary,
-                              child: Text(
-                                "Start Time 2".tr,
-                                style: CustomTextStyles.titleMediumBluegray900,
-                              ),
-                            ),
-                        ],
-                      ),
-                      CustomOutlinedButton(
-                        width: 152.h,
-                        text: type == 1 ? "Irrigation".tr : "Fertilization".tr,
-                        buttonStyle:
-                            CustomButtonStyles.outlineWhiteATL15.copyWith(
-                          backgroundColor:
-                              WidgetStateProperty.resolveWith((states) {
-                            return Colors.white;
-                          }),
-                        ),
-                        buttonTextStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 21.v),
-                SizedBox(height: 7.v),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.h),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: 47.v,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 18.h,
-                      crossAxisSpacing: 18.h,
-                    ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: valvecount,
-                    itemBuilder: (context, index) {
-                      return _buildValveColumn3(
-                          p,
-                          context,
-                          status.p,
-                          index + 1,
-                          status.v ?? 0,
-                          status.rsf ?? 0,
-                          index_v == 0
-                              ? dataprovider.type2a!.c.vd![index]
-                              : dataprovider.type3b!.c.vd![index],
-                          status.bal!.toInt(),
-                          status.sc,
-                          status.vn,
-                          index_v);
-                    },
-                  ),
-                ),
-                SizedBox(height: 7.v),
-              ],
-            ),
-          ),
-        ),
-        CustomImageView(
-          imagePath: ImageConstant.imgarrowright,
-          color: Colors.green,
-          height: 20.v,
-          width: 12.h,
-          margin: EdgeInsets.only(
-            top: 192.v,
-            left: 5,
-            bottom: 210.v,
-          ),
-        ),
-      ],
     );
   }
 
@@ -752,96 +612,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                         onPressed: () => showDialog(
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                  backgroundColor: Colors.grey.shade100,
-                                  title:
-                                      Text('IEMI: ${widget.iemi.toString()}'),
-                                  content: Container(
-                                      height: 200,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          CustomElevatedButton(
-                                            text: 'Flow Reset'.tr,
-                                            onPressed: () async {
-                                              resetValve(widget.id);
-                                            },
-                                            height: 50,
-                                            buttonTextStyle: CustomTextStyles
-                                                .headlineSmallDMSansBlack90001Bold,
-                                            buttonStyle: CustomButtonStyles
-                                                .fillOrangeA
-                                                .copyWith(
-                                              backgroundColor:
-                                                  WidgetStateProperty
-                                                      .resolveWith((states) {
-                                                // If the button is pressed, return green, otherwise blue
-                                                if (states.contains(
-                                                    WidgetState.pressed)) {
-                                                  return Colors.white;
-                                                }
-                                                return Colors.white;
-                                              }),
-                                            ),
-                                          ),
-                                          Divider(),
-                                          CustomElevatedButton(
-                                            text: 'Update Device'.tr,
-                                            onPressed: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          UpdateDevice(
-                                                            id: widget.id,
-                                                          )));
-                                            },
-                                            height: 50,
-                                            buttonTextStyle: CustomTextStyles
-                                                .headlineSmallDMSansBlack90001Bold,
-                                            buttonStyle: CustomButtonStyles
-                                                .fillOrangeA
-                                                .copyWith(
-                                              backgroundColor:
-                                                  WidgetStateProperty
-                                                      .resolveWith((states) {
-                                                // If the button is pressed, return green, otherwise blue
-                                                if (states.contains(
-                                                    WidgetState.pressed)) {
-                                                  return Colors.white;
-                                                }
-                                                return Colors.white;
-                                              }),
-                                            ),
-                                          ),
-                                          Divider(),
-                                          CustomElevatedButton(
-                                            onPressed: () => Devices()
-                                                .deleteDevice(
-                                                    widget.id.toString(),
-                                                    context),
-                                            text: 'Delete Device'.tr,
-                                            height: 50,
-                                            buttonTextStyle: CustomTextStyles
-                                                .headlineSmallLilitaOneWhiteA70001,
-                                            buttonStyle: CustomButtonStyles
-                                                .fillOrangeA
-                                                .copyWith(
-                                              backgroundColor:
-                                                  WidgetStateProperty
-                                                      .resolveWith((states) {
-                                                // If the button is pressed, return green, otherwise blue
-                                                if (states.contains(
-                                                    WidgetState.pressed)) {
-                                                  return Colors.red;
-                                                }
-                                                return Colors.red;
-                                              }),
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                );
+                                return settingdialog(
+                                    context, widget.id, widget.iemi);
                               },
                             ),
                         icon: const Icon(
@@ -863,7 +635,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
           ),
         ),
       ),
-      //  styleType: Style.bgGradientnamelightgreenA700namegreen800aa,
     );
   }
 
@@ -890,7 +661,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
               top: 6.v,
               bottom: 8.v,
             ),
-            child: _buildLoranInfo(
+            child: buildLoranInfo(
               context,
               dynamicText1: widget.name.toString(),
               dynamicText2: widget.iemi.toString(),
@@ -907,173 +678,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
           ),
         ],
       ),
-    );
-  }
-
-  int? num;
-
-  /// Section Widget
-  Widget _buildValveColumn3(
-      p,
-      BuildContext context,
-      type4p,
-      num,
-      int status,
-      int rsf,
-      int duration,
-      int balanace,
-      int complete,
-      int vn,
-      int card_index) {
-    if (complete == 1) {
-      return Padding(
-          padding: EdgeInsets.only(right: 10.h),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              "Valve ${num}",
-              style: theme.textTheme.bodyLarge,
-            ),
-            SizedBox(height: 2.v),
-            Container(
-              decoration: BoxDecoration(
-                  color: duration != 0 ? appTheme.green600 : Colors.grey,
-                  borderRadius: BorderRadius.circular(10)),
-              width: MediaQuery.of(context).size.width,
-              height: 10,
-            ),
-          ]));
-    }
-    if (duration != 0) {
-      return Padding(
-        padding: EdgeInsets.only(right: 10.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Valve ${num}",
-              style: theme.textTheme.bodyLarge,
-            ),
-            SizedBox(height: 2.v),
-            if (p == 'A' && type4p == 'B')
-              Container(
-                decoration: BoxDecoration(
-                    color: appTheme.green600,
-                    borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width,
-                height: 10,
-              )
-            else if (p == 'B' && type4p == 'A')
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width,
-                height: 10,
-              )
-            else if (num == status)
-              Stack(
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color:
-                            rsf == 1 ? appTheme.blue900 : appTheme.orangeA20002,
-                        borderRadius: BorderRadius.circular(10)),
-                    width: 150.h,
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: appTheme.green600,
-                        borderRadius: BorderRadius.circular(10)),
-
-                    width: 150.h *
-                        (duration - balanace) /
-                        duration, // here you can define your percentage of progress, 0.2 = 20%, 0.3 = 30 % .....
-                    height: 10,
-                  ),
-                ],
-              )
-            else if (num < status)
-              Container(
-                decoration: BoxDecoration(
-                    color: appTheme.green600,
-                    borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width,
-                height: 10,
-              )
-            else if (num > status)
-              Container(
-                decoration: BoxDecoration(
-                    color: rsf == 1 ? appTheme.blue900 : appTheme.orangeA20002,
-                    borderRadius: BorderRadius.circular(10)),
-                width: MediaQuery.of(context).size.width,
-                height: 10,
-              )
-          ],
-        ),
-      );
-    }
-    if (card_index == 0 && vn >= 24 && rsf == 0) {
-      return Padding(
-          padding: EdgeInsets.only(right: 10.h),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              "Valve ${num}",
-              style: theme.textTheme.bodyLarge,
-            ),
-            SizedBox(height: 2.v),
-            Container(
-              decoration: BoxDecoration(
-                  color: duration != 0 ? appTheme.green600 : Colors.grey,
-                  borderRadius: BorderRadius.circular(10)),
-              width: MediaQuery.of(context).size.width,
-              height: 10,
-            ),
-          ]));
-    }
-    return Padding(
-        padding: EdgeInsets.only(right: 10.h),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            "Valve ${num}",
-            style: theme.textTheme.bodyLarge,
-          ),
-          SizedBox(height: 2.v),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.grey[600],
-                borderRadius: BorderRadius.circular(10)),
-            width: MediaQuery.of(context).size.width,
-            height: 10,
-          ),
-        ]));
-  }
-
-  /// Common widget
-  Widget _buildLoranInfo(
-    BuildContext context, {
-    required String dynamicText1,
-    required String dynamicText2,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          dynamicText1,
-          style: theme.textTheme.headlineSmall!.copyWith(
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-        SizedBox(height: 6.v),
-        Text(
-          dynamicText2,
-          style: theme.textTheme.titleMedium!.copyWith(
-            color: theme.colorScheme.onPrimary,
-          ),
-        )
-      ],
     );
   }
 }

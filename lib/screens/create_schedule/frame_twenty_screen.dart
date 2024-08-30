@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/schedule/get_schedule.dart';
@@ -311,6 +312,11 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
+                        if (_selectedValue == 0) {
+                    log( childKeya1.currentState!.updateA().startTime2.toString());
+                    } else {
+                    log( childKeya2.currentState!.updateB().startTime.toString());
+                    }
                     setState(() {
                       index != 0
                           ? childKeya1.currentState!.updateA()

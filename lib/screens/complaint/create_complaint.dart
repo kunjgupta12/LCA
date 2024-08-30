@@ -1,18 +1,16 @@
-import 'dart:convert';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lca/api/complaints.dart';
-import 'package:lca/api/config.dart';
 import 'package:lca/api/issues_des/issue_repository.dart';
 import 'package:lca/model/complaint/complaint_issue.dart';
 import 'package:lca/screens/complaint/complaint_detail.dart';
-import 'package:lca/screens/devices_list/device_scroll.dart';
+import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import '../../model/device/device.dart';
 import '../../widgets/app_decoration.dart';
 import '../../widgets/custom_elevated_button.dart';
