@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,11 +43,20 @@ class DeviceService {
 
   Future<void> deleteDevice(String id,BuildContext context) async {
     var response = await http.delete(
-      Uri.parse('$deviceRegister/$id'),
+      Uri.parse('$deviceRegister$id'),
       headers: await getHeaders(),
     );
-
-    _handleResponse(context,response, successMessage: 'Device Deleted');
+//print(response.body);
+   print(response.statusCode);
+    String  successMessage='Device Deleted';
+   if (response.statusCode == 200 || response.statusCode == 204) {
+      showToast(context,successMessage);
+      Get.offAll(FrameNineteenContainerScreen());
+    } else if (response.statusCode == 400) {
+      showToast(context, 'Bad Request');
+    } else {
+      showToast(context, 'Something went wrong');
+    }
   }
 
   Future<Device> fetchDevice(int id) async {

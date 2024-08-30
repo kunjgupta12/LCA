@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lca/api/config.dart';
 import 'package:lca/api/device/functions.dart';
-import 'package:lca/model/device_status/type3.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/model/device_status/type2.dart';
@@ -63,7 +62,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
 }
 
 Future<void> resetValve(deviceId) async {
-  final String apiUrl = '$url/device/${deviceId}/reset';
+  final String apiUrl = '$url/api/v1/devices/${deviceId}/reset';
   final Uri uri = Uri.parse(apiUrl);
   Map<String, dynamic> regBody = {'lfr': "1"};
   final response = await http.post(

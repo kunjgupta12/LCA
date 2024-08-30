@@ -50,9 +50,6 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
       image_path = "/" + prefs.getString('image').toString();
       token = prefs.getString("token");
     });
-
-    print('stored data user:${jsonString}');
-    print('stored data token:${token}');
   }
 
   Future<User> fetchUserData() async {
@@ -106,17 +103,17 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
         resizeToAvoidBottomInset: false,
         body: Sizer(builder: (context, orientation, deviceType) {
           return jsonString == null
-              ? CircularProgressIndicator()
+              ? const CircularProgressIndicator()
               : FutureBuilder<User>(
                   initialData: null,
                   future: fetchUserData(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child:  CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (!snapshot.hasData) {
-                      return Center(child: Text('No data found'));
+                      return const  Center(child: Text('No data found'));
                     }
                     final userData = snapshot.data!;
                     final user = '${userData.firstName.toString()} ${userData.lastName}';
@@ -132,7 +129,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                           decoration: AppDecoration.fillWhiteA,
                           child: Column(
                             children: [
-                              _buildUsernameSection(context),
+                              _buildUsernameSection(context,user),
                               SizedBox(height: 10.v),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -349,7 +346,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
     );
   }
 
-  Widget _buildUsernameSection(BuildContext context) {
+  Widget _buildUsernameSection(BuildContext context,name) {
     return SizedBox(
       height: 360.v,
       width: double.maxFinite,
@@ -360,8 +357,8 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
             alignment: Alignment.topCenter,
             child: Container(
               padding: EdgeInsets.symmetric(
-                horizontal: 69.h,
-                vertical: 90.v,
+                horizontal: 65.h,
+                vertical: 100.v,
               ),
               decoration: BoxDecoration(
                 color: Colors.green,
@@ -377,8 +374,8 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
                   SizedBox(
                     width: 410.h,
                     child: Text(
-                      "User Name".tr,
-                      style: theme.textTheme.displayMedium,
+                      "Hi, $name".tr,
+                      style: theme.textTheme.displayMedium!.copyWith(),
                     ),
                   ),
                 ],

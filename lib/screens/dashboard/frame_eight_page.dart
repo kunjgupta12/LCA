@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/device/functions.dart';
 import 'package:lca/api/device/device_status_api.dart';
 import 'package:lca/api/device/devices.dart';
 import 'package:lca/model/device_status/type4.dart';
@@ -10,11 +8,8 @@ import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/screens/device/update_device.dart';
 import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
-import 'package:lca/widgets/custom_floating_button.dart';
-import 'package:lca/widgets/floating_button.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/weather/weather_api.dart';
 import '../../model/weather/weather_model.dart';
 import '../../widgets/app_bar/appbar_title.dart';
@@ -25,9 +20,8 @@ import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/custom_text_style.dart';
 import '../../widgets/image_constant.dart';
 import '../../widgets/theme_helper.dart';
-// ignore_for_file: must_be_immutable
-import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class FrameEightPage extends StatefulWidget {
   int? devices;
   String? para;
@@ -69,7 +63,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
     _startTimer();
 
     _futureWeatherData = fetchData(widget.para.toString());
-   
   }
 
   Timer? _timer;
@@ -189,21 +182,23 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                       right: 0.1.h),
                                                   child: status.ms == 1
                                                       ? Text("Power On".tr,
-                                                          style: TextStyle(
-                                                              fontSize: 23,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color:
-                                                                  Colors.green))
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 23,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .green))
                                                       : Text("Power off".tr,
-                                                          style: TextStyle(
-                                                              fontSize: 23,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              color:
-                                                                  Colors.red)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 23,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                  color: Colors
+                                                                      .red)),
                                                 )
                                               ],
                                             ),
@@ -292,26 +287,34 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                             return Center(
                                                 child: Text(
                                                     'Error: ${snapshot.error}'));
+                                          } else if (snapshot.hasData ==
+                                              false) {
+                                            return Center(
+                                                child: Text(
+                                                    'Error: ${snapshot.error}'));
                                           }
-
                                           return Container(
                                             width: 550.h,
                                             height: snapshot.data!.c.vc * 40,
                                             child: PageView(children: [
                                               if (snapshot.data!.c.m[0] != 0)
-                                                _valve( snapshot.data!.c.vc,
+                                                _valve(
+                                                    snapshot.data!.c.vc,
                                                     dataprovider.data!.c!,
                                                     dataprovider,
                                                     snapshot.data,
                                                     'A',
-                                                    snapshot.data!.c.m[0],0),
+                                                    snapshot.data!.c.m[0],
+                                                    0),
                                               if (snapshot.data!.c.m[1] != 0)
-                                                _valve( snapshot.data!.c.vc,
+                                                _valve(
+                                                    snapshot.data!.c.vc,
                                                     dataprovider.data!.c!,
                                                     dataprovider,
                                                     snapshot.data,
                                                     'B',
-                                                    snapshot.data!.c.m[1],1),
+                                                    snapshot.data!.c.m[1],
+                                                    1),
                                             ]),
                                           );
                                         }),
@@ -333,7 +336,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
     );
   }
 
-  Widget _valve(valvecount,status, dataprovider, type1? type1data, String p, type,index_v) {
+  Widget _valve(valvecount, status, dataprovider, type1? type1data, String p,
+      type, index_v) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,12 +371,36 @@ class _FrameEightPageState extends State<FrameEightPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        decoration: AppDecoration.outlinePrimary,
-                        child: Text(index_v ==0?
-                          "Program A".tr :"Program B".tr,
-                          style: CustomTextStyles.headlineSmallRedA70001,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: AppDecoration.outlinePrimary,
+                            child: Text(
+                              index_v == 0 ? "Program A".tr : "Program B".tr,
+                              style: CustomTextStyles.headlineSmallRedA70001,
+                            ),
+                          ),
+                          if ((status.vn <= 11&&index_v==0)  ||
+                              (status.vn >= 24 && status.vn <= 35&&index_v==1))
+                            Container(
+                              decoration: AppDecoration.outlinePrimary,
+                              child: Text(
+                                "Start Time 1".tr,
+                                style: CustomTextStyles.titleMediumBluegray900,
+                              ),
+                            ),
+                            if ((status.vn >= 12  && status.vn <= 23 && index_v==0) ||
+                              (status.vn >= 36 && status.vn <= 47&& index_v==1))
+                            Container(
+                              decoration: AppDecoration.outlinePrimary,
+                              child: Text(
+                                "Start Time 2".tr,
+                                style: CustomTextStyles.titleMediumBluegray900,
+                              ),
+                            ),
+                        ],
                       ),
                       CustomOutlinedButton(
                         width: 152.h,
@@ -384,8 +412,10 @@ class _FrameEightPageState extends State<FrameEightPage> {
                             return Colors.white;
                           }),
                         ),
-                        buttonTextStyle:
-                           TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 15),
+                        buttonTextStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15),
                       )
                     ],
                   ),
@@ -403,7 +433,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                       crossAxisSpacing: 18.h,
                     ),
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:valvecount,
+                    itemCount: valvecount,
                     itemBuilder: (context, index) {
                       return _buildValveColumn3(
                           p,
@@ -412,11 +442,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           index + 1,
                           status.v ?? 0,
                           status.rsf ?? 0,
-                         index_v==0
+                          index_v == 0
                               ? dataprovider.type2a!.c.vd![index]
                               : dataprovider.type3b!.c.vd![index],
                           status.bal!.toInt(),
-                          status.sc);
+                          status.sc,
+                          status.vn,
+                          index_v);
                     },
                   ),
                 ),
@@ -881,8 +913,18 @@ class _FrameEightPageState extends State<FrameEightPage> {
   int? num;
 
   /// Section Widget
-  Widget _buildValveColumn3(p, BuildContext context, type4p, num, int status,
-      int rsf, int duration, int balanace, int complete) {
+  Widget _buildValveColumn3(
+      p,
+      BuildContext context,
+      type4p,
+      num,
+      int status,
+      int rsf,
+      int duration,
+      int balanace,
+      int complete,
+      int vn,
+      int card_index) {
     if (complete == 1) {
       return Padding(
           padding: EdgeInsets.only(right: 10.h),
@@ -895,83 +937,84 @@ class _FrameEightPageState extends State<FrameEightPage> {
             SizedBox(height: 2.v),
             Container(
               decoration: BoxDecoration(
-                  color: duration != 0 ? Colors.green[600] : Colors.grey,
+                  color: duration != 0 ? appTheme.green600 : Colors.grey,
                   borderRadius: BorderRadius.circular(10)),
               width: MediaQuery.of(context).size.width,
               height: 10,
             ),
           ]));
-    } else if (rsf == 1) {
-      if (duration != 0) {
-        return Padding(
-          padding: EdgeInsets.only(right: 10.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Valve ${num}",
-                style: theme.textTheme.bodyLarge,
-              ),
-              SizedBox(height: 2.v),
-              if (p == 'A' && type4p == 'B')
-                Container(
-                  decoration: BoxDecoration(
-                      color: appTheme.green600,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 10,
-                )
-              else if (p == 'B' && type4p == 'A')
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[600],
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 10,
-                )
-              else if (num == status)
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                          color: appTheme.blue900,
-                          borderRadius: BorderRadius.circular(10)),
-                      width: 150.h,
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(10)),
+    }
+    if (duration != 0) {
+      return Padding(
+        padding: EdgeInsets.only(right: 10.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Valve ${num}",
+              style: theme.textTheme.bodyLarge,
+            ),
+            SizedBox(height: 2.v),
+            if (p == 'A' && type4p == 'B')
+              Container(
+                decoration: BoxDecoration(
+                    color: appTheme.green600,
+                    borderRadius: BorderRadius.circular(10)),
+                width: MediaQuery.of(context).size.width,
+                height: 10,
+              )
+            else if (p == 'B' && type4p == 'A')
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey[600],
+                    borderRadius: BorderRadius.circular(10)),
+                width: MediaQuery.of(context).size.width,
+                height: 10,
+              )
+            else if (num == status)
+              Stack(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        color:
+                            rsf == 1 ? appTheme.blue900 : appTheme.orangeA20002,
+                        borderRadius: BorderRadius.circular(10)),
+                    width: 150.h,
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: appTheme.green600,
+                        borderRadius: BorderRadius.circular(10)),
 
-                      width: 150.h *
-                          (duration - balanace) /
-                          duration, // here you can define your percentage of progress, 0.2 = 20%, 0.3 = 30 % .....
-                      height: 10,
-                    ),
-                  ],
-                )
-              else if (num < status)
-                Container(
-                  decoration: BoxDecoration(
-                      color: appTheme.green600,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 10,
-                )
-              else if (num > status)
-                Container(
-                  decoration: BoxDecoration(
-                      color: appTheme.blue900,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 10,
-                )
-            ],
-          ),
-        );
-      }
-    } else if (rsf == 0) {
+                    width: 150.h *
+                        (duration - balanace) /
+                        duration, // here you can define your percentage of progress, 0.2 = 20%, 0.3 = 30 % .....
+                    height: 10,
+                  ),
+                ],
+              )
+            else if (num < status)
+              Container(
+                decoration: BoxDecoration(
+                    color: appTheme.green600,
+                    borderRadius: BorderRadius.circular(10)),
+                width: MediaQuery.of(context).size.width,
+                height: 10,
+              )
+            else if (num > status)
+              Container(
+                decoration: BoxDecoration(
+                    color: rsf == 1 ? appTheme.blue900 : appTheme.orangeA20002,
+                    borderRadius: BorderRadius.circular(10)),
+                width: MediaQuery.of(context).size.width,
+                height: 10,
+              )
+          ],
+        ),
+      );
+    }
+    if (card_index == 0 && vn >= 24 && rsf == 0) {
       return Padding(
           padding: EdgeInsets.only(right: 10.h),
           child:
@@ -983,14 +1026,13 @@ class _FrameEightPageState extends State<FrameEightPage> {
             SizedBox(height: 2.v),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.grey[600],
+                  color: duration != 0 ? appTheme.green600 : Colors.grey,
                   borderRadius: BorderRadius.circular(10)),
               width: MediaQuery.of(context).size.width,
               height: 10,
             ),
           ]));
     }
-
     return Padding(
         padding: EdgeInsets.only(right: 10.h),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

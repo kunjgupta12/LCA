@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/device/device_list.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
 import 'package:lca/screens/device/register_device.dart';
 import 'package:lca/widgets/custom_image.dart';
-import 'package:lca/widgets/custom_outlined_button.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/image_constant.dart';
@@ -54,12 +52,8 @@ class A1State extends State<a1> {
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
-        print("${_selectedTime.hour}:${_selectedTime.minute}");
-
-        //schedule=Schedule(programA: ProgramA(startTime:"${_selectedTime.hour.toString}:${_selectedTime.minute}"));
-        starttime.text = _selectedTime.hour.toString().padLeft(2, '0') +
-            ":" +
-            _selectedTime.minute.toString().padLeft(2, '0');
+     starttime.text = convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
+       
       });
     }
   }
@@ -79,9 +73,8 @@ class A1State extends State<a1> {
         setState(() {
           _selectedTime2 = picked2;
           print(_selectedTime2.hour * 60 + _selectedTime2.minute > 0);
-          starttime2.text = _selectedTime2.hour.toString().padLeft(2, '0') +
-              ":" +
-              _selectedTime2.minute.toString().padLeft(2, '0');
+          starttime2.text = convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute));
+       
 
           a1_end = TimeOfDay(
               hour: picked2.hour + totalh!, minute: picked2.minute + totalm!);
@@ -98,11 +91,8 @@ class A1State extends State<a1> {
           a1_end = TimeOfDay(
               hour: picked2.hour + totalhfer,
               minute: picked2.minute + totalmfer);
-          starttime2.text = _selectedTime2.hour.toString().padLeft(2, '0') +
-              ":" +
-              _selectedTime2.minute.toString().padLeft(2, '0');
-          // totalh = _selectedTime.hour;
-          // totalh += _selectedTime.hour.toInt();
+          starttime2.text = convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute));
+     
         });
       } else if (picked2.hour * 60 + picked2.minute <
                   totalh! * 60 +
@@ -379,9 +369,8 @@ class A1State extends State<a1> {
           SizedBox(height: 27),
           _selectedButtonIndex == 1
               ? _durationtwo(context)
-              : (_selectedButtonIndex == 2
-                  ? _durationfour(context)
-                  : _durationtwo(context)),
+              :  _durationfour(context)
+               ,
           SizedBox(height: 25),
           Container(
               width: 236,
@@ -439,10 +428,7 @@ class A1State extends State<a1> {
                             ? '00:00 hrs'
                             : '${convertTime(TimeOfDay(hour: totalh! + _selectedTime.hour, minute: totalm! + _selectedTime.minute.toInt()))} '
 
-                        /*      ':' +
-                                '${totalm! + _selectedTime.minute.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0')*/
+                        
                         : totalhfer +
                                     _selectedTime.hour.toInt() +
                                     totalmfer +
@@ -455,7 +441,6 @@ class A1State extends State<a1> {
                         borderRadius: BorderRadius.circular(9),
                         borderSide: BorderSide(color: Colors.grey)),
                     contentPadding: EdgeInsets.only(left: 20, top: 20),
-                    //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                   ),
                 )
               ],
@@ -494,26 +479,16 @@ class A1State extends State<a1> {
                                     _selectedTime.minute.toInt() ==
                                 0
                             ? '00:00 hrs'
-                            : '${_selectedTime2.hour.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0') +
-                                ':' +
-                                '${_selectedTime2.minute.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0')
+                            : convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
+       
                         : totalhfer +
                                     _selectedTime.hour.toInt() +
                                     totalmfer +
                                     _selectedTime.minute.toInt() ==
                                 0
                             ? '00:00 hrs'
-                            : '${_selectedTime2.hour.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0') +
-                                ':' +
-                                '${_selectedTime2.minute.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0'),
+                            : convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
+       ,
                     fillColor: Colors.white,
                     borderDecoration: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(9),
@@ -558,18 +533,7 @@ class A1State extends State<a1> {
             ),
           ),
           (a1_end!.hour >= 24 && a1_end!.minute >= 0)
-              /*    (_selectedButtonIndex == 1 &&
-                      totalh! + _selectedTime.hour + _selectedTime2.hour >=
-                          24 &&
-                      totalm! + _selectedTime.minute + _selectedTime2.minute >=
-                          0) ||
-                  (_selectedButtonIndex == 2 &&
-                      totalhfer + _selectedTime.hour + _selectedTime2.hour >=
-                          24 &&
-                      totalmfer +
-                              _selectedTime.minute +
-                              _selectedTime2.minute >=
-                          0)*/
+            
               ? Center(
                   child: Text(
                   'Time exceeds 24 hours'.tr,
@@ -579,8 +543,7 @@ class A1State extends State<a1> {
           SizedBox(
             height: 10,
           ),
-          //   _buildCreateButton(context, widget.transition!.toInt()),
-        ],
+         ],
       );
     });
   }
@@ -600,191 +563,59 @@ class A1State extends State<a1> {
     return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
   }
 
-  ProgramA updateA() {
-    setState(() {
-      //transitioon==1;
-      _selectedTime.hour * 60 + _selectedTime.minute > 0
-          ? _selectedButtonIndex == 1
-              ? programA = ProgramA(
-                  mode: true,
-                  monday: _colorContainera1[0] == Colors.red ? true : false,
-                  tuesday: _colorContainera1[1] == Colors.red ? true : false,
-                  wednesday: _colorContainera1[2] == Colors.red ? true : false,
-                  thrusday: _colorContainera1[3] == Colors.red ? true : false,
-                  friday: _colorContainera1[4] == Colors.red ? true : false,
-                  saturday: _colorContainera1[5] == Colors.red ? true : false,
-                  sunday: _colorContainera1[6] == Colors.red ? true : false,
-                  startTime2: _selectedTime2.hour * 60 + _selectedTime2.minute >
-                          0
-                      ? "${_selectedTime2.hour.toString().padLeft(2, '0')}:${_selectedTime2.minute.toString().padLeft(2, '0')}"
-                      : null,
-                  startTime:
-                      "${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}",
-                  programId: 1,
-                  valve1: [
-                    selectedTimes[0].hour * 60 + selectedTimes[0].minute
-                  ],
-                  valve2: [
-                    selectedTimes[1].hour * 60 + selectedTimes[1].minute
-                  ],
-                  valve10: [
-                    selectedTimes[9].hour * 60 + selectedTimes[9].minute
-                  ],
-                  valve11: [
-                    selectedTimes[10].hour * 60 + selectedTimes[10].minute
-                  ],
-                  valve12: [
-                    selectedTimes[11].hour * 60 + selectedTimes[11].minute
-                  ],
-                  valve3: [
-                    selectedTimes[2].hour * 60 + selectedTimes[2].minute
-                  ],
-                  valve4: [
-                    selectedTimes[3].hour * 60 + selectedTimes[3].minute
-                  ],
-                  valve5: [
-                    selectedTimes[4].hour * 60 + selectedTimes[4].minute
-                  ],
-                  valve6: [
-                    selectedTimes[5].hour * 60 + selectedTimes[5].minute
-                  ],
-                  valve7: [
-                    selectedTimes[6].hour * 60 + selectedTimes[6].minute
-                  ],
-                  valve8: [
-                    selectedTimes[7].hour * 60 + selectedTimes[7].minute
-                  ],
-                  valve9: [
-                    selectedTimes[8].hour * 60 + selectedTimes[8].minute
-                  ],
-                )
-              : programA = ProgramA(
-                  mode: false,
-                  monday: _colorContainera1[0]! == Colors.red ? true : false,
-                  tuesday: _colorContainera1[1] == Colors.red ? true : false,
-                  wednesday: _colorContainera1[2] == Colors.red ? true : false,
-                  thrusday: _colorContainera1[3] == Colors.red ? true : false,
-                  friday: _colorContainera1[4] == Colors.red ? true : false,
-                  saturday: _colorContainera1[5] == Colors.red ? true : false,
-                  sunday: _colorContainera1[6] == Colors.red ? true : false,
-                  startTime2: _selectedTime2.hour * 60 + _selectedTime2.minute >
-                          0
-                      ? "${_selectedTime2.hour.toString().padLeft(2, '0')}:${_selectedTime2.minute.toString().padLeft(2, '0')}"
-                      : null,
-                  startTime:
-                      "${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}",
-                  programId: 1,
-                  valve1: [
-                    selectedTimefer[0][0].hour * 60 +
-                        selectedTimefer[0][0].minute,
-                    selectedTimefer[0][1].hour * 60 +
-                        selectedTimefer[0][1].minute,
-                    selectedTimefer[0][2].hour * 60 +
-                        selectedTimefer[0][2].minute
-                  ],
-                  valve2: [
-                    selectedTimefer[1][0].hour * 60 +
-                        selectedTimefer[1][0].minute,
-                    selectedTimefer[1][1].hour * 60 +
-                        selectedTimefer[1][1].minute,
-                    selectedTimefer[1][2].hour * 60 +
-                        selectedTimefer[1][2].minute
-                  ],
-                  valve10: [
-                    selectedTimefer[9][0].hour * 60 +
-                        selectedTimefer[9][0].minute,
-                    selectedTimefer[9][1].hour * 60 +
-                        selectedTimefer[9][1].minute,
-                    selectedTimefer[9][2].hour * 60 +
-                        selectedTimefer[9][2].minute
-                  ],
-                  valve11: [
-                    selectedTimefer[10][0].hour * 60 +
-                        selectedTimefer[10][0].minute,
-                    selectedTimefer[10][1].hour * 60 +
-                        selectedTimefer[10][1].minute,
-                    selectedTimefer[10][2].hour * 60 +
-                        selectedTimefer[10][2].minute
-                  ],
-                  valve12: [
-                    selectedTimefer[11][0].hour * 60 +
-                        selectedTimefer[11][0].minute,
-                    selectedTimefer[11][1].hour * 60 +
-                        selectedTimefer[11][1].minute,
-                    selectedTimefer[11][2].hour * 60 +
-                        selectedTimefer[11][2].minute
-                  ],
-                  valve3: [
-                    selectedTimefer[2][0].hour * 60 +
-                        selectedTimefer[2][0].minute,
-                    selectedTimefer[2][1].hour * 60 +
-                        selectedTimefer[2][1].minute,
-                    selectedTimefer[2][2].hour * 60 +
-                        selectedTimefer[2][2].minute
-                  ],
-                  valve4: [
-                    selectedTimefer[3][0].hour * 60 +
-                        selectedTimefer[3][0].minute,
-                    selectedTimefer[3][1].hour * 60 +
-                        selectedTimefer[3][1].minute,
-                    selectedTimefer[3][2].hour * 60 +
-                        selectedTimefer[3][2].minute
-                  ],
-                  valve5: [
-                    selectedTimefer[4][0].hour * 60 +
-                        selectedTimefer[4][0].minute,
-                    selectedTimefer[4][1].hour * 60 +
-                        selectedTimefer[4][1].minute,
-                    selectedTimefer[4][2].hour * 60 +
-                        selectedTimefer[4][2].minute
-                  ],
-                  valve6: [
-                    selectedTimefer[5][0].hour * 60 +
-                        selectedTimefer[5][0].minute,
-                    selectedTimefer[5][1].hour * 60 +
-                        selectedTimefer[5][1].minute,
-                    selectedTimefer[5][2].hour * 60 +
-                        selectedTimefer[5][2].minute
-                  ],
-                  valve7: [
-                    selectedTimefer[6][0].hour * 60 +
-                        selectedTimefer[6][0].minute,
-                    selectedTimefer[6][1].hour * 60 +
-                        selectedTimefer[6][1].minute,
-                    selectedTimefer[6][2].hour * 60 +
-                        selectedTimefer[6][2].minute
-                  ],
-                  valve8: [
-                    selectedTimefer[7][0].hour * 60 +
-                        selectedTimefer[7][0].minute,
-                    selectedTimefer[7][1].hour * 60 +
-                        selectedTimefer[7][1].minute,
-                    selectedTimefer[7][2].hour * 60 +
-                        selectedTimefer[7][2].minute
-                  ],
-                  valve9: [
-                    selectedTimefer[8][0].hour * 60 +
-                        selectedTimefer[8][0].minute,
-                    selectedTimefer[8][1].hour * 60 +
-                        selectedTimefer[8][1].minute,
-                    selectedTimefer[8][2].hour * 60 +
-                        selectedTimefer[8][2].minute
-                  ],
-                )
-          : null;
-    });
-    return programA;
-  }
+ProgramA updateA() {
+  setState(() {
+    if (_selectedTime.hour * 60 + _selectedTime.minute > 0) {
+      bool isModeTrue = _selectedButtonIndex == 1;
+      List<bool> days = _colorContainera1.map((color) => color == Colors.red).toList();
+      String? startTime2 = _selectedTime2.hour * 60 + _selectedTime2.minute > 0
+          ? convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
+         : null;
+      String startTime =
+        convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
+       
+      List<List<int>> valves = isModeTrue
+          ? List.generate(12, (i) => [selectedTimes[i].hour * 60 + selectedTimes[i].minute])
+          : List.generate(12, (i) => List.generate(3, (j) => selectedTimefer[i][j].hour * 60 + selectedTimefer[i][j].minute));
 
- 
+      programA = ProgramA(
+        mode: isModeTrue,
+        monday: days[0],
+        tuesday: days[1],
+        wednesday: days[2],
+        thrusday: days[3],
+        friday: days[4],
+        saturday: days[5],
+        sunday: days[6],
+        startTime2: startTime2,
+        startTime: startTime,
+        programId: 1,
+        valve1: valves[0],
+        valve2: valves[1],
+        valve3: valves[2],
+        valve4: valves[3],
+        valve5: valves[4],
+        valve6: valves[5],
+        valve7: valves[6],
+        valve8: valves[7],
+        valve9: valves[8],
+        valve10: valves[9],
+        valve11: valves[10],
+        valve12: valves[11],
+      );
+    } else {
+      programA = null as ProgramA;
+    }
+  });
+
+  return programA;
+}
+
   Widget _durationtwo(BuildContext context) {
     return SizedBox(
       height: widget.valve*70,
       width: 500.h,
-      child: ListView.builder(
-
-          //  scrollDirection: Axis.vertical,
-          physics: const NeverScrollableScrollPhysics(),
+      child: ListView.builder(     physics: const NeverScrollableScrollPhysics(),
           itemCount:widget.valve,
           itemBuilder: (context, index) {
             return Padding(
@@ -1066,7 +897,8 @@ class A1State extends State<a1> {
                                           selectedTimefer[index][i].minute ==
                                       0
                                   ? '00 hrs'
-                                  : '${selectedTimefer[index][i].hour.toString().padLeft(2, '0')}:${selectedTimefer[index][i].minute.toString().padLeft(2, '0')}',
+                                  :convertTime(TimeOfDay(hour: 
+        selectedTimefer[index][i].hour,minute:selectedTimefer[index][i].minute)),
                               contentPadding: EdgeInsets.only(left: 2, top: 20),
                               fillColor: Colors.white,
                               borderDecoration: OutlineInputBorder(
@@ -1103,7 +935,8 @@ class A1State extends State<a1> {
     });
     totalHours += totalMinutes ~/ 60;
     totalMinutes %= 60;
-    return '${totalHours.toString().padLeft(2, '0')}:${totalMinutes.toString().padLeft(2, '0')}';
+    return convertTime(TimeOfDay(hour: 
+        totalHours,minute:totalMinutes));
   }
 
   int totalhfer = 0;

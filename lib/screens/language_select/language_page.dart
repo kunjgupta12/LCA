@@ -15,7 +15,7 @@ final List locale = [
   {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
 ];
 
-updateLanguage(Locale locale)async {
+void updateLanguage(Locale locale)async {
   Get.back();
 
   Get.updateLocale(locale);
@@ -78,7 +78,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                                         value: index,
                                         activeColor: Colors
                                             .green, // Change the active radio button color here
-                                        fillColor: MaterialStateProperty.all(Colors
+                                        fillColor: WidgetStateProperty.all(Colors
                                             .green), // Change the fill color when selected
 
                                         groupValue: selectedOption,

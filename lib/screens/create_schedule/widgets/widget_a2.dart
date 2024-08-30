@@ -13,30 +13,30 @@ import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:get/get.dart';
-  TextEditingController starttimeb = TextEditingController();
 
-  int? _selectedButtonIndex = 1;
-  TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
-  TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
-  List<TimeOfDay> selectedTimes =
-      List.generate(12, (index) => const TimeOfDay(hour: 0, minute: 0));
+TextEditingController starttimeb = TextEditingController();
+
+int? _selectedButtonIndex = 1;
+TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
+TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+List<TimeOfDay> selectedTimes =
+    List.generate(12, (index) => const TimeOfDay(hour: 0, minute: 0));
 int? totalm = 0;
-  int? totalh = 0;
-  TextEditingController starttime2b = TextEditingController();
+int? totalh = 0;
+TextEditingController starttime2b = TextEditingController();
 List<Color> _colorContainer = List.generate(7, (index) => Colors.white);
 
 class a2 extends StatefulWidget {
   TimeOfDay? starttime;
-  int? id;int valve;
-  a2({super.key, this.starttime, this.id,required this.valve});
+  int? id;
+  int valve;
+  a2({super.key, this.starttime, this.id, required this.valve});
 
   @override
   State<a2> createState() => a1State();
 }
 
 class a1State extends State<a2> {
-  
-
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
@@ -48,17 +48,15 @@ class a1State extends State<a2> {
         setState(() {
           _selectedTime = picked;
 
-          starttimeb.text = _selectedTime.hour.toString().padLeft(2, '0') +
-              ":" +
-              _selectedTime.minute.toString().padLeft(2, '0');
-          // totalh = _selectedTime.hour;
-          // totalh += _selectedTime.hour.toInt();
+          starttimeb.text = convertTime(TimeOfDay(
+              hour: _selectedTime.hour, minute: _selectedTime.minute));
         });
       }
     }
-    if (picked!.hour * 60 + picked.minute <
+    if (picked!.hour * 60 + picked.minute <=
         a1_end!.hour * 60 + a1_end!.minute) {
-      showToast(context,"Please select after ${a1_end!.hour}:${a1_end!.minute} hrs");
+      showToast(context,
+          "Please select after ${convertTime(TimeOfDay(hour: a1_end!.hour, minute: a1_end!.minute))}");
     }
   }
 
@@ -67,53 +65,26 @@ class a1State extends State<a2> {
       context: context,
       initialTime: _selectedTime,
     );
-    
+
     if (picked2 != null && picked2 != _selectedTime2) {
-       print(picked2.hour*60+picked2.minute);
       if (picked2.hour * 60 + picked2.minute >
               totalh! * 60 +
                   totalm! +
-                  _selectedTime2.hour.toInt() * 60 +
-                  _selectedTime2.minute&&
-          _selectedButtonIndex == 1
-          ) {
-        setState(() {
-          _selectedTime2 = picked2;
-         
-          starttime2b.text = _selectedTime2.hour.toString().padLeft(2, '0') +
-              ":" +
-              _selectedTime2.minute.toString().padLeft(2, '0');
-          // totalh = _selectedTime.hour;
-          // totalh += _selectedTime.hour.toInt();
-        });
-      } if (picked2.hour * 60 + picked2.minute >
+                  _selectedTime2.hour * 60 +
+                  _selectedTime2.minute ||
+          picked2.hour * 60 + picked2.minute >
               totalhfer * 60 +
                   totalmfer +
                   _selectedTime.hour.toInt() * 60 +
-                  _selectedTime.minute &&
-          _selectedButtonIndex == 2) {
+                  _selectedTime.minute) {
         setState(() {
           _selectedTime2 = picked2;
-          a1_end = TimeOfDay(
-              hour: picked2.hour + totalhfer,
-              minute: picked2.minute + totalmfer);
-          starttime2b.text = _selectedTime2.hour.toString().padLeft(2, '0') +
-              ":" +
-              _selectedTime2.minute.toString().padLeft(2, '0');
-            });
-      } 
-       else if (picked2.hour * 60 + picked2.minute <
-              totalh! * 60 +
-                  totalm! +
-                  _selectedTime2.hour.toInt() * 60 +
-                  _selectedTime2.minute &&
-          _selectedButtonIndex == 1 ||picked2.hour * 60 + picked2.minute <
-              totalhfer * 60 +
-                  totalmfer +
-                  _selectedTime2.hour.toInt() * 60 +
-                  _selectedTime2.minute &&
-          _selectedButtonIndex == 2 ) {
-        showToast(context,"Please set after end time");
+
+          starttime2b.text = convertTime(TimeOfDay(
+              hour: _selectedTime2.hour, minute: _selectedTime2.minute));
+        });
+      } else {
+        showToast(context, "Please set after end time");
       }
     }
   }
@@ -163,7 +134,7 @@ class a1State extends State<a2> {
                     child: Container(
                       height: 250.v,
                       width: 1552.h,
-                      child:  Center(
+                      child: Center(
                           child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -212,7 +183,8 @@ class a1State extends State<a2> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 5),
@@ -220,28 +192,30 @@ class a1State extends State<a2> {
                   "Select Days".tr,
                   style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,
                 ),
-              ),TextButton(
+              ),
+              TextButton(
                 onPressed: () {
                   setState(() {
-                    _selectedTime2=TimeOfDay(hour: 0, minute: 0);
+                    _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
                     _selectedTime = TimeOfDay(hour: 0, minute: 0);
-                  starttimeb.text='00:00';
+                    starttimeb.text = '00:00';
                     for (int i = 0; i < _colorContainer.length; i++) {
                       _colorContainer[i] = Colors.white;
-                    }for (int i = 0; i < 12; i++) {
-                     selectedTimes[i]=TimeOfDay(hour: 00, minute: 00);
-                    }totalh=0;
-                    totalm=0;
-                
-                    totalhfer=0;
-                    totalmfer=0;
-                    for (int i = 0; i < 12; i++) {
-                     selectedTimefer[i][0]=TimeOfDay(hour: 00, minute: 00);
-                           selectedTimefer[i][2]=TimeOfDay(hour: 00, minute: 00);
-                    selectedTimefer[i][1]=TimeOfDay(hour: 00, minute: 00);
-              
                     }
-                    a1_end=TimeOfDay(hour: 00, minute: 00);
+                    for (int i = 0; i < 12; i++) {
+                      selectedTimes[i] = TimeOfDay(hour: 00, minute: 00);
+                    }
+                    totalh = 0;
+                    totalm = 0;
+
+                    totalhfer = 0;
+                    totalmfer = 0;
+                    for (int i = 0; i < 12; i++) {
+                      selectedTimefer[i][0] = TimeOfDay(hour: 00, minute: 00);
+                      selectedTimefer[i][2] = TimeOfDay(hour: 00, minute: 00);
+                      selectedTimefer[i][1] = TimeOfDay(hour: 00, minute: 00);
+                    }
+                    a1_end = TimeOfDay(hour: 00, minute: 00);
                   });
                   programA = ProgramA();
                 },
@@ -251,14 +225,13 @@ class a1State extends State<a2> {
                       'Reset All'.tr,
                       style: CustomTextStyles.bodyLargeDMSansRegular,
                     ),
-                   const Icon(
+                    const Icon(
                       Icons.replay,
                       color: Colors.black,
                     )
                   ],
                 ),
               )
-              
             ],
           ),
           SizedBox(height: 3),
@@ -506,37 +479,32 @@ class a1State extends State<a2> {
                 SizedBox(
                   width: 26,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {});
-                  },
-                  child: CustomTextFormField(
-                    width: 110.h,
-                    enabled: false,
-                    hintStyle: CustomTextStyles.bodyMediumInter,
+                CustomTextFormField(
+                  width: 110.h,
+                  enabled: false,
+                  hintStyle: CustomTextStyles.bodyMediumInter,
 
-                    hintText: _selectedButtonIndex == 1
-                        ? totalh! +
-                                    _selectedTime.hour.toInt() +
-                                    totalm! +
-                                    _selectedTime.minute.toInt() ==
-                                0
-                            ? '00:00 hrs'
-                            : '${convertTime(TimeOfDay(hour: totalh! + _selectedTime.hour, minute: totalm! + _selectedTime.minute.toInt()))} '
-                        : totalhfer +
-                                    _selectedTime.hour.toInt() +
-                                    totalmfer +
-                                    _selectedTime.minute.toInt() ==
-                                0
-                            ? '00:00 hrs'
-                            : '${convertTime(TimeOfDay(hour: totalhfer + _selectedTime.hour, minute: totalmfer + _selectedTime.minute.toInt()))} ',
-                    fillColor: Colors.white,
-                    borderDecoration: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    contentPadding: EdgeInsets.only(left: 20, top: 20),
-                    //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
-                  ),
+                  hintText: _selectedButtonIndex == 1
+                      ? totalh! +
+                                  _selectedTime.hour.toInt() +
+                                  totalm! +
+                                  _selectedTime.minute.toInt() ==
+                              0
+                          ? '00:00 hrs'
+                          : '${convertTime(TimeOfDay(hour: totalh! + _selectedTime.hour, minute: totalm! + _selectedTime.minute))} '
+                      : totalhfer +
+                                  _selectedTime.hour.toInt() +
+                                  totalmfer +
+                                  _selectedTime.minute.toInt() ==
+                              0
+                          ? '00:00 hrs'
+                          : '${convertTime(TimeOfDay(hour: totalhfer + _selectedTime.hour, minute: totalmfer + _selectedTime.minute.toInt()))} ',
+                  fillColor: Colors.white,
+                  borderDecoration: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(9),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  contentPadding: EdgeInsets.only(left: 20, top: 20),
+                  //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                 )
               ],
             ),
@@ -569,7 +537,6 @@ class a1State extends State<a2> {
                     width: 110.h,
                     enabled: false,
                     hintStyle: CustomTextStyles.bodyMediumInter,
-
                     hintText: _selectedButtonIndex == 1
                         ? totalh! +
                                     _selectedTime.hour.toInt() +
@@ -577,32 +544,23 @@ class a1State extends State<a2> {
                                     _selectedTime.minute.toInt() ==
                                 0
                             ? '00:00 hrs'
-                            : '${_selectedTime2.hour.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0') +
-                                ':' +
-                                '${_selectedTime2.minute.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0')
+                            : convertTime(TimeOfDay(
+                                hour: _selectedTime2.hour,
+                                minute: _selectedTime2.minute))
                         : totalhfer +
                                     _selectedTime.hour.toInt() +
                                     totalmfer +
                                     _selectedTime.minute.toInt() ==
                                 0
                             ? '00:00 hrs'
-                            : '${_selectedTime2.hour.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0') +
-                                ':' +
-                                '${_selectedTime2.minute.toInt()}'
-                                    .toString()
-                                    .padLeft(2, '0'),
+                            : convertTime(TimeOfDay(
+                                hour: _selectedTime2.hour,
+                                minute: _selectedTime2.minute)),
                     fillColor: Colors.white,
                     borderDecoration: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(9),
                         borderSide: BorderSide(color: Colors.grey)),
                     contentPadding: EdgeInsets.only(left: 20, top: 20),
-                    //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                   ),
                 ),
                 TextButton(
@@ -616,7 +574,7 @@ class a1State extends State<a2> {
                             : a1_end = TimeOfDay(
                                 hour: totalhfer + _selectedTime.hour.toInt(),
                                 minute:
-                                    totalmfer! + _selectedTime.minute.toInt());
+                                    totalmfer + _selectedTime.minute.toInt());
                       });
                     },
                     child: Padding(
@@ -641,16 +599,12 @@ class a1State extends State<a2> {
             ),
           ),
           (_selectedButtonIndex == 1 &&
-                          totalh! + _selectedTime.hour >= 24 &&
-                          totalm! + _selectedTime.minute >= 0 ) ||
+                      totalh! + _selectedTime.hour >= 24 &&
+                      totalm! + _selectedTime.minute >= 0) ||
                   (_selectedButtonIndex == 2 &&
-                      totalhfer + _selectedTime.hour  >=
-                          24 &&
-                      totalmfer +
-                              _selectedTime.minute >=
-                          0) ||
-                    (  _selectedTime2.hour >= 24 &&
-                          _selectedTime2.minute >= 0)
+                      totalhfer + _selectedTime.hour >= 24 &&
+                      totalmfer + _selectedTime.minute >= 0) ||
+                  (_selectedTime2.hour >= 24 && _selectedTime2.minute >= 0)
               ? Center(
                   child: Text(
                   'Time exceeds 24 hours',
@@ -660,23 +614,6 @@ class a1State extends State<a2> {
           SizedBox(
             height: 10,
           ),
-          /*    Center(
-            child: CustomOutlinedButton(
-              onPressed: () {
-                if(a1_end!.hour >= 24 && a1_end!.minute >= 0){
-                  showToast('Timer exceeds');
-                }
-                 else{updateB();
-                 }   
-              },
-              height: 50,
-              width: 305,
-              text: "Save",
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), color: Colors.green),
-              buttonTextStyle: CustomTextStyles.headlineSmallPoppinsWhiteA70001,
-            ),
-          ),*/
         ],
       );
     });
@@ -699,7 +636,7 @@ class a1State extends State<a2> {
 
   Widget _durationtwo(BuildContext context) {
     return SizedBox(
-      height: widget.valve*70,
+      height: widget.valve * 70,
       width: 500.h,
       child: ListView.builder(
 
@@ -727,181 +664,52 @@ class a1State extends State<a2> {
           }),
     );
   }
-
-  ProgramB updateB() {
-    setState(() {
-      _selectedTime.hour * 60 + _selectedTime.minute > 0
-          ? _selectedButtonIndex == 1
-              ? programB = ProgramB(
-                  mode: true,
-                  monday: _colorContainer[0] == Colors.red ? true : false,
-                  tuesday: _colorContainer[1] == Colors.red ? true : false,
-                  wednesday: _colorContainer[2] == Colors.red ? true : false,
-                  thrusday: _colorContainer[3] == Colors.red ? true : false,
-                  friday: _colorContainer[4] == Colors.red ? true : false,
-                  saturday: _colorContainer[5] == Colors.red ? true : false,
-                  sunday: _colorContainer[6] == Colors.red ? true : false,
-                  startTime2: _selectedTime2.hour * 60 + _selectedTime2.minute >
-                          0
-                      ? "${_selectedTime2.hour.toString().padLeft(2, '0')}:${_selectedTime2.minute.toString().padLeft(2, '0')}"
-                      : null,
-                  startTime:
-                      "${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}",
-                  programId: 2,
-                  valve1: [
-                    selectedTimes[0].hour * 60 + selectedTimes[0].minute
-                  ],
-                  valve2: [
-                    selectedTimes[1].hour * 60 + selectedTimes[1].minute
-                  ],
-                  valve10: [
-                    selectedTimes[9].hour * 60 + selectedTimes[9].minute
-                  ],
-                  valve11: [
-                    selectedTimes[10].hour * 60 + selectedTimes[10].minute
-                  ],
-                  valve12: [
-                    selectedTimes[11].hour * 60 + selectedTimes[11].minute
-                  ],
-                  valve3: [
-                    selectedTimes[2].hour * 60 + selectedTimes[2].minute
-                  ],
-                  valve4: [
-                    selectedTimes[3].hour * 60 + selectedTimes[3].minute
-                  ],
-                  valve5: [
-                    selectedTimes[4].hour * 60 + selectedTimes[4].minute
-                  ],
-                  valve6: [
-                    selectedTimes[5].hour * 60 + selectedTimes[5].minute
-                  ],
-                  valve7: [
-                    selectedTimes[6].hour * 60 + selectedTimes[6].minute
-                  ],
-                  valve8: [
-                    selectedTimes[7].hour * 60 + selectedTimes[7].minute
-                  ],
-                  valve9: [
-                    selectedTimes[8].hour * 60 + selectedTimes[8].minute
-                  ],
-                )
-              : programB = ProgramB(
-                  mode: false,
-                  monday: _colorContainer[0] == Colors.red ? true : false,
-                  tuesday: _colorContainer[1] == Colors.red ? true : false,
-                  wednesday: _colorContainer[2] == Colors.red ? true : false,
-                  thrusday: _colorContainer[3] == Colors.red ? true : false,
-                  friday: _colorContainer[4] == Colors.red ? true : false,
-                  saturday: _colorContainer[5] == Colors.red ? true : false,
-                  sunday: _colorContainer[6] == Colors.red ? true : false,
-                  startTime2: _selectedTime2.hour * 60 + _selectedTime2.minute >
-                          0
-                      ? "${_selectedTime2.hour.toString().padLeft(2, '0')}:${_selectedTime2.minute.toString().padLeft(2, '0')}"
-                      : null,
-                  startTime:
-                      "${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}",
-                  programId: 2,
-                  valve1: [
-                    selectedTimefer[0][0].hour * 60 +
-                        selectedTimefer[0][0].minute,
-                    selectedTimefer[0][1].hour * 60 +
-                        selectedTimefer[0][1].minute,
-                    selectedTimefer[0][2].hour * 60 +
-                        selectedTimefer[0][2].minute
-                  ],
-                  valve2: [
-                    selectedTimefer[1][0].hour * 60 +
-                        selectedTimefer[1][0].minute,
-                    selectedTimefer[1][1].hour * 60 +
-                        selectedTimefer[1][1].minute,
-                    selectedTimefer[1][2].hour * 60 +
-                        selectedTimefer[1][2].minute
-                  ],
-                  valve10: [
-                    selectedTimefer[9][0].hour * 60 +
-                        selectedTimefer[9][0].minute,
-                    selectedTimefer[9][1].hour * 60 +
-                        selectedTimefer[9][1].minute,
-                    selectedTimefer[9][2].hour * 60 +
-                        selectedTimefer[9][2].minute
-                  ],
-                  valve11: [
-                    selectedTimefer[10][0].hour * 60 +
-                        selectedTimefer[10][0].minute,
-                    selectedTimefer[10][1].hour * 60 +
-                        selectedTimefer[10][1].minute,
-                    selectedTimefer[10][2].hour * 60 +
-                        selectedTimefer[10][2].minute
-                  ],
-                  valve12: [
-                    selectedTimefer[11][0].hour * 60 +
-                        selectedTimefer[11][0].minute,
-                    selectedTimefer[11][1].hour * 60 +
-                        selectedTimefer[11][1].minute,
-                    selectedTimefer[11][2].hour * 60 +
-                        selectedTimefer[11][2].minute
-                  ],
-                  valve3: [
-                    selectedTimefer[2][0].hour * 60 +
-                        selectedTimefer[2][0].minute,
-                    selectedTimefer[2][1].hour * 60 +
-                        selectedTimefer[2][1].minute,
-                    selectedTimefer[2][2].hour * 60 +
-                        selectedTimefer[2][2].minute
-                  ],
-                  valve4: [
-                    selectedTimefer[3][0].hour * 60 +
-                        selectedTimefer[3][0].minute,
-                    selectedTimefer[3][1].hour * 60 +
-                        selectedTimefer[3][1].minute,
-                    selectedTimefer[3][2].hour * 60 +
-                        selectedTimefer[3][2].minute
-                  ],
-                  valve5: [
-                    selectedTimefer[4][0].hour * 60 +
-                        selectedTimefer[4][0].minute,
-                    selectedTimefer[4][1].hour * 60 +
-                        selectedTimefer[4][1].minute,
-                    selectedTimefer[4][2].hour * 60 +
-                        selectedTimefer[4][2].minute
-                  ],
-                  valve6: [
-                    selectedTimefer[5][0].hour * 60 +
-                        selectedTimefer[5][0].minute,
-                    selectedTimefer[5][1].hour * 60 +
-                        selectedTimefer[5][1].minute,
-                    selectedTimefer[5][2].hour * 60 +
-                        selectedTimefer[5][2].minute
-                  ],
-                  valve7: [
-                    selectedTimefer[6][0].hour * 60 +
-                        selectedTimefer[6][0].minute,
-                    selectedTimefer[6][1].hour * 60 +
-                        selectedTimefer[6][1].minute,
-                    selectedTimefer[6][2].hour * 60 +
-                        selectedTimefer[6][2].minute
-                  ],
-                  valve8: [
-                    selectedTimefer[7][0].hour * 60 +
-                        selectedTimefer[7][0].minute,
-                    selectedTimefer[7][1].hour * 60 +
-                        selectedTimefer[7][1].minute,
-                    selectedTimefer[7][2].hour * 60 +
-                        selectedTimefer[7][2].minute
-                  ],
-                  valve9: [
-                    selectedTimefer[8][0].hour * 60 +
-                        selectedTimefer[8][0].minute,
-                    selectedTimefer[8][1].hour * 60 +
-                        selectedTimefer[8][1].minute,
-                    selectedTimefer[8][2].hour * 60 +
-                        selectedTimefer[8][2].minute
-                  ],
-                )
+ProgramB updateB() {
+  setState(() {
+    if (_selectedTime.hour * 60 + _selectedTime.minute > 0) {
+      bool isModeTrue = _selectedButtonIndex == 1;
+      List<bool> days = _colorContainer.map((color) => color == Colors.red).toList();
+      String? startTime2 = _selectedTime2.hour * 60 + _selectedTime2.minute > 0
+          ?convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
           : null;
-    });
-    return programB;
-  }
+      String startTime =
+          convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
+      
+      List<List<int>> valves = isModeTrue
+          ? List.generate(12, (i) => [selectedTimes[i].hour * 60 + selectedTimes[i].minute])
+          : List.generate(12, (i) => List.generate(3, (j) => selectedTimefer[i][j].hour * 60 + selectedTimefer[i][j].minute));
+
+      programB = ProgramB(
+        mode: isModeTrue,
+        monday: days[0],
+        tuesday: days[1],
+        wednesday: days[2],
+        thrusday: days[3],
+        friday: days[4],
+        saturday: days[5],
+        sunday: days[6],
+        startTime2: startTime2,
+        startTime: startTime,
+        programId: 2,
+        valve1: valves[0],
+        valve2: valves[1],
+        valve3: valves[2],
+        valve4: valves[3],
+        valve5: valves[4],
+        valve6: valves[5],
+        valve7: valves[6],
+        valve8: valves[7],
+        valve9: valves[8],
+        valve10: valves[9],
+        valve11: valves[10],
+        valve12: valves[11],
+      );
+    } 
+  });
+
+  return programB;
+}
+
 
   Widget _buildValveOne(BuildContext context, int index) {
     Future<void> _valvetime(BuildContext context, int index) async {
@@ -934,7 +742,7 @@ class a1State extends State<a2> {
           });
         }
         if (_selectedTime.hour + _selectedTime.minute == 0) {
-          showToast(context,'Please select start time first');
+          showToast(context, 'Please select start time first');
         }
       }
     }
@@ -1039,15 +847,14 @@ class a1State extends State<a2> {
           ],
         ),
         Container(
-          height: widget.valve*70,
+          height: widget.valve * 70,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               itemCount: widget.valve,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding:
-                      const EdgeInsets.only(left: 12, right: 9, bottom: 5),
+                  padding: const EdgeInsets.only(left: 12, right: 9, bottom: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -1068,7 +875,7 @@ class a1State extends State<a2> {
                             padding: const EdgeInsets.only(left: 5.0),
                             child: CustomTextFormField(
                               hintStyle: CustomTextStyles.bodyMediumInter,
-    
+
                               width: 70,
                               enabled: false,
                               textInputType: TextInputType.number,
@@ -1077,13 +884,12 @@ class a1State extends State<a2> {
                                       0
                                   ? '00 hrs'
                                   : '${selectedTimefer[index][i].hour.toString().padLeft(2, '0')}:${selectedTimefer[index][i].minute.toString().padLeft(2, '0')}',
-                              contentPadding:
-                                  EdgeInsets.only(left: 2, top: 20),
+                              contentPadding: EdgeInsets.only(left: 2, top: 20),
                               fillColor: Colors.white,
                               borderDecoration: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(9),
                                   borderSide: BorderSide(color: Colors.grey)),
-    
+
                               // contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
                             ),
                           ),
@@ -1163,10 +969,10 @@ class a1State extends State<a2> {
       }
     }
     if (totalHoursfer > 24) {
-      showToast(context,'Time exceeds');
+      showToast(context, 'Time exceeds');
     }
     if (_selectedTime.hour + _selectedTime.minute == 0) {
-      showToast(context,'Please select start time first');
+      showToast(context, 'Please select start time first');
     }
   }
 }

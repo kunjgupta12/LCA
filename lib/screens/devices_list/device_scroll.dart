@@ -70,12 +70,13 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
   void _handleMessage(RemoteMessage message) {
     print(message.data);
   }
-String? stored_lang_home;
+
+  String? stored_lang_home;
   @override
   void initState() {
     super.initState();
     storedevice();
-    stored_lang_home=getlang().toString();
+    stored_lang_home = getlang().toString();
     _scrollController.addListener(_scrollListener);
     setupInteractedMessage();
     firebaseCloudMessaging_Listeners();
@@ -125,13 +126,14 @@ String? stored_lang_home;
     return CustomAppBar(
       actions: [
         IconButton(
-          onPressed: () {
+          onPressed: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
             showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
                     backgroundColor: Colors.white,
                     title: Container(
-                      width: 100.h,
+                      width: 80.h,
                       height: 200.v,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -141,12 +143,12 @@ String? stored_lang_home;
                               return Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: stored_lang_home=='null'
-                                        ? 
-                                         Colors.yellow :Colors.white
-                                    ),
+                                    color: prefs.getString('lang') ==
+                                            locale[index]['locale'].toString()
+                                        ? Colors.green
+                                        : Colors.white),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(10.0),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -154,20 +156,15 @@ String? stored_lang_home;
                                       TextButton(
                                           child: Text(
                                             locale[index]['name'],
-                                            style: TextStyle(
-                                                color: selectedOption == index
-                                                    ? Colors.black
-                                                    : Colors.green,
-                                                fontSize: 18),
+                                            style:  prefs.getString('lang') ==
+                                            locale[index]['locale'].toString()
+                                        ? CustomTextStyles.headlineSmallLibreFranklinWhiteA70001 :CustomTextStyles.headlineSmallDMSansBlack90001
                                           ),
                                           onPressed: () {
-                                            selectedOption = index;
-
                                             setState(() {
                                               selectedOption = index;
                                             });
-                                            print('local ${locale[index]['locale']}');
-                                            print(locale_stored.toString());
+                                     
                                             updateLanguage(
                                                 locale[index]['locale']);
                                           }),
@@ -322,7 +319,8 @@ String? stored_lang_home;
                                 print(token);
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Schedule(
-                                          id: device.id,valve:device.valveCount,
+                                          id: device.id,
+                                          valve: device.valveCount,
                                           token: token.toString(),
                                           iemi: device.imei,
                                           name: device.title,
@@ -343,4 +341,3 @@ String? stored_lang_home;
     });
   }
 }
-

@@ -41,6 +41,7 @@ class C {
   int? pi;
   int? ps;
   int? rs;
+  int? vn;
   int? sc;
   int? vs;
   int? bal;
@@ -57,6 +58,7 @@ class C {
       this.ms,
       this.nd,
       this.ns,
+      this.vn,
       this.pc,
       this.pi,
       this.ps,
@@ -82,6 +84,7 @@ class C {
     ps = json['ps'];
     rs = json['rs'];
     sc = json['sc'];
+    vn=json['vn'];
     vs = json['vs'];
     bal = json['bal'];//balance time
     pit = json['pit'];
@@ -93,6 +96,7 @@ class C {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['v'] = this.v;
     data['dt'] = this.dt;
+    data['vn']=this.vn;
     data['fc'] = this.fc;
     data['lf'] = this.lf;
     data['ms'] = this.ms;
