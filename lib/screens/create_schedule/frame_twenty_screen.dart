@@ -203,8 +203,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                     }
 
                     schedule = Schedule(
-                      programA: programA.programId == null ? null : programA,
-                      programB: programB.programId == null ? null : programB,
+                      programA: programA.startTime == null ? null : programA,
+                      programB: programB.startTime == null ? null : programB,
                       useToday: isChecked,
                       pit: int.tryParse(pumpstarttime.text),
                       prt: int.tryParse(pumprechargetime.text),

@@ -10,10 +10,10 @@ class Schedule {
 
   Schedule.fromJson(Map<String, dynamic> json) {
     programA = json['programA'] != null
-        ? new ProgramA.fromJson(json['programA'])
+        ?  ProgramA.fromJson(json['programA'])
         : null;
     programB = json['programB'] != null
-        ? new ProgramB.fromJson(json['programB'])
+        ?  ProgramB.fromJson(json['programB'])
         : null;
     useToday = json['useToday'];
     pit = json['pumpInIt'] != null ? json['pit'] : 5;
@@ -228,7 +228,7 @@ class ProgramA {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['title'] = this.title;
     data['startTime'] = this.startTime;
     data['startTime2'] = this.startTime2;
