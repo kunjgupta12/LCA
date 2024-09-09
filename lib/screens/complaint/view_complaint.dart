@@ -11,6 +11,7 @@ import '../../widgets/app_bar/appbar_title.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_elevated_button.dart'; // ignore_for_file: must_be_immutable
 import 'package:get/get.dart';
+
 class FrameNineteenPage extends StatefulWidget {
   String? token;
   FrameNineteenPage({Key? key, this.token})
@@ -53,10 +54,7 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
                   Container(
                       height: 700.v,
                       margin: EdgeInsets.only(right: 1.h),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.h,
-                        vertical: 14.v,
-                      ),
+                     
                       decoration: AppDecoration.fillWhiteA700.copyWith(
                         borderRadius: BorderRadiusStyle.roundedBorder4,
                       ),
@@ -78,37 +76,44 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
                                     print("name ${item}");
                                     String formattedTime = formatTime(
                                         item.registeredDate.toString());
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 2.h,
-                                        right: 1.h,
-                                      ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            item.id.toString(),
-                                            style: theme.textTheme.bodyLarge,
-                                          ),
-                                          SizedBox(
-                                            width: 50.h,
-                                          ),
-                                          Text(
-                                            formattedTime,
-                                            style: theme.textTheme.bodyLarge,
-                                          ),
-                                          SizedBox(
-                                            width: 50.h,
-                                          ),
-                                          Text(
-                                            item.statusName.toString(),
-                                            style: CustomTextStyles
-                                                .titleMediumPoppinsRedA70001,
-                                          )
-                                        ],
+                                    return Card(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                           ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              item.id.toString(),
+                                              style: theme.textTheme.bodyLarge,
+                                            ),
+                                            SizedBox(
+                                              width: 10.h,
+                                            ),
+                                            Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  formattedTime,
+                                                  style:
+                                                      theme.textTheme.bodyLarge,
+                                                ),
+                                                Text(
+                                                  item.statusName.toString(),
+                                                  style: CustomTextStyles
+                                                      .titleMediumPoppinsRedA70001,
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 50.h,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   });
@@ -203,8 +208,12 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
                       strokeWidth: 1,
                     ));
                   } else if (snapshot.hasError) {
-                    return Center(child: GestureDetector(onTap: (){print(snapshot.error);},
-                      child: Text('Error: ${snapshot.error}')));
+                    return Center(
+                        child: GestureDetector(
+                            onTap: () {
+                              print(snapshot.error);
+                            },
+                            child: Text('Error: ${snapshot.error}')));
                   } else if (snapshot.hasData) {
                     return Text(
                       snapshot.data.toString(),
@@ -255,13 +264,13 @@ class _FrameNineteenPageState extends State<FrameNineteenPage> {
             style: theme.textTheme.titleLarge,
           ),
           Text(
-            "Date".tr,
+            "Detail".tr,
             style: theme.textTheme.titleLarge,
           ),
           Padding(
             padding: EdgeInsets.only(right: 5.h),
             child: Text(
-              "Status".tr,
+              "Action".tr,
               style: theme.textTheme.titleLarge,
             ),
           )

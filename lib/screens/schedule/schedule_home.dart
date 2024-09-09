@@ -90,7 +90,7 @@ class _ScheduleState extends State<Schedule> {
             children: [
               _buildDeviceInfoRow("Device Name", widget.name),
               const SizedBox(height: 5),
-              _buildDeviceInfoRow("Device ID", widget.iemi),
+              _buildDeviceInfoRow("Device IMEI", widget.iemi),
               _buildHeaderRow(context),
               _buildScheduleList(),
               _buildConfigureButton(),

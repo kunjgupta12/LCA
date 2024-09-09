@@ -6,6 +6,7 @@ import 'package:lca/api/device/functions.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/model/device_status/type2.dart';
+import 'package:lca/services/notification.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:http/http.dart' as http;
 
@@ -61,7 +62,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
   }
 }
 
-Future<void> resetValve(deviceId) async {
+Future<void> resetValve(deviceId,BuildContext context) async {
   final String apiUrl = '$url/api/v1/devices/${deviceId}/reset';
   final Uri uri = Uri.parse(apiUrl);
   Map<String, dynamic> regBody = {'lfr': "1"};
@@ -69,10 +70,13 @@ Future<void> resetValve(deviceId) async {
       body: jsonEncode(regBody), uri, headers: await getHeaders());
   print(response.body);
   if (response.statusCode == 200) {
-    var data = jsonDecode(response.body);
+   
+   Navigator.pop(context);
+   showToasttoast('Flow Reset Data Send Successfully');
   } else {
-    throw Exception('Failed to load data');
+    showToasttoast('Flow Reset Data Send UnSuccessfull');
   }
+  
 }
 
 Future<type2> valve_detail_typea(String deviceId) async {

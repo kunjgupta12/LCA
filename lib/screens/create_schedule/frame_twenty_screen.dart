@@ -24,7 +24,6 @@ import 'package:flutter/material.dart';
 ProgramB programB = ProgramB();
 ProgramA programA = ProgramA();
 Schedule schedule = Schedule();
-OverlayEntry? overlayEntry;
 String get formattedTime {
   final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
   final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
@@ -75,8 +74,8 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     });
     _stopTimer();
     createSchedule.removeListener(_handleLoadingChange);
-    overlayEntry?.remove();
-
+  
+Navigator.pop(context);
     super.dispose();
   }
 
@@ -95,7 +94,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
          // overlayEntry!.markNeedsBuild();
         } else {
           _stopTimer();
-          overlayEntry!.remove();
+       
         }
       });
     });

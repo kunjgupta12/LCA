@@ -128,7 +128,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                               builder: (context, dataprovider, snapshot) {
                             if (deviceStatus != null) {
                               var status = dataprovider!.data!.c!;
-
+        
                               return Container(
                                 margin: EdgeInsets.only(
                                   left: 10.h,
@@ -180,7 +180,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                     child: Text(
                                                         status.ms == 1
                                                             ? "Power On".tr
-                                                            : "Power off",
+                                                            : "Power off".tr,
                                                         style: TextStyle(
                                                             fontSize: 23,
                                                             fontWeight:

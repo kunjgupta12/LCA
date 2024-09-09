@@ -20,7 +20,8 @@ return AlertDialog(
                                           CustomElevatedButton(
                                             text: 'Flow Reset'.tr,
                                             onPressed: () async {
-                                              resetValve(id);
+                                              resetValve(id,
+                                            context);
                                             },
                                             height: 50,
                                             buttonTextStyle: CustomTextStyles

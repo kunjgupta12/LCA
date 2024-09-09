@@ -187,7 +187,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    "Device ID".tr+':',
+                                    '${"Device IMEI".tr}:',
                                     style: CustomTextStyles
                                         .headlineSmallDMSansBlack90001Bold,
                                   ),

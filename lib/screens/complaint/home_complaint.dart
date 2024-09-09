@@ -16,9 +16,9 @@ String? jsonString;
 String? token;
 void storedevice() async {
   final prefs = await SharedPreferences.getInstance();
-  jsonString = prefs.getString('devicelist');
+
   token = prefs.getString("token");
-  print('stored data:${jsonString}');
+ 
 }
 class FrameSeventeenScreen extends StatefulWidget {
   FrameSeventeenScreen({Key? key})

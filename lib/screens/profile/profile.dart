@@ -348,7 +348,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
 
   Widget _buildUsernameSection(BuildContext context,name) {
     return SizedBox(
-      height: 360.v,
+      height: 350.v,
       width: double.maxFinite,
       child: Stack(
         alignment: Alignment.bottomCenter,
