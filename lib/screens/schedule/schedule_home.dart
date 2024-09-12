@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lca/api/device/device_status_api.dart';
+import 'package:lca/app_routes.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
+import 'package:lca/screens/device/update_device.dart';
 import 'package:lca/screens/schedule/view_schedule.dart';
 import 'package:lca/widgets/app_bar/appbar_title.dart';
 import 'package:lca/widgets/app_bar/custom_app_bar.dart';
@@ -256,16 +258,12 @@ class _ScheduleState extends State<Schedule> {
         text: 'Configure'.tr,
         buttonStyle: CustomButtonStyles.fillOrangeA,
         buttonTextStyle: CustomTextStyles.titleLargeWhiteA70001,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FrameTwentyScreen(valve:widget.valve,
+        onPressed: () {   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
+       FrameTwentyScreen(valve:widget.valve,
                 token: widget.token,
                 id: widget.id,
-              ),
-            ),
-          );
+       )
+        ));
         },
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lca/screens/devices_list/device_scroll.dart';
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
@@ -10,7 +12,6 @@ import '../complaint/home_complaint.dart';
 import '../create_schedule/frame_twenty_screen.dart';
 import 'package:get/get.dart';
 
-// ignore_for_file: must_be_immutable
 class FrameNineteenContainerScreen extends StatefulWidget {
   int? devices;
   final Future<Weather>? futureWeatherData;
@@ -26,6 +27,7 @@ class FrameNineteenContainerScreen extends StatefulWidget {
 class _FrameNineteenContainerScreenState
     extends State<FrameNineteenContainerScreen> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  String currentPageName = 'bottom'; // Default page name
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +41,27 @@ class _FrameNineteenContainerScreenState
         }
       },
       child: SafeArea(
-          child: Scaffold(
-              backgroundColor: appTheme.gray100F4,
-              body: Navigator(
-                  key: navigatorKey,
-                  initialRoute: AppRoutes.frameEightScreen,
-                  onGenerateRoute: (routeSetting) => PageRouteBuilder(
-                      pageBuilder: (ctx, ani, ani1) =>
-                          getCurrentPage(routeSetting.name!),
-                      transitionDuration: Duration(seconds: 0))),
-              bottomNavigationBar: _buildBottomBar(context))),
+        child: Scaffold(
+          backgroundColor: appTheme.gray100F4,
+          body: Navigator(
+            key: navigatorKey,
+            initialRoute: AppRoutes.frameEightScreen,
+            onGenerateRoute: (routeSetting) {
+              currentPageName = getCurrentPageName(routeSetting.name!);
+              log('Navigating to page: $currentPageName'); // Log current page name
+
+              return PageRouteBuilder(
+                pageBuilder: (ctx, ani, ani1) =>
+                    getCurrentPage(routeSetting.name!),
+                transitionDuration: Duration(seconds: 0),
+              );
+            },
+          ),
+          bottomNavigationBar: _shouldShowBottomBar(currentPageName)
+              ? _buildBottomBar(context)
+              : null,
+        ),
+      ),
     );
   }
 
@@ -59,11 +72,12 @@ class _FrameNineteenContainerScreenState
     });
   }
 
-  ///Handling route based on bottom click actions
+  /// Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
       case BottomBarEnum.Home:
         return AppRoutes.frameEightScreen;
+
       case BottomBarEnum.Search:
         return AppRoutes.frameEightScreen;
       case BottomBarEnum.Complaints:
@@ -75,19 +89,51 @@ class _FrameNineteenContainerScreenState
     }
   }
 
-  ///Handling page based on route
+  /// Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.frameEightScreen:
         return DeviceListScreen();
-
-   
       case AppRoutes.frameSeventeenScreen:
         return FrameSeventeenScreen();
       case AppRoutes.profile:
         return FrameThirtytwoPage();
+      case AppRoutes.frameTwentyScreen:
+        return FrameTwentyScreen(); // Ensure this is the correct page
       default:
-        return DefaultWidget();
+        return DeviceListScreen();
     }
+  }
+
+  String getCurrentPageName(String route) {
+    String pageName;
+    switch (route) {
+      case AppRoutes.frameEightScreen:
+        pageName = 'DeviceListScreen';
+        break;
+      case AppRoutes.frameSeventeenScreen:
+        pageName = 'FrameSeventeenScreen';
+        break;
+      case AppRoutes.profile:
+        pageName = 'FrameThirtytwoPage';
+        break;
+      case AppRoutes.frameTwentyScreen:
+        pageName = 'FrameTwentyScreen';
+        break;
+      default:
+        pageName = 'UnknownPage';
+    }
+
+    // Log only for the specified pages
+    if (pageName != 'UnknownPage') {
+      log('Route $route maps to page $pageName');
+    }
+
+    return pageName;
+  }
+
+  bool _shouldShowBottomBar(String pageName) {
+    // Hide bottom bar for specific pages
+    return pageName != 'FrameTwentyScreen'; // Hide for FrameTwentyScreen
   }
 }

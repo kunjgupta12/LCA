@@ -12,7 +12,7 @@ import '../../model/schedule/CreateSchedule.dart';
 import '../../widgets/utils/messages.dart';
 
 class CreateScheduleProvider extends ChangeNotifier {
-  int time = 540;
+ 
   bool _isLoading = false;
   String? _errorMessage = null;
   bool get isLoading => _isLoading;
@@ -29,12 +29,12 @@ class CreateScheduleProvider extends ChangeNotifier {
     } catch (e) {
       showToasttoast(e.toString());
     } finally {
-      Future.delayed(Duration(minutes: 9)).whenComplete(() {
+     /* Future.delayed(Duration(minutes: 9)).whenComplete(() {
         _isLoading = false;
         notifyListeners();
 
         print(_isLoading);
-      });
+      });*/
     }
     return _errorMessage.toString();
   }
@@ -55,18 +55,19 @@ Future<String?> schedule_program(
       body: json.encode(schedule.toJson(json)));
   print(json.encode(schedule.toJson(json)));
   log(response.statusCode);
-  Future.delayed(Duration(minutes: 9)).whenComplete(() {
-    isLoading = true;
-  });
-
+ 
+ var data = jsonDecode(response.body);
   if (response.statusCode == 201) {
-    var data = jsonDecode(response.body);
+   
        showmessages(context);
-                     
+      /*  Future.delayed(Duration(minutes: 9)).whenComplete(() {
+    isLoading = true;
+  });             */
     print('Response data: ${data}');
     return response.body.toString();
   } else {
-    showToasttoast(response.body);
+    
+    showToasttoast(data['message']);
   }
 
 }

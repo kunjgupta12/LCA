@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lca/screens/auth/login.dart';
 import 'package:lca/screens/auth/signup.dart';
 import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
+import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/profile/profile.dart';
 import 'package:lca/screens/device/register_device.dart';
@@ -12,6 +13,7 @@ class AppRoutes {
   static const String profile = '/frame_thiertytwo';
 
   static const String frameThirteenScreen = '/frame_thirteen_screen';
+
 
   static const String frameFourteenScreen = '/frame_fourteen_screen';
 
@@ -51,6 +53,7 @@ class AppRoutes {
     frameFiveScreen: (context) => FrameFiveScreen(),
     frameThirteenScreen: (context) => FrameThirteenScreen(),
     profile: (context) => FrameThirtytwoPage(),
+    frameTwentyScreen:(context)=>FrameTwentyScreen(),
     frameEightScreen: (context) => FrameEightPage(),
     frameNineteenContainerScreen: (context) => FrameNineteenContainerScreen(),
     frameFifteenScreen: (context) => FrameFifteenScreen(),

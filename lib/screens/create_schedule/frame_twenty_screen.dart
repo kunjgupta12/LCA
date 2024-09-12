@@ -6,6 +6,7 @@ import 'package:lca/api/schedule/get_schedule.dart';
 import 'package:lca/api/schedule/schedule_provider.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
+import 'package:lca/screens/bottom_nav/frame_nineteen_container_screen.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/screens/create_schedule/widgets/widget_a2.dart';
 import 'package:lca/widgets/custom_button_style.dart';
@@ -15,6 +16,7 @@ import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:restart_app/restart_app.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/app_decoration.dart';
@@ -23,20 +25,22 @@ import 'package:flutter/material.dart';
 
 ProgramB programB = ProgramB();
 ProgramA programA = ProgramA();
-Schedule schedule = Schedule();
+Schedule schedule = Schedule();/*
 String get formattedTime {
   final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
   final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
   return '$minutes:$seconds';
-}
+}*/
 
-int _remainingSeconds = 540; // 9 minutes in seconds
+//int _remainingSeconds = 540; // 9 minutes in seconds
 
 class FrameTwentyScreen extends StatefulWidget {
   final String? token;
   final int? id;
-  int valve;
-  FrameTwentyScreen({Key? key, this.id, this.token, required this.valve})
+  int? valve;
+
+  static const String frameTwentyScreen = '/frame_twenty_screen';
+  FrameTwentyScreen({Key? key, this.id, this.token,  this.valve})
       : super(key: key);
 
   @override
@@ -63,23 +67,22 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     super.initState();
     createSchedule =
         Provider.of<CreateScheduleProvider>(context, listen: false);
-    createSchedule.addListener(_handleLoadingChange);
+   // createSchedule.addListener(_handleLoadingChange);
   }
 
   @override
   void dispose() {
+   //_remainingSeconds = 0;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       createSchedule.resetLoadingState();
-      _remainingSeconds = 0;
     });
-    _stopTimer();
-    createSchedule.removeListener(_handleLoadingChange);
-  
-Navigator.pop(context);
+   // _stopTimer();
+  //  createSchedule.removeListener(_handleLoadingChange);
+//
     super.dispose();
   }
 
-  Future<void> _handleLoadingChange() async {
+ /* Future<void> _handleLoadingChange() async {
     _startTimer();
   }
 
@@ -91,10 +94,9 @@ Navigator.pop(context);
         if (_remainingSeconds > 0) {
           _remainingSeconds--;
 
-         // overlayEntry!.markNeedsBuild();
+          // overlayEntry!.markNeedsBuild();
         } else {
           _stopTimer();
-       
         }
       });
     });
@@ -103,7 +105,7 @@ Navigator.pop(context);
   void _stopTimer() {
     _timer?.cancel();
   }
-
+*/
   void _handleValueChanged(int value) {
     setState(() {
       _selectedValue = value;
@@ -111,9 +113,9 @@ Navigator.pop(context);
   }
 
   Future<void> _onSubmit() async {
-    if (createSchedule.isLoading) {
+   /* if (createSchedule.isLoading) {
       showToast(context, 'Please wait for some time');
-    } else {
+    } else {*/
       showDialog(
         context: context,
         builder: (context) => StatefulBuilder(
@@ -232,7 +234,7 @@ Navigator.pop(context);
           },
         ),
       );
-    }
+   // }
   }
 
   Widget _buildAppBar(BuildContext context) {
@@ -241,13 +243,24 @@ Navigator.pop(context);
       decoration: AppDecoration.bg,
       child: Column(
         children: [
-          CustomAppBar(
-            height: 30,
-            title: AppbarSubtitle(
-              onTap: () => Navigator.pop(context),
-              text: "< Back".tr,
-              margin: EdgeInsets.only(left: 6),
-            ),
+          Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 80,
+                decoration: BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                child: CustomAppBar(
+                  height: 30,
+                  title: AppbarSubtitle(
+                    onTap: () {
+                   Navigator.of(context).pop();
+                    },
+                    text: "< Back".tr,
+                    margin: EdgeInsets.only(left: 6),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 25),
           Container(
@@ -258,7 +271,7 @@ Navigator.pop(context);
             ),
           ),
           SizedBox(height: 30),
-     Container(
+          Container(
             width: 315,
             margin: const EdgeInsets.symmetric(horizontal: 62),
             child: Text(
@@ -268,21 +281,26 @@ Navigator.pop(context);
               textAlign: TextAlign.center,
               style: CustomTextStyles.bodyLargeDMSansRegular,
             ),
-          ) ,
-       SizedBox(height: 10,),   formattedTime =='09:00' ||   formattedTime =='00:00' ? Text(''): Container(
-            width: 200,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.7),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                formattedTime,
-                style: TextStyle(fontSize: 48, color: Colors.white),
-              ),
-            ),
-          )
+          ),
+          SizedBox(
+            height: 10,
+          ),
+        /*  formattedTime == '09:00' || formattedTime == '00:00'
+              ? Text('')
+              : Container(
+                  width: 200,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      formattedTime,
+                      style: TextStyle(fontSize: 48, color: Colors.white),
+                    ),
+                  ),
+                )*/
         ],
       ),
     );
@@ -311,10 +329,16 @@ Navigator.pop(context);
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
-                        if (_selectedValue == 0) {
-                    log( childKeya1.currentState!.updateA().startTime2.toString());
+                    if (_selectedValue == 0) {
+                      log(childKeya1.currentState!
+                          .updateA()
+                          .startTime2
+                          .toString());
                     } else {
-                    log( childKeya2.currentState!.updateB().startTime.toString());
+                      log(childKeya2.currentState!
+                          .updateB()
+                          .startTime
+                          .toString());
                     }
                     setState(() {
                       index != 0
@@ -404,51 +428,54 @@ Navigator.pop(context);
                         _buildProgramsGrid(context),
                         _selectedValue == 0
                             ? a1(
-                                valve: widget.valve,
+                                valve: widget.valve!.toInt(),
                                 key: childKeya1,
                                 end: a1_end,
-                                
                               )
                             : a2(
-                                valve: widget.valve,
+                                valve: widget.valve!.toInt(),
                                 starttime: a1_end,
                                 id: widget.id,
                                 key: childKeya2,
                               ),
                       ],
                     ),
-                  ),
+                  ),  
+                     
                   Consumer<CreateScheduleProvider>(
                     builder: (context, value, child) {
-                      return CustomElevatedButton(
-                        text: 'SUBMIT'.tr,
-                        buttonStyle: value.isLoading
-                            ? CustomButtonStyles.fillOrangeA.copyWith(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith((states) {
-                                  if (states.contains(MaterialState.pressed)) {
+                      return Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: CustomElevatedButton(
+                          text: 'SUBMIT'.tr,
+                          buttonStyle:/* value.isLoading
+                              ? CustomButtonStyles.fillOrangeA.copyWith(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith((states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return Colors.grey;
+                                    }
                                     return Colors.grey;
-                                  }
-                                  return Colors.grey;
-                                }),
-                              )
-                            : CustomButtonStyles.fillOrangeATL15.copyWith(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith((states) {
-                                  if (states.contains(MaterialState.pressed)) {
+                                  }),
+                                )
+                              : */CustomButtonStyles.fillOrangeATL15.copyWith(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith((states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return Colors.green;
+                                    }
                                     return Colors.green;
-                                  }
-                                  return Colors.green;
-                                }),
-                              ),
-                        onPressed: _onSubmit,
-                        height: 50,
-                        width: 305,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+                                  }),
+                                ),
+                          onPressed: _onSubmit,
+                          height: 50,
+                          width: 305,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          buttonTextStyle:
+                              CustomTextStyles.headlineSmallPoppinsWhiteA70001,
                         ),
-                        buttonTextStyle:
-                            CustomTextStyles.headlineSmallPoppinsWhiteA70001,
                       );
                     },
                   ),

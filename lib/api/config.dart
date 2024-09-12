@@ -1,8 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-final String url = //dotenv.env['BASE_URL'] 
+final String url = dotenv.env['BASE_URL'] ??'';
 
- 'http://192.168.1.36:9002'; 
+ //'http://192.168.1.36:9002'; 
 
 // Auth endpoints
 final String registration = '$url/api/v1/auth/register/customer';
