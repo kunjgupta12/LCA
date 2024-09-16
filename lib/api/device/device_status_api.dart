@@ -55,14 +55,14 @@ Future<type1?> valve_detail_type1(String deviceId) async {
 
       return type1.fromJson(data);
     } else {
-      throw Exception('Failed to load data');
+      throw Exception(response.body);
     }
   } catch (e) {
     showToasttoast('Waiting for device to respond');
   }
 }
 
-Future<void> resetValve(deviceId,BuildContext context) async {
+Future<void> resetValve(deviceId, BuildContext context) async {
   final String apiUrl = '$url/api/v1/devices/${deviceId}/reset';
   final Uri uri = Uri.parse(apiUrl);
   Map<String, dynamic> regBody = {'lfr': "1"};
@@ -70,13 +70,11 @@ Future<void> resetValve(deviceId,BuildContext context) async {
       body: jsonEncode(regBody), uri, headers: await getHeaders());
   print(response.body);
   if (response.statusCode == 200) {
-   
-   Navigator.pop(context);
-   showToasttoast('Flow Reset Data Send Successfully');
+    Navigator.pop(context);
+    showToasttoast('Flow Reset Data Send Successfully');
   } else {
     showToasttoast('Flow Reset Data Send UnSuccessfull');
   }
-  
 }
 
 Future<type2> valve_detail_typea(String deviceId) async {
@@ -90,40 +88,42 @@ Future<type2> valve_detail_typea(String deviceId) async {
 
     return type2.fromJson(data);
   } else {
-    throw Exception('Failed to load data');
+    throw Exception(response.body);
   }
 }
 
-DeviceStatus? deviceStatus;
-type2? typeb;
-type2? typea;
-String? devideId;
-
 class DeviceProvider with ChangeNotifier {
-  DeviceStatus? get data => deviceStatus;
-  type2? get type2a => typea;
-  type2? get type3b => typeb;
-  DataProvider(String deviceIdget) {
-    devideId = deviceIdget;
-
-    _fetchData(deviceIdget);
+  DeviceStatus? _deviceStatus;
+  type2? _typeA;
+  type2? _typeB;
+  String? _deviceId;
+  type1? _type1;
+  DeviceStatus? get deviceStatus => _deviceStatus;
+  type2? get type2a => _typeA;
+  type2? get type3b => _typeB;
+  type1? get type11 => _type1;
+  DeviceProvider(String deviceIdd) {
+    _deviceId = deviceIdd;
+    _fetchData(deviceIdd);
   }
 
   Future<void> refreshData() async {
-    if (devideId != null) {
-      await _fetchData(devideId!);
+    if (_deviceId != null) {
+      await _fetchData(_deviceId!);
     }
   }
 
   Future<void> _fetchData(String deviceId) async {
     try {
-      deviceStatus = await device_detail(deviceId);
+      _deviceStatus = await device_detail(deviceId);
+      _type1 = await valve_detail_type1(deviceId);
 
-      typeb = await valve_detail_typeb(deviceId);
-      typea = await valve_detail_typea(deviceId);
+      if (_type1!.c.m[0] != 0) _typeA = await valve_detail_typea(deviceId);
+      if (_type1!.c.m[1] != 0) _typeB = await valve_detail_typeb(deviceId);
       notifyListeners();
     } catch (error) {
-      print("Error fetching data: $error");
+      // Provide better error handling or logging
+      debugPrint("Error fetching data: $error");
     }
   }
 }

@@ -6,14 +6,16 @@ import 'package:lca/screens/auth/login.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/image_constant.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../auth/signup.dart';
-import '../../main.dart';
-
 final List locale = [
   {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
   {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
+  {'name': 'मराठी', 'locale': Locale('mr', 'IN')},
+  {'name': 'ગુજરાતી', 'locale': Locale('gu', 'IN')},
+ // {'name': 'ಕನ್ನಡ', 'locale': Locale('kn', 'IN')},
+ // {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')},
+//  {'name': 'తెలుగు', 'locale': Locale('te', 'IN')},
 ];
+
 
 void updateLanguage(Locale locale)async {
   Get.back();

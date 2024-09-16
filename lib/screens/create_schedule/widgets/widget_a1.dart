@@ -147,7 +147,16 @@ class A1State extends State<a1> {
                     selectedTimefer[i][1]=TimeOfDay(hour: 00, minute: 00);
               
                     }
-                    a1_end=TimeOfDay(hour: 00, minute: 00);
+                       _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+                        _selectedButtonIndex == 1
+                            ? a1_end = TimeOfDay(
+                                hour: totalh! + _selectedTime.hour.toInt(),
+                                minute: totalm! + _selectedTime.minute.toInt())
+                            : a1_end = TimeOfDay(
+                                hour: totalhfer + _selectedTime.hour.toInt(),
+                                minute:
+                                    totalmfer + _selectedTime.minute.toInt());
+               
                   });
                   programA = ProgramA();
                 },

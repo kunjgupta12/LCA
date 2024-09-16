@@ -22,8 +22,12 @@ import 'package:lca/widgets/custom_button_style.dart';
 import 'package:lca/widgets/custom_elevated_button.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/floating_button.dart';
+import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../api/device/device_status_api.dart';
 
 class DeviceListScreen extends StatefulWidget {
   @override
@@ -130,56 +134,61 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             showDialog(
                 context: context,
-                builder: (context) => AlertDialog(
+                builder: (context) => AlertDialog(scrollable: true,
                     backgroundColor: Colors.white,
-                    title: Container(
-                      width: 80.h,
-                      height: 200.v,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: prefs.getString('lang') ==
-                                            locale[index]['locale'].toString()
-                                        ? Colors.green
-                                        : Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextButton(
-                                          child: Text(
-                                            locale[index]['name'],
-                                            style:  prefs.getString('lang') ==
-                                            locale[index]['locale'].toString()
-                                        ? CustomTextStyles.headlineSmallLibreFranklinWhiteA70001 :CustomTextStyles.headlineSmallDMSansBlack90001
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              selectedOption = index;
-                                            });
-                                     
-                                            updateLanguage(
-                                                locale[index]['locale']);
-                                          }),
-
-                                      /// Text(locale[index]['name']),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider();
-                            },
-                            itemCount: locale.length),
-                      ),
+                    title: Column(mainAxisAlignment: MainAxisAlignment.start,
+                      children: [Text("Please Scroll for more",style: TextStyle(  color: appTheme.black90001,
+        fontWeight: FontWeight.w500,decoration: TextDecoration.underline),),
+                        Container(
+                          width: 300.h,
+                          height: 400.v,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListView.separated(scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: prefs.getString('lang') ==
+                                                locale[index]['locale'].toString()
+                                            ? Colors.green
+                                            : Colors.white),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          TextButton(
+                                              child: Text(
+                                                locale[index]['name'],
+                                                style:  prefs.getString('lang') ==
+                                                locale[index]['locale'].toString()
+                                            ? CustomTextStyles.headlineSmallLibreFranklinWhiteA70001 :CustomTextStyles.headlineSmallDMSansBlack90001
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedOption = index;
+                                                });
+                                         
+                                                updateLanguage(
+                                                    locale[index]['locale']);
+                                              }),
+                        
+                                          /// Text(locale[index]['name']),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return Divider();
+                                },
+                                itemCount: locale.length),
+                          ),
+                        ),
+                      ],
                     )));
           },
           icon: Icon(Icons.language),
@@ -289,8 +298,10 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                               onPressed: () {
                                 print(token);
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        //    FrameThirtythreePage())
+                                    builder: (context) =>ChangeNotifierProvider(
+        create: (context) => DeviceProvider(device.id.toString()),
+        child:
+                                      
                                         FrameEightPage(
                                             token: token.toString(),
                                             valve_no: device.valveCount,
@@ -298,7 +309,7 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                                                 '${device.address!.lat},${device.address!.long}',
                                             iemi: device.imei,
                                             name: device.title,
-                                            id: device.id)));
+                                            id: device.id))));
                               },
                             ),
                             const SizedBox(

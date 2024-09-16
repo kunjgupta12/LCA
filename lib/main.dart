@@ -66,7 +66,7 @@ void main() async {
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => IssueProvider()),
-        ChangeNotifierProvider(create: (context) => DeviceProvider()),
+      //  ChangeNotifierProvider(create: (context) => DeviceProvider()),
         ChangeNotifierProvider(create: (context) => LoginNotifier()),
         ChangeNotifierProvider(create: (context) => CreateScheduleProvider()),
       ],

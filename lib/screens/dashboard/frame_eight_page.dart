@@ -2,16 +2,11 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lca/api/device/device_status_api.dart';
-import 'package:lca/api/device/devices.dart';
 import 'package:lca/model/device_status/type4.dart';
 import 'package:lca/model/device_status/type1.dart';
 import 'package:lca/screens/dashboard/widget/dashboard_dialog.dart';
 import 'package:lca/screens/dashboard/widget/loran_info.dart';
 import 'package:lca/screens/dashboard/widget/valve_grid.dart';
-import 'package:lca/screens/dashboard/widget/valves_indicator.dart';
-import 'package:lca/screens/device/update_device.dart';
-import 'package:lca/widgets/custom_button_style.dart';
-import 'package:lca/widgets/custom_elevated_button.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
 import '../../api/weather/weather_api.dart';
@@ -20,7 +15,6 @@ import '../../widgets/app_bar/appbar_title.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/app_decoration.dart';
 import '../../widgets/custom_image.dart';
-import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/custom_text_style.dart';
 import '../../widgets/image_constant.dart';
 import '../../widgets/theme_helper.dart';
@@ -59,11 +53,9 @@ class _FrameEightPageState extends State<FrameEightPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<DeviceProvider>(context, listen: false)
-        .DataProvider(widget.id.toString());
+    Provider.of<DeviceProvider>(context, listen: false);
+     
 
-    // details =
-    // Devices().device_detail(widget.token.toString(), widget.id.toString());
     _startTimer();
 
     _futureWeatherData = fetchData(widget.para.toString());
@@ -80,8 +72,9 @@ class _FrameEightPageState extends State<FrameEightPage> {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(minutes: 3), (timer) {
-      Provider.of<DeviceProvider>(context, listen: false)
-          .DataProvider(widget.id.toString());
+    final data=  Provider.of<DeviceProvider>(context, listen: false)
+         ;
+          data.refreshData();
     });
   }
 
@@ -126,8 +119,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                           ),
                           Consumer<DeviceProvider?>(
                               builder: (context, dataprovider, snapshot) {
-                            if (deviceStatus != null) {
-                              var status = dataprovider!.data!.c!;
+                            if (dataprovider!.deviceStatus != null) {
+                              var status = dataprovider.deviceStatus!.c!;
         
                               return Container(
                                 margin: EdgeInsets.only(
@@ -284,7 +277,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 if (snapshot.data!.c.m[0] != 0)
                                                   valve(
                                                       snapshot.data!.c.vc,
-                                                      dataprovider.data!.c!,
+                                                      dataprovider.deviceStatus!.c!,
                                                       dataprovider,
                                                       snapshot.data,
                                                       'A',
@@ -293,7 +286,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 if (snapshot.data!.c.m[1] != 0)
                                                   valve(
                                                       snapshot.data!.c.vc,
-                                                      dataprovider.data!.c!,
+                                                      dataprovider.deviceStatus!.c!,
                                                       dataprovider,
                                                       snapshot.data,
                                                       'B',

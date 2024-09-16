@@ -78,8 +78,7 @@ class _FrameNineteenContainerScreenState
       case BottomBarEnum.Home:
         return AppRoutes.frameEightScreen;
 
-      case BottomBarEnum.Search:
-        return AppRoutes.frameEightScreen;
+   
       case BottomBarEnum.Complaints:
         return AppRoutes.frameSeventeenScreen;
       case BottomBarEnum.Profile:
