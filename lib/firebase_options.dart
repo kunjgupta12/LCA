@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD191rTTztXBHqeRmprLMK7sbWlB2kMDU0',
-    appId: '1:1081452186768:android:97c41ae508ef60f8d0dc15',
+    appId: '1:1081452186768:android:8d06152776511d8fd0dc15',
     messagingSenderId: '1081452186768',
     projectId: 'lcaapp-7d817',
     storageBucket: 'lcaapp-7d817.appspot.com',
@@ -60,11 +60,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAaLk-7DVdBwKUdazC2pukgGpgrvYPViDk',
-    appId: '1:1081452186768:ios:4156f2773ad5e72bd0dc15',
+    appId: '1:1081452186768:ios:ee2bf57dcdda7393d0dc15',
     messagingSenderId: '1081452186768',
     projectId: 'lcaapp-7d817',
     storageBucket: 'lcaapp-7d817.appspot.com',
-    iosBundleId: 'com.lca.app',
+    iosBundleId: 'com.lcaapp.irrigation',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

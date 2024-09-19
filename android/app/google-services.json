@@ -62,6 +62,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081452186768:android:8d06152776511d8fd0dc15",
+        "android_client_info": {
+          "package_name": "com.lcaapp.irrigation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110822432245885021013",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD191rTTztXBHqeRmprLMK7sbWlB2kMDU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110822432245885021013",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
