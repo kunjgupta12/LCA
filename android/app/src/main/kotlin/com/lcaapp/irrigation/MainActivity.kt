@@ -1,4 +1,4 @@
-package com.lca.app
+package com.lcaapp.irrigation
 
 import io.flutter.embedding.android.FlutterActivity
 
