@@ -12,7 +12,12 @@
           "package_name": "com.example.lca"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "110822432245885021013",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD191rTTztXBHqeRmprLMK7sbWlB2kMDU0"
@@ -20,7 +25,41 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110822432245885021013",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081452186768:android:97c41ae508ef60f8d0dc15",
+        "android_client_info": {
+          "package_name": "com.lca.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110822432245885021013",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD191rTTztXBHqeRmprLMK7sbWlB2kMDU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110822432245885021013",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

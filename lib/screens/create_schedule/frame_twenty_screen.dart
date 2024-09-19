@@ -16,7 +16,6 @@ import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:restart_app/restart_app.dart';
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/app_decoration.dart';
@@ -25,7 +24,8 @@ import 'package:flutter/material.dart';
 
 ProgramB programB = ProgramB();
 ProgramA programA = ProgramA();
-Schedule schedule = Schedule();/*
+Schedule schedule =
+    Schedule(); /*
 String get formattedTime {
   final minutes = (_remainingSeconds ~/ 60).toString().padLeft(2, '0');
   final seconds = (_remainingSeconds % 60).toString().padLeft(2, '0');
@@ -40,7 +40,7 @@ class FrameTwentyScreen extends StatefulWidget {
   int? valve;
 
   static const String frameTwentyScreen = '/frame_twenty_screen';
-  FrameTwentyScreen({Key? key, this.id, this.token,  this.valve})
+  FrameTwentyScreen({Key? key, this.id, this.token, this.valve})
       : super(key: key);
 
   @override
@@ -67,22 +67,22 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     super.initState();
     createSchedule =
         Provider.of<CreateScheduleProvider>(context, listen: false);
-   // createSchedule.addListener(_handleLoadingChange);
+    // createSchedule.addListener(_handleLoadingChange);
   }
 
   @override
   void dispose() {
-   //_remainingSeconds = 0;
+    //_remainingSeconds = 0;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       createSchedule.resetLoadingState();
     });
-   // _stopTimer();
-  //  createSchedule.removeListener(_handleLoadingChange);
+    // _stopTimer();
+    //  createSchedule.removeListener(_handleLoadingChange);
 //
     super.dispose();
   }
 
- /* Future<void> _handleLoadingChange() async {
+  /* Future<void> _handleLoadingChange() async {
     _startTimer();
   }
 
@@ -113,128 +113,128 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   }
 
   Future<void> _onSubmit() async {
-   /* if (createSchedule.isLoading) {
+    /* if (createSchedule.isLoading) {
       showToast(context, 'Please wait for some time');
     } else {*/
-      showDialog(
-        context: context,
-        builder: (context) => StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              backgroundColor: Colors.white,
-              title: SizedBox(
-                height: 220,
-                width: 70,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pump initial time'.tr,
-                      style: CustomTextStyles.titleSmallRobotoBlack90001,
-                    ),
-                    CustomTextFormField(
-                      hintText: 'Pump initial time'.tr,
-                      controller: pumpstarttime,
-                      textInputType: TextInputType.number,
-                      validator: (value) {
-                        final number = int.tryParse(value!);
-                        if (value.isEmpty ||
-                            number == null ||
-                            number < 5 ||
-                            number > 90) {
-                          return 'Please enter in range of 5 to 90';
-                        }
-                        return null;
-                      },
-                    ),
-                    Text(
-                      'Pump recharge time'.tr,
-                      style: CustomTextStyles.titleSmallRobotoBlack90001,
-                    ),
-                    CustomTextFormField(
-                      hintText: 'Pump recharge time'.tr,
-                      controller: pumprechargetime,
-                      textInputType: TextInputType.number,
-                      validator: (value) {
-                        final number = int.tryParse(value!);
-                        if (value.isEmpty ||
-                            number == null ||
-                            number < 1 ||
-                            number > 1440) {
-                          return 'Please enter in range of 1 to 1440';
-                        }
-                        return null;
-                      },
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Start from today?".tr,
-                          style: CustomTextStyles.titleMediumBluegray900,
-                        ),
-                        Checkbox(
-                          value: isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value!;
-                            });
-                          },
-                          activeColor: isChecked ? Colors.green : Colors.red,
-                        ),
-                      ],
-                    ),
-                  ],
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: SizedBox(
+              height: 220,
+              width: 70,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pump initial time'.tr,
+                    style: CustomTextStyles.titleSmallRobotoBlack90001,
+                  ),
+                  CustomTextFormField(
+                    hintText: 'Pump initial time'.tr,
+                    controller: pumpstarttime,
+                    textInputType: TextInputType.number,
+                    validator: (value) {
+                      final number = int.tryParse(value!);
+                      if (value.isEmpty ||
+                          number == null ||
+                          number < 5 ||
+                          number > 90) {
+                        return 'Please enter in range of 5 to 90';
+                      }
+                      return null;
+                    },
+                  ),
+                  Text(
+                    'Pump recharge time'.tr,
+                    style: CustomTextStyles.titleSmallRobotoBlack90001,
+                  ),
+                  CustomTextFormField(
+                    hintText: 'Pump recharge time'.tr,
+                    controller: pumprechargetime,
+                    textInputType: TextInputType.number,
+                    validator: (value) {
+                      final number = int.tryParse(value!);
+                      if (value.isEmpty ||
+                          number == null ||
+                          number < 1 ||
+                          number > 1440) {
+                        return 'Please enter in range of 1 to 1440';
+                      }
+                      return null;
+                    },
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Start from today?".tr,
+                        style: CustomTextStyles.titleMediumBluegray900,
+                      ),
+                      Checkbox(
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isChecked = value!;
+                          });
+                        },
+                        activeColor: isChecked ? Colors.green : Colors.red,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actionsAlignment: MainAxisAlignment.spaceBetween,
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'Cancel'.tr,
+                  style: CustomTextStyles.titleLargeRedA70002,
                 ),
               ),
-              actionsAlignment: MainAxisAlignment.spaceBetween,
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    'Cancel'.tr,
-                    style: CustomTextStyles.titleLargeRedA70002,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    if (_selectedValue == 0) {
-                      childKeya1.currentState!.updateA();
+              TextButton(
+                onPressed: () async {
+                  if (_selectedValue == 0) {
+                    childKeya1.currentState!.updateA();
+                  } else {
+                    childKeya2.currentState!.updateB();
+                  }
+
+                  schedule = Schedule(
+                    programA: programA.startTime == null ? null : programA,
+                    programB: programB.startTime == null ? null : programB,
+                    useToday: isChecked,
+                    pit: int.tryParse(pumpstarttime.text),
+                    prt: int.tryParse(pumprechargetime.text),
+                  );
+
+                  deviceStatus = await device_detail(widget.id.toString());
+
+                  if (deviceStatus != null) {
+                    if (deviceStatus!.c!.ms == 1) {
+                      createSchedule.createSchedule(
+                          widget.token!, widget.id!, schedule, context);
                     } else {
-                      childKeya2.currentState!.updateB();
+                      showToast(context, 'Mains off/Power Off');
                     }
-
-                    schedule = Schedule(
-                      programA: programA.startTime == null ? null : programA,
-                      programB: programB.startTime == null ? null : programB,
-                      useToday: isChecked,
-                      pit: int.tryParse(pumpstarttime.text),
-                      prt: int.tryParse(pumprechargetime.text),
-                    );
-
-                    deviceStatus = await device_detail(widget.id.toString());
-
-                    if (deviceStatus != null) {
-                      if (deviceStatus!.c!.ms == 1) {
-                        createSchedule.createSchedule(
-                            widget.token!, widget.id!, schedule, context);
-                      } else {
-                        showToast(context, 'Mains off/Power Off');
-                      }
-                    } else {
-                      showToast(context, 'Device not configured');
-                    }
-                  },
-                  child: Text(
-                    'Confirm'.tr,
-                    style: CustomTextStyles.bodyLargeDMSansBluegray500,
-                  ),
+                  } else {
+                    showToast(context, 'Device not configured');
+                  }
+                },
+                child: Text(
+                  'Confirm'.tr,
+                  style: CustomTextStyles.bodyLargeDMSansBluegray500,
                 ),
-              ],
-            );
-          },
-        ),
-      );
-   // }
+              ),
+            ],
+          );
+        },
+      ),
+    );
+    // }
   }
 
   Widget _buildAppBar(BuildContext context) {
@@ -243,17 +243,20 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
       decoration: AppDecoration.bg,
       child: Column(
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: 80,
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(12)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12)),
                 child: CustomAppBar(
                   height: 30,
                   title: AppbarSubtitle(
                     onTap: () {
-                   Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                     text: "< Back".tr,
                     margin: EdgeInsets.only(left: 6),
@@ -285,7 +288,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
           SizedBox(
             height: 10,
           ),
-        /*  formattedTime == '09:00' || formattedTime == '00:00'
+          /*  formattedTime == '09:00' || formattedTime == '00:00'
               ? Text('')
               : Container(
                   width: 200,
@@ -440,15 +443,14 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                               ),
                       ],
                     ),
-                  ),  
-                     
+                  ),
                   Consumer<CreateScheduleProvider>(
                     builder: (context, value, child) {
                       return Padding(
                         padding: const EdgeInsets.all(14.0),
                         child: CustomElevatedButton(
                           text: 'SUBMIT'.tr,
-                          buttonStyle:/* value.isLoading
+                          buttonStyle: /* value.isLoading
                               ? CustomButtonStyles.fillOrangeA.copyWith(
                                   backgroundColor:
                                       MaterialStateProperty.resolveWith((states) {
@@ -458,15 +460,16 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                                     return Colors.grey;
                                   }),
                                 )
-                              : */CustomButtonStyles.fillOrangeATL15.copyWith(
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith((states) {
-                                    if (states.contains(MaterialState.pressed)) {
-                                      return Colors.green;
-                                    }
-                                    return Colors.green;
-                                  }),
-                                ),
+                              : */
+                              CustomButtonStyles.fillOrangeATL15.copyWith(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.green;
+                              }
+                              return Colors.green;
+                            }),
+                          ),
                           onPressed: _onSubmit,
                           height: 50,
                           width: 305,

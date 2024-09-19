@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.google.gms.google-services' // FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.firebase-perf' // FlutterFire Configuration
 }
 
 def localProperties = new Properties()
@@ -40,7 +41,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    namespace "com.example.lca"
+    namespace "com.lca.app"
     compileSdkVersion 34
     ndkVersion "25.1.8937393"
 
@@ -58,7 +59,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.lca"
+        applicationId "com.lca.app"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
@@ -77,7 +78,7 @@ signingConfigs {
               minifyEnabled true
             shrinkResources true
           
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }
