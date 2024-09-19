@@ -17,20 +17,26 @@ Widget valve(
   int type,
   int indexV,
 ) {
-  Widget buildStartTimeLabel(int min, int max, String label) {
-    if (status.vn != null &&
-        status.vn >= min &&
-        status.vn <= max &&
-        indexV == (min == 12 ? 0 : 1)) {
-      return Container(
-        decoration: AppDecoration.outlinePrimary,
-        child: Text(
-          label.tr,
-          style: CustomTextStyles.titleMediumBluegray900,
-        ),
-      );
-    }
-    return SizedBox.shrink();
+  Widget buildStartTimeLabel(index_v) {
+        if ((status.vn <= 11&&index_v==0)  ||
+                              (status.vn >= 24 && status.vn <= 35&&index_v==1))
+                        return     Container(
+                              decoration: AppDecoration.outlinePrimary,
+                              child: Text(
+                                "Start Time 1".tr,
+                                style: CustomTextStyles.titleMediumBluegray900,
+                              ),
+                            );
+                            if ((status.vn >= 12  && status.vn <= 23 && index_v==0) ||
+                              (status.vn >= 36 && status.vn <= 47&& index_v==1))
+                      return      Container(
+                              decoration: AppDecoration.outlinePrimary,
+                              child: Text(
+                                "Start Time 2".tr,
+                                style: CustomTextStyles.titleMediumBluegray900,
+                              ),
+                            );
+                            return SizedBox.shrink();
   }
 
   Widget buildProgramLabel() {
@@ -109,8 +115,8 @@ Widget valve(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildProgramLabel(),
-                    buildStartTimeLabel(11, 11, "Start Time 1"),
-                    buildStartTimeLabel(12, 23, "Start Time 2"),
+                    buildStartTimeLabel(indexV),
+              
                   ],
                 ),
                 buildActionButton(),

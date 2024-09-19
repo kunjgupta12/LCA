@@ -103,7 +103,7 @@ class CustomTextStyles {
   // Headline text style
   static get headlineLargeLibreFranklin =>
       theme.textTheme.headlineLarge!.libreFranklin.copyWith(
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: FontWeight.w500,
       );
   static get headlineLargeLilitaOneGreenA700 =>
