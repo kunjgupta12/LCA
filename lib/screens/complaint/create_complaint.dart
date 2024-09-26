@@ -81,7 +81,7 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar: null,
         resizeToAvoidBottomInset: false,
         body: Sizer(builder: (context, orientation, deviceType) {
           return SizedBox(

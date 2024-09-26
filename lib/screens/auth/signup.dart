@@ -64,7 +64,7 @@ class _FrameTwelveScreenState extends State<FrameTwelveScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: Scaffold(appBar: null,
         resizeToAvoidBottomInset: false,
         body: Sizer(builder: (context, orientation, deviceType) {
           return SizedBox(
@@ -746,13 +746,15 @@ class _FrameTwelveScreenState extends State<FrameTwelveScreen> {
               if (confirmPasswordController.text != passwordController.text) {
                 showToast(context,'Password does not matched');
               } else {
+                  List<String> nameParts =  nameController.text.split(' ');
                 registerUser(
                     emailController.text,
                     passwordController.text,
-                    nameController.text.split(' ').first ?? nameController.text,
-                    nameController.text.split(' ').last ?? "",
+                  nameParts[0],
+                  nameParts.length > 1 ? nameParts.sublist(1).join(' ') : "",
+
                     phoneNumberController.text,
-                    country.text,
+                    country.text, 
                     pincode.text,
                     region.text,
                     address.text,

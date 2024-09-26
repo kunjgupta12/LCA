@@ -32,7 +32,7 @@ class _FrameThirtyfiveScreenState extends State<FrameThirtyfiveScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar: null,
         body: Sizer(
           builder: (context, orientation, deviceType) {
          return SingleChildScrollView(

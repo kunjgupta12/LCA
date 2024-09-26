@@ -41,7 +41,7 @@ class _FrameNineteenContainerScreenState
         }
       },
       child: SafeArea(
-        child: Scaffold(
+        child: Scaffold(appBar:null,
           backgroundColor: appTheme.gray100F4,
           body: Navigator(
             key: navigatorKey,

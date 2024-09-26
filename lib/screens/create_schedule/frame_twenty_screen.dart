@@ -398,7 +398,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar:null,
         body: Sizer(
           builder: (context, orientation, deviceType) {
             return SingleChildScrollView(

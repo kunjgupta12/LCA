@@ -612,12 +612,12 @@ class _FrameEightPageState extends State<FrameEightPage> {
                         icon: const Icon(
                           Icons.settings_outlined,
                           color: Colors.white,
-                          size: 45,
+                          size: 40,
                         )),
                     Text(
                       'Settings'.tr,
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 13,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     )

@@ -90,7 +90,7 @@ class _EditState extends State<Edit> {
     TextEditingController grs =
         TextEditingController(text: '${widget.lat},${widget.long}');
 
-    return Scaffold(
+    return Scaffold(appBar: null,
       body: Sizer(builder: (context, orientation, deviceType) {
         return SingleChildScrollView(
             child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lca/widgets/theme_helper.dart';
+import 'package:lca/widgets/utils/size_utils.dart';
 
 /// A collection of pre-defined text styles for customizing text appearance,
 /// categorized by different font families and weights.
@@ -97,7 +98,7 @@ class CustomTextStyles {
   static get displayMediumPoppinsff000000 =>
       theme.textTheme.displayMedium!.poppins.copyWith(
         color: Color(0XFF000000),
-        fontSize: 40,
+        fontSize: 40.fSize,
         fontWeight: FontWeight.w800,
       );
   // Headline text style
@@ -206,6 +207,7 @@ class CustomTextStyles {
       theme.textTheme.titleLarge!.poppins.copyWith(
         color: appTheme.whiteA70001,
         fontWeight: FontWeight.w600,
+        fontSize:27.fSize
       );
   static get titleLargeRedA70002 => theme.textTheme.titleLarge!.copyWith(
         color: appTheme.redA70002,

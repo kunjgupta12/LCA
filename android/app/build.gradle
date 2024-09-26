@@ -22,12 +22,12 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '2'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '2'
 }
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
@@ -60,10 +60,10 @@ android {
 
     defaultConfig {
         applicationId "com.lcaapp.irrigation"
-        minSdkVersion 21
+        minSdkVersion 27
         targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 2
+        versionName "2"
     }
 signingConfigs {
            release {

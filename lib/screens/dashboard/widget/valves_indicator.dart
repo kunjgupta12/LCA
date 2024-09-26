@@ -57,7 +57,7 @@ Widget buildValveColumn3(p, BuildContext context, type4p, int num, int status,
                   decoration: BoxDecoration(
                       color: appTheme.blue900,
                       borderRadius: BorderRadius.circular(10)),
-                  width: 150.h,
+                
                   height: 10,
                 ),
                 Container(

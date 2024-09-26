@@ -18,8 +18,8 @@ void storedevice() async {
   final prefs = await SharedPreferences.getInstance();
 
   token = prefs.getString("token");
- 
 }
+
 class FrameSeventeenScreen extends StatefulWidget {
   FrameSeventeenScreen({Key? key})
       : super(
@@ -35,7 +35,7 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
   @override
   void initState() {
     storedevice();
-   
+
     super.initState();
   }
 
@@ -46,23 +46,21 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
       child: Scaffold(
         backgroundColor: appTheme.gray100F4,
         appBar: _buildAppBar(context),
-        body: Sizer(
-          builder: (context, orientation, deviceType) {
-            
-        return  SizedBox(
+        body: Sizer(builder: (context, orientation, deviceType) {
+          return SizedBox(
             width: double.maxFinite,
             height: height * .92,
-            child: Column(
+            child: Column( 
               children: [
                 const SizedBox(height: 10),
-                Expanded(
+                 Expanded(
                   child: Container(
-                    width: 398,
-                    margin: EdgeInsets.only(
+                    width: .9 * MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
                       left: 12,
                       right: 18,
                     ),
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 14,
                       vertical: 6,
                     ),
@@ -72,11 +70,12 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(height: 48),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * .05),
                         Align(
                           alignment: Alignment.topLeft,
                           child: Container(
-                            width: 380,
+                            width: MediaQuery.of(context).size.width * .8,
                             child: RichText(
                               text: TextSpan(
                                 children: [
@@ -95,7 +94,8 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 89),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * .1),
                         CustomElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -103,22 +103,22 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                                     data: jsonString, token: token)));
                           },
                           height: height * .1,
-                          width: 260.h,
+                          width: MediaQuery.of(context).size.width * .65,
                           text: "Register Complaint".tr,
                           buttonStyle: CustomButtonStyles.fillOrangeA,
                           buttonTextStyle:
                               CustomTextStyles.titleLargePoppinsWhiteA70001,
                         ),
-                        SizedBox(height: 74),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * .1),
                         CustomElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => FrameNineteenPage(token:token  
-                                 )));
-                    
+                                builder: (context) =>
+                                    FrameNineteenPage(token: token)));
                           },
                           height: height * .1,
-                          width: 260.h,
+                          width: MediaQuery.of(context).size.width * .65,
                           text: "View Complaints".tr,
                           buttonStyle: CustomButtonStyles.fillOrangeATL15,
                           buttonTextStyle:
@@ -128,7 +128,7 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: SizedBox(
-                            width: 212,
+                            width: MediaQuery.of(context).size.width * .7,
                             child: Text(
                               "For further Assistance \nContact us at +910101010 "
                                   .tr,
@@ -148,8 +148,8 @@ class _FrameSeventeenScreenState extends State<FrameSeventeenScreen> {
                 SizedBox(height: 8),
               ],
             ),
-          );}
-        ),
+          );
+        }),
       ),
     );
   }

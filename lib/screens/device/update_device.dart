@@ -73,7 +73,7 @@ class _UpdateDeviceState extends State<UpdateDevice> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar: null,
           resizeToAvoidBottomInset: false,
           body: FutureBuilder<Device>(
               future: Devices().fetchDevice(widget.id!)

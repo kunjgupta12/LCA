@@ -11,9 +11,9 @@ final List locale = [
   {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
   {'name': 'मराठी', 'locale': Locale('mr', 'IN')},
   {'name': 'ગુજરાતી', 'locale': Locale('gu', 'IN')},
- // {'name': 'ಕನ್ನಡ', 'locale': Locale('kn', 'IN')},
- // {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')},
-//  {'name': 'తెలుగు', 'locale': Locale('te', 'IN')},
+ {'name': 'ಕನ್ನಡ', 'locale': Locale('kn', 'IN')},
+ {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')},
+  {'name': 'తెలుగు', 'locale': Locale('te', 'IN')},
 ];
 
 

@@ -99,7 +99,7 @@ class _FrameThirtytwoPageState extends State<FrameThirtytwoPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(appBar: null,
         resizeToAvoidBottomInset: false,
         body: Sizer(builder: (context, orientation, deviceType) {
           return jsonString == null
