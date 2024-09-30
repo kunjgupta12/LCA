@@ -270,29 +270,32 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                 child: Text(
                                                     'Error: ${snapshot.error}'));
                                           } else if (snapshot.hasData) {
-                                            return Container(
-                                              width: 550.h,
-                                              height: snapshot.data!.c.vc * 40,
-                                              child: PageView(children: [
-                                                if (snapshot.data!.c.m[0] != 0)
-                                                  valve(
-                                                      snapshot.data!.c.vc,
-                                                      dataprovider.deviceStatus!.c!,
-                                                      dataprovider,
-                                                      snapshot.data,
-                                                      'A',
-                                                      snapshot.data!.c.m[0],
-                                                      0),
-                                                if (snapshot.data!.c.m[1] != 0)
-                                                  valve(
-                                                      snapshot.data!.c.vc,
-                                                      dataprovider.deviceStatus!.c!,
-                                                      dataprovider,
-                                                      snapshot.data,
-                                                      'B',
-                                                      snapshot.data!.c.m[1],
-                                                      1),
-                                              ]),
+                                            return Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: SizedBox(
+                                                width: 550.h,
+                                                height: snapshot.data!.c.vc * 45,
+                                                child: PageView(children: [
+                                                  if (snapshot.data!.c.m[0] != 0)
+                                                    valve(
+                                                        snapshot.data!.c.vc,
+                                                        dataprovider.deviceStatus!.c!,
+                                                        dataprovider,
+                                                        snapshot.data,
+                                                        'A',
+                                                        snapshot.data!.c.m[0],
+                                                        0),
+                                                  if (snapshot.data!.c.m[1] != 0)
+                                                    valve(
+                                                        snapshot.data!.c.vc,
+                                                        dataprovider.deviceStatus!.c!,
+                                                        dataprovider,
+                                                        snapshot.data,
+                                                        'B',
+                                                        snapshot.data!.c.m[1],
+                                                        1),
+                                                ]),
+                                              ),
                                             );
                                           }
                                           return Text(

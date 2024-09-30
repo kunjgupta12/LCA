@@ -326,7 +326,7 @@ class A1State extends State<a1> {
                 Padding(
                   padding: EdgeInsets.only(top: 5, bottom: 25, right: 5),
                   child: Text(
-                    "Start Time: ".tr,
+                    "Start Time".tr+" 1:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -414,7 +414,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "End Time  : ".tr,
+                    "End Time".tr +" 1:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -466,7 +466,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "Start Time 2 : ".tr,
+                    "Start Time 2: ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -538,6 +538,44 @@ class A1State extends State<a1> {
                         ],
                       ),
                     )),
+              ],
+            ),
+          ), Padding(
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 5,
+                    bottom: 25,
+                  ),
+                  child: Text(
+                    "End Time".tr +" 2:",
+                    style: theme.textTheme.titleLarge,
+                  ),
+                ),
+                SizedBox(
+                  width: 26.h,
+                ),
+                GestureDetector(
+            
+                  child: CustomTextFormField(
+                    width: 110.h,
+                    enabled: false,
+                    hintStyle: CustomTextStyles.bodyMediumInter,
+
+                    hintText:'${convertTime(TimeOfDay(hour: a1_end!.hour, minute:a1_end!.minute.toInt()))} ',
+                    fillColor: Colors.white,
+                    borderDecoration: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    contentPadding: EdgeInsets.only(left: 20, top: 20),
+                  ),
+                )
               ],
             ),
           ),
@@ -842,21 +880,21 @@ ProgramA updateA() {
               width: 15,
             ),
             Text(
-              'Prewet(hrs)',
+              'Prewet(HH:MM)',
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Fertilize(hrs)',
+              'Fertilize(HH:MM)',
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Flush(hrs)',
+              'Flush(HH:MM)',
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,

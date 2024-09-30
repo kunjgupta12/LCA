@@ -70,6 +70,36 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     // createSchedule.addListener(_handleLoadingChange);
   }
 
+
+  String convertTime(TimeOfDay time) {
+    int hours = time.hour;
+    int minutes = time.minute;
+
+    // Convert minutes more than 60 to valid hours and minutes
+    while (minutes >= 60) {
+      hours += 1;
+      minutes -= 60;
+    }
+
+    // Adjust hours to be within 24-hour format
+
+    return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
+  }
+
+TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
+ Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+     starttime.text = convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
+       
+      });
+    }
+  }
   @override
   void dispose() {
     //_remainingSeconds = 0;
@@ -129,7 +159,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pump initial time'.tr,
+                    'Pump initial time'.tr+"Sec",
                     style: CustomTextStyles.titleSmallRobotoBlack90001,
                   ),
                   CustomTextFormField(
@@ -148,23 +178,38 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
                     },
                   ),
                   Text(
-                    'Pump recharge time'.tr,
+                    'Pump recharge time'.tr+"HH:MM",
                     style: CustomTextStyles.titleSmallRobotoBlack90001,
                   ),
-                  CustomTextFormField(
-                    hintText: 'Pump recharge time'.tr,
-                    controller: pumprechargetime,
-                    textInputType: TextInputType.number,
-                    validator: (value) {
-                      final number = int.tryParse(value!);
-                      if (value.isEmpty ||
-                          number == null ||
-                          number < 1 ||
-                          number > 1440) {
-                        return 'Please enter in range of 1 to 1440';
-                      }
-                      return null;
-                    },
+                  Row(
+                    children: [
+                      CustomTextFormField(
+                        hintText: 'Pump recharge time'.tr,
+                        controller: pumprechargetime,
+                        textInputType: TextInputType.number,
+                        validator: (value) {
+                          final number = int.tryParse(value!);
+                          if (value.isEmpty ||
+                              number == null ||
+                              number < 1 ||
+                              number > 1440) {
+                            return 'Please enter in range of 1 to 1440';
+                          }
+                          return null;
+                        },
+                      ),Padding(
+          padding: const EdgeInsets.only(bottom: 18.0),
+          child: IconButton(
+            onPressed: (){},
+          //ClockPainter()
+          //  ,
+            icon: Icon(
+              Icons.alarm,
+              color: Colors.green,
+            ),
+          ),
+        ),
+                    ],
                   ),
                   Row(
                     children: [
@@ -236,6 +281,7 @@ class _FrameTwentyScreenState extends State<FrameTwentyScreen> {
     );
     // }
   }
+  
 
   Widget _buildAppBar(BuildContext context) {
     return Container(

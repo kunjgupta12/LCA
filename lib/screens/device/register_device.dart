@@ -575,7 +575,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
               right: 23,
             ),
             child: Text(
-              "Please fill the form below to register you device.\nAdd all the required details".tr,
+              "Please fill the form below to register your device.\nAdd all the required details".tr,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

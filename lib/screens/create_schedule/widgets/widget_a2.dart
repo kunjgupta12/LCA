@@ -1,10 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:lca/api/device/device_list.dart';
 import 'package:lca/model/schedule/CreateSchedule.dart';
 import 'package:lca/screens/create_schedule/frame_twenty_screen.dart';
-import 'package:lca/screens/create_schedule/widgets/widget_a1.dart';
 import 'package:lca/widgets/custom_image.dart';
 import 'package:lca/widgets/custom_text_form_field.dart';
 import 'package:lca/widgets/custom_text_style.dart';
@@ -16,6 +14,8 @@ import 'package:get/get.dart';
 
 TextEditingController starttimeb = TextEditingController();
 
+int totalhfer = 0;
+int totalmfer = 0;
 int? _selectedButtonIndex = 1;
 TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
 TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
@@ -196,8 +196,8 @@ class a1State extends State<a2> {
               TextButton(
                 onPressed: () {
                   setState(() {
-               updateB().startTime=   null;
-      
+                    updateB().startTime = null;
+
                     _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
                     _selectedTime = TimeOfDay(hour: 0, minute: 0);
                     starttimeb.text = '00:00';
@@ -217,19 +217,17 @@ class a1State extends State<a2> {
                       selectedTimefer[i][2] = TimeOfDay(hour: 00, minute: 00);
                       selectedTimefer[i][1] = TimeOfDay(hour: 00, minute: 00);
                     }
-                    a1_end = TimeOfDay(hour: 00, minute: 00); programB = updateB();
-                      _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
-                        _selectedButtonIndex == 1
-                            ? a1_end = TimeOfDay(
-                                hour: totalh! + _selectedTime.hour.toInt(),
-                                minute: totalm! + _selectedTime.minute.toInt())
-                            : a1_end = TimeOfDay(
-                                hour: totalhfer + _selectedTime.hour.toInt(),
-                                minute:
-                                    totalmfer + _selectedTime.minute.toInt());
-               
+                    a1_end = TimeOfDay(hour: 00, minute: 00);
+                    programB = updateB();
+                    _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+                    _selectedButtonIndex == 1
+                        ? a1_end = TimeOfDay(
+                            hour: totalh! + _selectedTime.hour.toInt(),
+                            minute: totalm! + _selectedTime.minute.toInt())
+                        : a1_end = TimeOfDay(
+                            hour: totalhfer + _selectedTime.hour.toInt(),
+                            minute: totalmfer + _selectedTime.minute.toInt());
                   });
-                
                 },
                 child: Row(
                   children: [
@@ -395,7 +393,7 @@ class a1State extends State<a2> {
                 Padding(
                   padding: EdgeInsets.only(top: 5, bottom: 25, right: 5),
                   child: Text(
-                    "Start Time: ".tr,
+                    "Start Time".tr + " 1:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -484,7 +482,7 @@ class a1State extends State<a2> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "End Time  : ".tr,
+                    "End Time".tr + " 1:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -535,7 +533,7 @@ class a1State extends State<a2> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "Start Time 2 : ".tr,
+                    "Start Time 2: ".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -610,19 +608,75 @@ class a1State extends State<a2> {
               ],
             ),
           ),
-          (_selectedButtonIndex == 1 &&
-                      totalh! + _selectedTime.hour >= 24 &&
-                      totalm! + _selectedTime.minute >= 0) ||
-                  (_selectedButtonIndex == 2 &&
-                      totalhfer + _selectedTime.hour >= 24 &&
-                      totalmfer + _selectedTime.minute >= 0) ||
-                  (_selectedTime2.hour >= 24 && _selectedTime2.minute >= 0)
-              ? Center(
+          Padding(
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 5,
+                    bottom: 25,
+                  ),
                   child: Text(
-                  'Time exceeds 24 hours',
-                  style: CustomTextStyles.titleMediumPoppinsRedA70001,
-                ))
-              : SizedBox(height: 4),
+                    "End Time".tr + " 2:",
+                    style: theme.textTheme.titleLarge,
+                  ),
+                ),
+                SizedBox(
+                  width: 26,
+                ),
+                CustomTextFormField(
+                  width: 110.h,
+                  enabled: false,
+                  hintStyle: CustomTextStyles.bodyMediumInter,
+
+                  hintText: convertTime(TimeOfDay(
+                      hour: _selectedButtonIndex == 1
+                          ? _selectedTime2.hour + totalh!
+                          : _selectedTime2.hour + totalhfer,
+                      minute: _selectedButtonIndex == 1
+                          ? _selectedTime2.minute + totalm!
+                          : _selectedTime2.minute + totalmfer)),
+                  fillColor: Colors.white,
+                  borderDecoration: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(9),
+                      borderSide: BorderSide(color: Colors.grey)),
+                  contentPadding: EdgeInsets.only(left: 20, top: 20),
+                  //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
+                )
+              ],
+            ),
+          ),
+          //  timeCheckWidget,
+          _selectedButtonIndex == 1
+              ? (_selectedTime2.hour * 60 +
+                          totalh! * 60 +
+                          _selectedTime2.minute +
+                          totalm!) >
+                      1440
+                  ? Center(
+                      child: Text(
+                        'Time exceeds 24 hours',
+                        style: CustomTextStyles.titleMediumPoppinsRedA70001,
+                      ),
+                    )
+                  : SizedBox(height: 4)
+              : (_selectedTime2.hour * 60 +
+                          totalhfer * 60 +
+                          _selectedTime2.minute +
+                          totalmfer) >
+                      1440
+                  ? Center(
+                      child: Text(
+                        'Time exceeds 24 hours',
+                        style: CustomTextStyles.titleMediumPoppinsRedA70001,
+                      ),
+                    )
+                  : SizedBox(height: 4),
           SizedBox(
             height: 10,
           ),
@@ -631,6 +685,31 @@ class a1State extends State<a2> {
     });
   }
 
+  Widget timeCheckWidget = _selectedButtonIndex == 1
+      ? (_selectedTime2.hour * 60 +
+                  totalh! * 60 +
+                  _selectedTime2.minute +
+                  totalm!) >
+              1440
+          ? Center(
+              child: Text(
+                'Time exceeds 24 hours',
+                style: CustomTextStyles.titleMediumPoppinsRedA70001,
+              ),
+            )
+          : SizedBox(height: 4)
+      : (_selectedTime2.hour * 60 +
+                  totalhfer * 60 +
+                  _selectedTime2.minute +
+                  totalmfer) >
+              1440
+          ? Center(
+              child: Text(
+                'Time exceeds 24 hours',
+                style: CustomTextStyles.titleMediumPoppinsRedA70001,
+              ),
+            )
+          : SizedBox(height: 4);
   String convertTime(TimeOfDay time) {
     int hours = time.hour;
     int minutes = time.minute;
@@ -676,52 +755,62 @@ class a1State extends State<a2> {
           }),
     );
   }
-ProgramB updateB() {
-  setState(() {
-    if (_selectedTime.hour * 60 + _selectedTime.minute > 0) {
-      bool isModeTrue = _selectedButtonIndex == 1;
-      List<bool> days = _colorContainer.map((color) => color == Colors.red).toList();
-      String? startTime2 = _selectedTime2.hour * 60 + _selectedTime2.minute > 0
-          ?convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
-          : null;
-      String startTime =
-          convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
-      
-      List<List<int>> valves = isModeTrue
-          ? List.generate(12, (i) => [selectedTimes[i].hour * 60 + selectedTimes[i].minute])
-          : List.generate(12, (i) => List.generate(3, (j) => selectedTimefer[i][j].hour * 60 + selectedTimefer[i][j].minute));
 
-      programB = ProgramB(
-        mode: isModeTrue,
-        monday: days[0],
-        tuesday: days[1],
-        wednesday: days[2],
-        thrusday: days[3],
-        friday: days[4],
-        saturday: days[5],
-        sunday: days[6],
-        startTime2: startTime2,
-        startTime: startTime,
-        programId: 2,
-        valve1: valves[0],
-        valve2: valves[1],
-        valve3: valves[2],
-        valve4: valves[3],
-        valve5: valves[4],
-        valve6: valves[5],
-        valve7: valves[6],
-        valve8: valves[7],
-        valve9: valves[8],
-        valve10: valves[9],
-        valve11: valves[10],
-        valve12: valves[11],
-      );
-    } 
-  });
+  ProgramB updateB() {
+    setState(() {
+      if (_selectedTime.hour * 60 + _selectedTime.minute > 0) {
+        bool isModeTrue = _selectedButtonIndex == 1;
+        List<bool> days =
+            _colorContainer.map((color) => color == Colors.red).toList();
+        String? startTime2 =
+            _selectedTime2.hour * 60 + _selectedTime2.minute > 0
+                ? convertTime(TimeOfDay(
+                    hour: _selectedTime2.hour, minute: _selectedTime2.minute))
+                : null;
+        String startTime = convertTime(
+            TimeOfDay(hour: _selectedTime.hour, minute: _selectedTime.minute));
 
-  return programB;
-}
+        List<List<int>> valves = isModeTrue
+            ? List.generate(12,
+                (i) => [selectedTimes[i].hour * 60 + selectedTimes[i].minute])
+            : List.generate(
+                12,
+                (i) => List.generate(
+                    3,
+                    (j) =>
+                        selectedTimefer[i][j].hour * 60 +
+                        selectedTimefer[i][j].minute));
 
+        programB = ProgramB(
+          mode: isModeTrue,
+          monday: days[0],
+          tuesday: days[1],
+          wednesday: days[2],
+          thrusday: days[3],
+          friday: days[4],
+          saturday: days[5],
+          sunday: days[6],
+          startTime2: startTime2,
+          startTime: startTime,
+          programId: 2,
+          valve1: valves[0],
+          valve2: valves[1],
+          valve3: valves[2],
+          valve4: valves[3],
+          valve5: valves[4],
+          valve6: valves[5],
+          valve7: valves[6],
+          valve8: valves[7],
+          valve9: valves[8],
+          valve10: valves[9],
+          valve11: valves[10],
+          valve12: valves[11],
+        );
+      }
+    });
+
+    return programB;
+  }
 
   Widget _buildValveOne(BuildContext context, int index) {
     Future<void> _valvetime(BuildContext context, int index) async {
@@ -935,8 +1024,6 @@ ProgramB updateB() {
     return '${totalHours.toString().padLeft(2, '0')}:${totalMinutes.toString().padLeft(2, '0')}';
   }
 
-  int totalhfer = 0;
-  int totalmfer = 0;
   List<List<TimeOfDay>> selectedTimefer = List.generate(
       12,
       (index) => [

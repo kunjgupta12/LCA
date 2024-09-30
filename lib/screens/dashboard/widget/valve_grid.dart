@@ -96,7 +96,7 @@ Widget valve(
   }
 
   return ConstrainedBox(
-    constraints: BoxConstraints(maxHeight: 400.h),
+    constraints: BoxConstraints(maxHeight: 500.h),
     child: Container(
       margin: EdgeInsets.only(left: 2.h),
       padding: EdgeInsets.symmetric(horizontal: 1.h, vertical: 16.v),
