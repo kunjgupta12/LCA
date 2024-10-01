@@ -141,7 +141,7 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
       _selectedValue = value;
     });
   }
-
+ TimeOfDay? selectedTime;
   Future<void> _onSubmit() async {
     /* if (createSchedule.isLoading) {
       showToast(context, 'Please wait for some time');
@@ -183,10 +183,10 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
                   ),
                   Row(
                     children: [
-                      CustomTextFormField(
+                      CustomTextFormField(width: 180.h,
                         hintText: 'Pump recharge time'.tr,
                         controller: pumprechargetime,
-                        textInputType: TextInputType.number,
+                        textInputType: TextInputType.number,hintStyle: TextStyle(fontSize: 16),
                         validator: (value) {
                           final number = int.tryParse(value!);
                           if (value.isEmpty ||
@@ -200,7 +200,17 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
                       ),Padding(
           padding: const EdgeInsets.only(bottom: 18.0),
           child: IconButton(
-            onPressed: (){},
+           onPressed: () async {
+                  TimeOfDay? picked = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (picked != null) {
+                    setState(() {
+                      pumprechargetime.text=(picked.hour*60+picked.minute).toString();
+                      selectedTime = picked;
+                    });
+                  }},
           //ClockPainter()
           //  ,
             icon: Icon(

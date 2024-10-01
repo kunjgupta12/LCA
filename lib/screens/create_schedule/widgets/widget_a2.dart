@@ -454,14 +454,14 @@ class a1State extends State<a2> {
               margin: EdgeInsets.only(left: 55),
               child: _selectedButtonIndex == 1
                   ? Text(
-                      "Total Time for valves is \n${totalh! /* + _selectedTime.hour.toInt()*/} hours and ${totalm! /* + _selectedTime.minute.toInt()*/} minutes",
+                      "Total Time for valves is".tr+"\n${totalh! /* + _selectedTime.hour.toInt()*/} hours  ${totalm! /* + _selectedTime.minute.toInt()*/} minutes",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: CustomTextStyles.bodyLargeDMSans,
                     )
                   : Text(
-                      "Total Time for valves is \n${totalhfer /* + _selectedTime.hour.toInt()*/} hours and ${totalmfer! /* + _selectedTime.minute.toInt()*/} minutes",
+                      "Total Time for valves is".tr + "\n${totalhfer /* + _selectedTime.hour.toInt()*/} hours  ${totalmfer! /* + _selectedTime.minute.toInt()*/} minutes",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -533,7 +533,7 @@ class a1State extends State<a2> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "Start Time 2: ".tr,
+                    "Start Time".tr+"2:".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -918,21 +918,21 @@ class a1State extends State<a2> {
               width: 15,
             ),
             Text(
-              'Prewet(hrs)'.tr,
+              'Prewet'+'(HH:MM)',
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Fertilize(hrs)'.tr,
+              'Fertilize'.tr+'(HH:MM)',
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Flush(hrs)'.tr,
+              'Flush'.tr+'(HH:MM)',
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,

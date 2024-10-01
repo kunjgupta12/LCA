@@ -23,7 +23,7 @@ Widget valve(
                         return     Container(
                               decoration: AppDecoration.outlinePrimary,
                               child: Text(
-                                "Start Time 1".tr,
+                                "Start Time".tr+"1",
                                 style: CustomTextStyles.titleMediumBluegray900,
                               ),
                             );
@@ -32,7 +32,7 @@ Widget valve(
                       return      Container(
                               decoration: AppDecoration.outlinePrimary,
                               child: Text(
-                                "Start Time 2".tr,
+                                "Start Time".tr +"2",
                                 style: CustomTextStyles.titleMediumBluegray900,
                               ),
                             );

@@ -114,7 +114,7 @@ class LocaleString extends Translations {
           "SET": "SET",
           "Program": "Program",
           'Action': 'Action',
-          "My Programs": "My Programs",
+          "My Programs": "Programs",
           'Configure': 'Configure',
           "Create Program": "Create Program",
           "Please Select the program and mode to create schedule":
@@ -147,9 +147,16 @@ class LocaleString extends Translations {
           'No Rain': 'No Rain',
           'Raining': 'Raining',
           'Low Flow': 'Low Flow',
-          "Please fill the form below to edit you device":"Please fill the form below to edit your device",
+          "Please fill the form below to edit you device":
+              "Please fill the form below to edit your device",
           "Please fill the form below to edit you device.\nAdd all the required details":
-              "Please fill the form below to edit your device.\nAdd all the required details"
+              "Please fill the form below to edit your device.\nAdd all the required details",
+          "Didn't receive OTP?": "Didn't receive OTP?",
+          "Total Time for valves is": "Total Time for valves is",
+          'Prewet':'Prewet',
+           'Fertilize': 'Fertilize',
+           'Flush':'Flush',
+           'Total':'Total'
         },
         'hi_IN': {
           'User Registration': 'उपभोक्ता पंजीकरण',
@@ -159,7 +166,7 @@ class LocaleString extends Translations {
           'Password*': 'पासवर्ड',
           'Confirm Password*': 'पासवर्ड पुष्टि करे',
           'Agree to Terms and Conditions': 'मैं नियम एवं शर्तों से सहमत हूँ',
-          'Register': 'पंजीकृत करे',
+          'Register': 'पंजीकरण करें',
           'Country*': 'देश',
           'State*': 'राज्य',
           'Auto Detect GPS': 'ऑटो डिटेक्ट GPS',
@@ -181,6 +188,7 @@ class LocaleString extends Translations {
           'via Phone': 'फ़ोन द्वारा',
           'Send OTP': 'OTP भेजें',
           'OTP': 'O.T.P',
+          "Didn't receive OTP?": "OTP नहीं मिला",
           'Login': 'लॉगिन करें',
           'Register Device': 'डिवाइस पंजीकृत करें',
           'Device Details': 'डिवाइस सूचना',
@@ -228,8 +236,9 @@ class LocaleString extends Translations {
           "Select Issue": " समस्या चुनें",
           'Please Fill Out The Form To Register Your Complaint':
               "कृपया अपनी शिकायत दर्ज करने के लिए नीचे दिए गए फॉर्म को भरें।",
+          "Total Time for valves is": "सभी वाल्व चलने की कुल अवधि",
           "Note": "टिप्पणी",
-          "SUBMIT": "भेजें ",
+          "SUBMIT": "सेव करें ",
           "EDIT": "संपादन",
           "Are all the details correct?": "क्या सभी सूचना सही हैं?",
           "Click Submit to confirm.": "पुष्टि करने के लिए सबमिट पर क्लिक करें।",
@@ -262,8 +271,8 @@ class LocaleString extends Translations {
           "NOT SET": "सेट नहीं ",
           "Program": "प्रोग्राम",
           'Action': 'प्रक्रिया',
-          "My Programs": "मेरे प्रोग्राम",
-          'Configure': 'कॉन्फ़िगर',
+          "My Programs": "प्रोग्राम",
+          'Configure': 'प्रोग्राम स्थापित करें',
           "Create Program": "प्रोग्राम बनाएं",
           'Please Select the program and mode to create schedule':
               "कृपया शेड्यूल बनाने के लिए प्रोग्राम और मोड का चयन करें",
@@ -282,10 +291,10 @@ class LocaleString extends Translations {
           'Sunday': 'रविवार',
           "Irrigation": "सिंचाई",
           "Fertigation": "फर्टिगेशन",
-          "Start Time: ": "प्रारंभ समय: ",
+          "Start Time": "प्रारंभ समय",
           "Valve Duration  : ": "वाल्व अवधि:",
-          "End Time  : ": "समाप्ति समय  : ",
-          "Start Time 2 : ": "प्रारंभ समय 2 :  ",
+          "End Time": "समाप्ति समय",
+
           'Time exceeds 24 hours': 'समय 24 घंटे से अधिक',
           'Confirm': 'पुष्टि',
           "Start from today?": "आज से शुरू करें?",
@@ -297,7 +306,11 @@ class LocaleString extends Translations {
           'Raining': 'बारिश',
           'Low Flow': 'Low Flow',
           "Please fill the form below to edit you device.\nAdd all the required details":
-              "कृपया अपने डिवाइस को संपादित करने के लिए नीचे दिया गया फॉर्म भरें।\nसभी आवश्यक विवरण जोड़ें"
+              "कृपया अपने डिवाइस को संपादित करने के लिए नीचे दिया गया फॉर्म भरें।\nसभी आवश्यक विवरण जोड़ें",
+              'Prewet':"प्रीवेट",
+               'Fertilize':'फर्टिगेशन',
+               'Flush':'फ्लशिंग',
+               'Total':'कुल समय'
         },
         "mr_IN": {
           'User Registration': 'वापरकर्ता नोंदणी',
@@ -445,7 +458,8 @@ class LocaleString extends Translations {
           'Raining': 'पाऊस पडत आहे',
           'Low Flow': 'कमी प्रवाह',
           "Please fill the form below to edit you device.\nAdd all the required details":
-              "तुमचे डिव्हाइस संपादित करण्यासाठी कृपया खालील फॉर्म भरा.\nसर्व आवश्यक तपशील भरा"
+              "तुमचे डिव्हाइस संपादित करण्यासाठी कृपया खालील फॉर्म भरा.\nसर्व आवश्यक तपशील भरा",
+          "Total Time for valves is": "सभी वाल्व चलने की कुल अवधि"
         },
         "gu_IN": {
           'User Registration': 'વપરાશકર્તા નોંધણી',
