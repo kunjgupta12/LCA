@@ -911,37 +911,37 @@ class a1State extends State<a2> {
   Widget _durationfour(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 15,
+              width: 40,
             ),
             Text(
-              'Prewet'+'(HH:MM)',
+              'Prewet'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Fertilize'.tr+'(HH:MM)',
+              'Fertilize'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Flush'.tr+'(HH:MM)',
+              'Flush'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
-            ),
+            ),  
             Text(
-              'Total'.tr,
+              'Total'.tr,textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             )

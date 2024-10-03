@@ -118,7 +118,7 @@ class LocaleString extends Translations {
           'Configure': 'Configure',
           "Create Program": "Create Program",
           "Please Select the program and mode to create schedule":
-              "Please Select the program and mode to create schedule",
+              "Please select the program and mode to create schedule",
           "Select Days": 'Select Days',
           'Reset All': 'Reset All',
           "to follow the schedule": "to follow the schedule",

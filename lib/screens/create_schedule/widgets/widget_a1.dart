@@ -874,36 +874,36 @@ ProgramA updateA() {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 15,
+              width: 40,
             ),
             Text(
-              'Prewet'+'(HH:MM)',
+              'Prewet'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Fertilize'.tr+'(HH:MM)',
+              'Fertilize'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Flush'.tr+'(HH:MM)',
+              'Flush'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
-            ),
+            ),  
             Text(
-              'Total'.tr,
+              'Total'.tr,textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             )
@@ -957,7 +957,7 @@ ProgramA updateA() {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
                         child: Text(
-                          '${_calculateTotal(selectedTimefer[index])} hrs',
+                          '${_calculateTotal(selectedTimefer[index])}',
                           style: TextStyle(fontSize: 14),
                         ),
                       ),
