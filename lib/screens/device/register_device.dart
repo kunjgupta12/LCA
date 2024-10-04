@@ -24,7 +24,6 @@ class FrameFifteenScreen extends StatefulWidget {
   State<FrameFifteenScreen> createState() => _FrameFifteenScreenState();
 }
 
-
 int? selectedValue = 1;
 int? _selectedValue = 1;
 int total = _selectedValue! + 4;
@@ -74,7 +73,8 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(appBar: null,
+      child: Scaffold(
+        appBar: null,
         resizeToAvoidBottomInset: false,
         body: Sizer(builder: (context, orientation, deviceType) {
           return SizedBox(
@@ -147,7 +147,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                   maxLines: 1,
                                   decoration: InputDecoration(
                                     filled: true,
-                                    hintText: "Device ID*".tr,
+                                    hintText: "Device IMEI"+"*".tr,
                                     hintStyle: CustomTextStyles
                                         .bodyLargeDMSansBluegray500,
                                     isDense: true,
@@ -331,10 +331,15 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                 : SizedBox(
                                     height: 2,
                                   ),
-                      
-                   selectedValue == 1 ?          Text('This expansion count will reflect on next schedule save',style: CustomTextStyles.bodyLargeDMSansRegular,):Text(""),
-                      
-                                              _buildLatitudeSection(context),
+                            selectedValue == 1
+                                ? Text(
+                                    'This expansion count will reflect on next schedule save'
+                                        .tr,
+                                    style:
+                                        CustomTextStyles.bodyLargeDMSansRegular,
+                                  )
+                                : Text(""),
+                            _buildLatitudeSection(context),
                             const SizedBox(height: 5),
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
@@ -365,7 +370,6 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                             SizedBox(height: 20.v),
                             _buildAddress(context),
                             SizedBox(height: 20.v),
-                         
                             CustomOutlinedButton(
                               onPressed: () {
                                 print(selectedValue);
@@ -384,7 +388,8 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                       selectedValue == 1
                                           ? total.toString()
                                           : default_value.toString(),
-                                      city.text,context);
+                                      city.text,
+                                      context);
                                 }
                               },
                               height: 50,
@@ -575,7 +580,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
               right: 23,
             ),
             child: Text(
-              "Please fill the form below to register your device.\nAdd all the required details".tr,
+              "Please fill the form below to register your device".tr,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -593,7 +598,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
       children: [
         Row(
           children: [
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 5.0),
               child: Text(
                 'Current Location'.tr,

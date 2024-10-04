@@ -13,13 +13,14 @@ import 'package:lca/widgets/utils/showtoast.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 
 ///
-  List<Color> _colorContainera1 = List.generate(7, (index) => Colors.white);
-  
+List<Color> _colorContainera1 = List.generate(7, (index) => Colors.white);
+
 int? _selectedButtonIndex = 1;
 TimeOfDay _selectedTime = TimeOfDay(hour: 00, minute: 00);
 TimeOfDay _selectedTime2 = TimeOfDay(hour: 00, minute: 00);
 TextEditingController starttime = TextEditingController();
 TextEditingController starttime2 = TextEditingController();
+TimeOfDay _endtime2=TimeOfDay(hour: 00, minute: 00);
 List<List<TimeOfDay>> selectedTimefer = List.generate(
     12,
     (index) => [
@@ -34,9 +35,10 @@ int? totalh = 0;
 
 class a1 extends StatefulWidget {
   int? transition;
-  TimeOfDay? end;int valve;
-  
-  a1({Key? key, this.end, this.transition,required this.valve})
+  TimeOfDay? end;
+  int valve;
+
+  a1({Key? key, this.end, this.transition, required this.valve})
       : super(key: key);
 
   @override
@@ -52,8 +54,8 @@ class A1State extends State<a1> {
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
-     starttime.text = convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
-       
+        starttime.text = convertTime(
+            TimeOfDay(hour: _selectedTime.hour, minute: _selectedTime.minute));
       });
     }
   }
@@ -73,11 +75,17 @@ class A1State extends State<a1> {
         setState(() {
           _selectedTime2 = picked2;
           print(_selectedTime2.hour * 60 + _selectedTime2.minute > 0);
-          starttime2.text = convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute));
-       
+          starttime2.text = convertTime(TimeOfDay(
+              hour: _selectedTime2.hour, minute: _selectedTime2.minute));
 
           a1_end = TimeOfDay(
               hour: picked2.hour + totalh!, minute: picked2.minute + totalm!);
+                _endtime2=TimeOfDay(   hour:         _selectedButtonIndex == 1
+                          ? _selectedTime2.hour+ totalh!
+                          : _selectedTime2.hour + totalhfer,
+                      minute: _selectedButtonIndex == 1
+                          ? _selectedTime2.minute + totalm!
+                          : _selectedTime2.minute + totalmfer);
         });
       }
       if (picked2.hour * 60 + picked2.minute >
@@ -91,8 +99,8 @@ class A1State extends State<a1> {
           a1_end = TimeOfDay(
               hour: picked2.hour + totalhfer,
               minute: picked2.minute + totalmfer);
-          starttime2.text = convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute));
-     
+          starttime2.text = convertTime(TimeOfDay(
+              hour: _selectedTime2.hour, minute: _selectedTime2.minute));
         });
       } else if (picked2.hour * 60 + picked2.minute <
                   totalh! * 60 +
@@ -106,11 +114,12 @@ class A1State extends State<a1> {
                       _selectedTime.hour.toInt() * 60 +
                       _selectedTime.minute &&
               _selectedButtonIndex == 2) {
-        showToast(context,"Please select after end time");
+        showToast(context, "Please select after end time");
       }
     }
   }
-@override
+
+  @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return Column(
@@ -134,29 +143,28 @@ class A1State extends State<a1> {
                     starttime.text = '00:00';
                     for (int i = 0; i < _colorContainera1.length; i++) {
                       _colorContainera1[i] = Colors.white;
-                    }for (int i = 0; i < 12; i++) {
-                     selectedTimes[i]=TimeOfDay(hour: 00, minute: 00);
-                    }totalh=0;
-                    totalm=0;
-                    total=0;
-                    totalhfer=0;
-                    totalmfer=0;
-                    for (int i = 0; i < 12; i++) {
-                     selectedTimefer[i][0]=TimeOfDay(hour: 00, minute: 00);
-                           selectedTimefer[i][2]=TimeOfDay(hour: 00, minute: 00);
-                    selectedTimefer[i][1]=TimeOfDay(hour: 00, minute: 00);
-              
                     }
-                       _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
-                        _selectedButtonIndex == 1
-                            ? a1_end = TimeOfDay(
-                                hour: totalh! + _selectedTime.hour.toInt(),
-                                minute: totalm! + _selectedTime.minute.toInt())
-                            : a1_end = TimeOfDay(
-                                hour: totalhfer + _selectedTime.hour.toInt(),
-                                minute:
-                                    totalmfer + _selectedTime.minute.toInt());
-               
+                    for (int i = 0; i < 12; i++) {
+                      selectedTimes[i] = TimeOfDay(hour: 00, minute: 00);
+                    }
+                    totalh = 0;
+                    totalm = 0;
+                    total = 0;
+                    totalhfer = 0;
+                    totalmfer = 0;
+                    for (int i = 0; i < 12; i++) {
+                      selectedTimefer[i][0] = TimeOfDay(hour: 00, minute: 00);
+                      selectedTimefer[i][2] = TimeOfDay(hour: 00, minute: 00);
+                      selectedTimefer[i][1] = TimeOfDay(hour: 00, minute: 00);
+                    }
+                    _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+                    _selectedButtonIndex == 1
+                        ? a1_end = TimeOfDay(
+                            hour: totalh! + _selectedTime.hour.toInt(),
+                            minute: totalm! + _selectedTime.minute.toInt())
+                        : a1_end = TimeOfDay(
+                            hour: totalhfer + _selectedTime.hour.toInt(),
+                            minute: totalmfer + _selectedTime.minute.toInt());
                   });
                   programA = ProgramA();
                 },
@@ -166,14 +174,13 @@ class A1State extends State<a1> {
                       'Reset All'.tr,
                       style: CustomTextStyles.bodyLargeDMSansRegular,
                     ),
-                   const Icon(
+                    const Icon(
                       Icons.replay,
                       color: Colors.black,
                     )
                   ],
                 ),
               )
-              
             ],
           ),
           SizedBox(height: 5),
@@ -314,7 +321,6 @@ class A1State extends State<a1> {
                   )
                 ]),
           ),
-        
           SizedBox(height: 41),
           Padding(
             padding: const EdgeInsets.only(
@@ -326,7 +332,7 @@ class A1State extends State<a1> {
                 Padding(
                   padding: EdgeInsets.only(top: 5, bottom: 25, right: 5),
                   child: Text(
-                    "Start Time".tr+" 1:",
+                    "Start Time".tr + " 1:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -378,22 +384,23 @@ class A1State extends State<a1> {
           SizedBox(height: 27),
           _selectedButtonIndex == 1
               ? _durationtwo(context)
-              :  _durationfour(context)
-               ,
+              : _durationfour(context),
           SizedBox(height: 25),
           Container(
               width: 236,
               margin: EdgeInsets.only(left: 55),
               child: _selectedButtonIndex == 1
                   ? Text(
-                      "Total Time for valves is".tr+" \n${totalh! /* + _selectedTime.hour.toInt()*/} hours  ${totalm! /* + _selectedTime.minute.toInt()*/} minutes",
+                      "Total Time for valves is".tr +
+                          " \n${totalh! /* + _selectedTime.hour.toInt()*/} hours  ${totalm! /* + _selectedTime.minute.toInt()*/} minutes",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: CustomTextStyles.bodyLargeDMSans,
                     )
                   : Text(
-                      "Total Time for valves is".tr+"\n${totalhfer /* + _selectedTime.hour.toInt()*/} hours  ${totalmfer! /* + _selectedTime.minute.toInt()*/} minutes",
+                      "Total Time for valves is".tr +
+                          "\n${totalhfer /* + _selectedTime.hour.toInt()*/} hours  ${totalmfer! /* + _selectedTime.minute.toInt()*/} minutes",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -414,7 +421,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "End Time".tr +" 1:",
+                    "End Time".tr + " 1:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -422,12 +429,10 @@ class A1State extends State<a1> {
                   width: 26.h,
                 ),
                 GestureDetector(
-            
                   child: CustomTextFormField(
                     width: 110.h,
                     enabled: false,
                     hintStyle: CustomTextStyles.bodyMediumInter,
-
                     hintText: _selectedButtonIndex == 1
                         ? totalh! +
                                     _selectedTime.hour.toInt() +
@@ -436,8 +441,6 @@ class A1State extends State<a1> {
                                 0
                             ? '00:00 hrs'
                             : '${convertTime(TimeOfDay(hour: totalh! + _selectedTime.hour, minute: totalm! + _selectedTime.minute.toInt()))} '
-
-                        
                         : totalhfer +
                                     _selectedTime.hour.toInt() +
                                     totalmfer +
@@ -456,7 +459,7 @@ class A1State extends State<a1> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10, right: 35),
+            padding: EdgeInsets.only(left: 40, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -466,7 +469,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "Start Time".tr+"2:".tr,
+                    "Start Time".tr + "2:".tr,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -488,16 +491,18 @@ class A1State extends State<a1> {
                                     _selectedTime.minute.toInt() ==
                                 0
                             ? '00:00 hrs'
-                            : convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
-       
+                            : convertTime(TimeOfDay(
+                                hour: _selectedTime2.hour,
+                                minute: _selectedTime2.minute))
                         : totalhfer +
                                     _selectedTime.hour.toInt() +
                                     totalmfer +
                                     _selectedTime.minute.toInt() ==
                                 0
                             ? '00:00 hrs'
-                            : convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
-       ,
+                            : convertTime(TimeOfDay(
+                                hour: _selectedTime2.hour,
+                                minute: _selectedTime2.minute)),
                     fillColor: Colors.white,
                     borderDecoration: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(9),
@@ -510,6 +515,7 @@ class A1State extends State<a1> {
                     onPressed: () {
                       setState(() {
                         _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+                        _endtime2=TimeOfDay(hour: 00, minute: 00);
                         _selectedButtonIndex == 1
                             ? a1_end = TimeOfDay(
                                 hour: totalh! + _selectedTime.hour.toInt(),
@@ -540,7 +546,8 @@ class A1State extends State<a1> {
                     )),
               ],
             ),
-          ), Padding(
+          ),
+          Padding(
             padding: EdgeInsets.only(
               left: 20,
               right: 20,
@@ -554,7 +561,7 @@ class A1State extends State<a1> {
                     bottom: 25,
                   ),
                   child: Text(
-                    "End Time".tr +" 2:",
+                    "End Time".tr + " 2:",
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -562,13 +569,12 @@ class A1State extends State<a1> {
                   width: 26.h,
                 ),
                 GestureDetector(
-            
                   child: CustomTextFormField(
                     width: 110.h,
                     enabled: false,
                     hintStyle: CustomTextStyles.bodyMediumInter,
-
-                    hintText:'${convertTime(TimeOfDay(hour: a1_end!.hour, minute:a1_end!.minute.toInt()))} ',
+                    hintText:
+                        '${convertTime(TimeOfDay(hour:_endtime2.hour, minute: _endtime2.minute))} ',
                     fillColor: Colors.white,
                     borderDecoration: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(9),
@@ -580,7 +586,6 @@ class A1State extends State<a1> {
             ),
           ),
           (a1_end!.hour >= 24 && a1_end!.minute >= 0)
-            
               ? Center(
                   child: Text(
                   'Time exceeds 24 hours'.tr,
@@ -590,7 +595,7 @@ class A1State extends State<a1> {
           SizedBox(
             height: 10,
           ),
-         ],
+        ],
       );
     });
   }
@@ -610,58 +615,69 @@ class A1State extends State<a1> {
     return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
   }
 
-ProgramA updateA() {
-  setState(() {
-    if (_selectedTime.hour * 60 + _selectedTime.minute > 0) {
-      bool isModeTrue = _selectedButtonIndex == 1;
-      List<bool> days = _colorContainera1.map((color) => color == Colors.red).toList();
-      String? startTime2 = _selectedTime2.hour * 60 + _selectedTime2.minute > 0
-          ? convertTime(TimeOfDay(hour: _selectedTime2.hour ,minute:_selectedTime2.minute))
-         : null;
-      String startTime =
-        convertTime(TimeOfDay(hour: _selectedTime.hour ,minute:_selectedTime.minute));
-       
-      List<List<int>> valves = isModeTrue
-          ? List.generate(12, (i) => [selectedTimes[i].hour * 60 + selectedTimes[i].minute])
-          : List.generate(12, (i) => List.generate(3, (j) => selectedTimefer[i][j].hour * 60 + selectedTimefer[i][j].minute));
+  ProgramA updateA() {
+    setState(() {
+      if (_selectedTime.hour * 60 + _selectedTime.minute > 0) {
+        bool isModeTrue = _selectedButtonIndex == 1;
+        List<bool> days =
+            _colorContainera1.map((color) => color == Colors.red).toList();
+        String? startTime2 =
+            _selectedTime2.hour * 60 + _selectedTime2.minute > 0
+                ? convertTime(TimeOfDay(
+                    hour: _selectedTime2.hour, minute: _selectedTime2.minute))
+                : null;
+        String startTime = convertTime(
+            TimeOfDay(hour: _selectedTime.hour, minute: _selectedTime.minute));
 
-      programA = ProgramA(
-        mode: isModeTrue,
-        monday: days[0],
-        tuesday: days[1],
-        wednesday: days[2],
-        thrusday: days[3],
-        friday: days[4],
-        saturday: days[5],
-        sunday: days[6],
-        startTime2: startTime2,
-        startTime: startTime,
-        programId: 1,
-        valve1: valves[0],
-        valve2: valves[1],
-        valve3: valves[2],
-        valve4: valves[3],
-        valve5: valves[4],
-        valve6: valves[5],
-        valve7: valves[6],
-        valve8: valves[7],
-        valve9: valves[8],
-        valve10: valves[9],
-        valve11: valves[10],
-        valve12: valves[11],
-      );
-    } 
-  });
+        List<List<int>> valves = isModeTrue
+            ? List.generate(12,
+                (i) => [selectedTimes[i].hour * 60 + selectedTimes[i].minute])
+            : List.generate(
+                12,
+                (i) => List.generate(
+                    3,
+                    (j) =>
+                        selectedTimefer[i][j].hour * 60 +
+                        selectedTimefer[i][j].minute));
 
-  return programA;
-}
+        programA = ProgramA(
+          mode: isModeTrue,
+          monday: days[0],
+          tuesday: days[1],
+          wednesday: days[2],
+          thrusday: days[3],
+          friday: days[4],
+          saturday: days[5],
+          sunday: days[6],
+          startTime2: startTime2,
+          startTime: startTime,
+          programId: 1,
+          valve1: valves[0],
+          valve2: valves[1],
+          valve3: valves[2],
+          valve4: valves[3],
+          valve5: valves[4],
+          valve6: valves[5],
+          valve7: valves[6],
+          valve8: valves[7],
+          valve9: valves[8],
+          valve10: valves[9],
+          valve11: valves[10],
+          valve12: valves[11],
+        );
+      }
+    });
+
+    return programA;
+  }
 
   Widget _durationtwo(BuildContext context) {
     return SizedBox(
-      height: widget.valve*70,
+      height: widget.valve * 70,
       width: 500.h,
-      child: ListView.builder(     physics: const NeverScrollableScrollPhysics(),
-          itemCount:widget.valve,
+      child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: widget.valve,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
@@ -805,7 +821,7 @@ ProgramA updateA() {
           });
         }
         if (_selectedTime.hour + _selectedTime.minute == 0) {
-          showToast(context,'Please select start time first');
+          showToast(context, 'Please select start time first');
         }
       }
     }
@@ -880,28 +896,32 @@ ProgramA updateA() {
               width: 40,
             ),
             Text(
-              'Prewet'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
+              'Prewet'.tr + '\n(HH:MM)',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Fertilize'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
+              'Fertilize'.tr + '\n(HH:MM)',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Flush'.tr+'\n(HH:MM)',textAlign: TextAlign.center,
+              'Flush'.tr + '\n(HH:MM)',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
-            ),  
+            ),
             Text(
-              'Total'.tr,textAlign: TextAlign.center,
+              'Total'.tr,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 13,
                   color: Colors.black,
@@ -910,7 +930,7 @@ ProgramA updateA() {
           ],
         ),
         Container(
-          height: widget.valve*70,
+          height: widget.valve * 70,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
@@ -942,8 +962,10 @@ ProgramA updateA() {
                                           selectedTimefer[index][i].minute ==
                                       0
                                   ? '00 hrs'
-                                  :convertTime(TimeOfDay(hour: 
-        selectedTimefer[index][i].hour,minute:selectedTimefer[index][i].minute)),
+                                  : convertTime(TimeOfDay(
+                                      hour: selectedTimefer[index][i].hour,
+                                      minute:
+                                          selectedTimefer[index][i].minute)),
                               contentPadding: EdgeInsets.only(left: 2, top: 20),
                               fillColor: Colors.white,
                               borderDecoration: OutlineInputBorder(
@@ -980,8 +1002,7 @@ ProgramA updateA() {
     });
     totalHours += totalMinutes ~/ 60;
     totalMinutes %= 60;
-    return convertTime(TimeOfDay(hour: 
-        totalHours,minute:totalMinutes));
+    return convertTime(TimeOfDay(hour: totalHours, minute: totalMinutes));
   }
 
   int totalhfer = 0;
@@ -1026,10 +1047,10 @@ ProgramA updateA() {
       }
     }
     if (totalHoursfer > 24) {
-      showToast(context,'Time exceeds');
+      showToast(context, 'Time exceeds');
     }
     if (_selectedTime.hour + _selectedTime.minute == 0) {
-      showToast(context,'Please select start time first');
+      showToast(context, 'Please select start time first');
     }
   }
 }

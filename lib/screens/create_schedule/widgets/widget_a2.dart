@@ -19,6 +19,8 @@ int totalmfer = 0;
 int? _selectedButtonIndex = 1;
 TimeOfDay _selectedTime = TimeOfDay(hour: 0, minute: 0);
 TimeOfDay _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+
+TimeOfDay _endtime2 = TimeOfDay(hour: 0, minute: 0);
 List<TimeOfDay> selectedTimes =
     List.generate(12, (index) => const TimeOfDay(hour: 0, minute: 0));
 int? totalm = 0;
@@ -82,6 +84,12 @@ class a1State extends State<a2> {
 
           starttime2b.text = convertTime(TimeOfDay(
               hour: _selectedTime2.hour, minute: _selectedTime2.minute));
+                 _endtime2=TimeOfDay(   hour:         _selectedButtonIndex == 1
+                          ? _selectedTime2.hour+ totalh!
+                          : _selectedTime2.hour + totalhfer,
+                      minute: _selectedButtonIndex == 1
+                          ? _selectedTime2.minute + totalm!
+                          : _selectedTime2.minute + totalmfer);
         });
       } else {
         showToast(context, "Please set after end time");
@@ -520,10 +528,8 @@ class a1State extends State<a2> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
-              left: 15,
-              right: 30,
-            ),
+            padding: EdgeInsets.only(left: 40, right: 10),
+       
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -541,6 +547,7 @@ class a1State extends State<a2> {
                   onTap: () {
                     setState(() {
                       _selectTime2(context);
+        
                     });
                   },
                   child: CustomTextFormField(
@@ -577,6 +584,7 @@ class a1State extends State<a2> {
                     onPressed: () {
                       setState(() {
                         _selectedTime2 = TimeOfDay(hour: 0, minute: 0);
+                        _endtime2=TimeOfDay(hour: 0, minute: 0);
                         _selectedButtonIndex == 1
                             ? a1_end = TimeOfDay(
                                 hour: totalh! + _selectedTime.hour.toInt(),
@@ -635,12 +643,7 @@ class a1State extends State<a2> {
                   hintStyle: CustomTextStyles.bodyMediumInter,
 
                   hintText: convertTime(TimeOfDay(
-                      hour: _selectedButtonIndex == 1
-                          ? _selectedTime2.hour + totalh!
-                          : _selectedTime2.hour + totalhfer,
-                      minute: _selectedButtonIndex == 1
-                          ? _selectedTime2.minute + totalm!
-                          : _selectedTime2.minute + totalmfer)),
+                      hour: _endtime2.hour,minute: _endtime2.minute)) ,
                   fillColor: Colors.white,
                   borderDecoration: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(9),

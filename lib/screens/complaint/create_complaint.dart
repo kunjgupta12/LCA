@@ -127,10 +127,14 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                               endIndent: 15,
                             ),
                             SizedBox(height: 36),
-                            Text(
-                              "Device IMEI".tr,
-                              style: CustomTextStyles.titleMediumBluegray900,
+                                Padding(
+                              padding: EdgeInsets.only(left: 4),
+                              child: Text(
+                                "Device Name".tr,
+                                style: CustomTextStyles.titleMediumBluegray900,
+                              ),
                             ),
+                      
                             SizedBox(height: 16),
 
                             DropdownButtonFormField<Device>(
@@ -161,12 +165,10 @@ class _FrameEighteenScreenState extends State<FrameEighteenScreen> {
                               onChanged: onDeviceSelected,
                             ),
                             SizedBox(height: 14),
-                            Padding(
-                              padding: EdgeInsets.only(left: 4),
-                              child: Text(
-                                "Device Name".tr,
-                                style: CustomTextStyles.titleMediumBluegray900,
-                              ),
+                        //////      
+                      Text(
+                              "Device IMEI".tr,
+                              style: CustomTextStyles.titleMediumBluegray900,
                             ),
                             SizedBox(height: 10),
                             DropdownButtonFormField<String>(

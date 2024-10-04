@@ -464,7 +464,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         padding: EdgeInsets.only(
                                             top: 5, bottom: 25, right: 5),
                                         child: Text(
-                                          "Start Time: ".tr,
+                                          "Start Time".tr+":",
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
@@ -516,7 +516,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                     width: 286.h,
                                     margin: EdgeInsets.only(left: 45),
                                     child: Text(
-                                      "Total Time for valves\n is ${getTimeTotalString(endtimetime)}",
+                                     "${"Total Time for valves is".tr}\n ${getTimeTotalString(endtimetime)}",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       style: CustomTextStyles.bodyLargeDMSans,
@@ -536,7 +536,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           bottom: 25,
                                         ),
                                         child: Text(
-                                          "End Time  : ".tr,
+                                          "End Time".tr+":",
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
@@ -575,7 +575,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           bottom: 25,
                                         ),
                                         child: Text(
-                                          "Start Time 2 : ".tr,
+                                          "Start Time".tr+" 2:",
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),

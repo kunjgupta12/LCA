@@ -153,13 +153,13 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
           return AlertDialog(
             backgroundColor: Colors.white,
             title: SizedBox(
-              height: 220,
+              height: 230,
               width: 70,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pump initial time'.tr+"Sec",
+                    'Pump initial time'.tr+"(Sec)",
                     style: CustomTextStyles.titleSmallRobotoBlack90001,
                   ),
                   CustomTextFormField(
@@ -178,7 +178,7 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
                     },
                   ),
                   Text(
-                    'Pump recharge time'.tr+"HH:MM",
+                    'Pump recharge time'.tr+"(HH:MM)",
                     style: CustomTextStyles.titleSmallRobotoBlack90001,
                   ),
                   Row(
@@ -187,16 +187,7 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
                         hintText: 'Pump recharge time'.tr,
                         controller: pumprechargetime,
                         textInputType: TextInputType.number,hintStyle: TextStyle(fontSize: 16),
-                        validator: (value) {
-                          final number = int.tryParse(value!);
-                          if (value.isEmpty ||
-                              number == null ||
-                              number < 1 ||
-                              number > 1440) {
-                            return 'Please enter in range of 1 to 1440';
-                          }
-                          return null;
-                        },
+                     enabled: false,
                       ),Padding(
           padding: const EdgeInsets.only(bottom: 18.0),
           child: IconButton(
@@ -207,7 +198,7 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
                   );
                   if (picked != null) {
                     setState(() {
-                      pumprechargetime.text=(picked.hour*60+picked.minute).toString();
+                      pumprechargetime.text=convertTime(TimeOfDay(hour: picked.hour,minute:picked.minute));
                       selectedTime = picked;
                     });
                   }},

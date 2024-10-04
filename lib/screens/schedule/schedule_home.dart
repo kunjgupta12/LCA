@@ -90,9 +90,9 @@ class _ScheduleState extends State<Schedule> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDeviceInfoRow("Device Name", widget.name),
+              _buildDeviceInfoRow("Device Name".tr, widget.name),
               const SizedBox(height: 5),
-              _buildDeviceInfoRow("Device IMEI", widget.iemi),
+              _buildDeviceInfoRow("Device IMEI".tr, widget.iemi),
               _buildHeaderRow(context),
               _buildScheduleList(),
               _buildConfigureButton(),

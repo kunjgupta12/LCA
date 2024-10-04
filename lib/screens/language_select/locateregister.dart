@@ -47,6 +47,7 @@ class LocaleString extends Translations {
           'Submit': "Submit",
           "My Complaints": "My Complaints",
           "Complaint": "Complaint",
+          "Fertilization": "Fertilization",
           "Having Issues?": "Having Issues?",
           "\nDon’t Worry,We got you!": "\nDon’t Worry,We got you!",
           "Register Complaint": "Register Complaint",
@@ -147,16 +148,20 @@ class LocaleString extends Translations {
           'No Rain': 'No Rain',
           'Raining': 'Raining',
           'Low Flow': 'Low Flow',
+          "Please fill the form below to register your device":
+              "Please fill the form below to register your device",
           "Please fill the form below to edit you device":
               "Please fill the form below to edit your device",
           "Please fill the form below to edit you device.\nAdd all the required details":
               "Please fill the form below to edit your device.\nAdd all the required details",
           "Didn't receive OTP?": "Didn't receive OTP?",
           "Total Time for valves is": "Total Time for valves is",
-          'Prewet':'Prewet',
-           'Fertilize': 'Fertilize',
-           'Flush':'Flush',
-           'Total':'Total'
+          'Prewet': 'Prewet',
+          'Fertilize': 'Fertilize',
+          'Flush': 'Flush',
+          'Total': 'Total',
+          'This expansion count will reflect on next schedule save':
+              'This expansion count will reflect on next schedule save'
         },
         'hi_IN': {
           'User Registration': 'उपभोक्ता पंजीकरण',
@@ -291,10 +296,12 @@ class LocaleString extends Translations {
           'Sunday': 'रविवार',
           "Irrigation": "सिंचाई",
           "Fertigation": "फर्टिगेशन",
+          "Fertilization": "फर्टिगेशन",
           "Start Time": "प्रारंभ समय",
           "Valve Duration  : ": "वाल्व अवधि:",
           "End Time": "समाप्ति समय",
-
+          "Please fill the form below to register your device":
+              "कृपया अपना डिवाइस रजिस्टर करने के लिए नीचे दिया गया फॉर्म भरें",
           'Time exceeds 24 hours': 'समय 24 घंटे से अधिक',
           'Confirm': 'पुष्टि',
           "Start from today?": "आज से शुरू करें?",
@@ -307,10 +314,12 @@ class LocaleString extends Translations {
           'Low Flow': 'Low Flow',
           "Please fill the form below to edit you device.\nAdd all the required details":
               "कृपया अपने डिवाइस को संपादित करने के लिए नीचे दिया गया फॉर्म भरें।\nसभी आवश्यक विवरण जोड़ें",
-              'Prewet':"प्रीवेट",
-               'Fertilize':'फर्टिगेशन',
-               'Flush':'फ्लशिंग',
-               'Total':'कुल समय'
+          'Prewet': "प्रीवेट",
+          'Fertilize': 'फर्टिगेशन',
+          'Flush': 'फ्लशिंग',
+          'Total': 'कुल समय',
+          'This expansion count will reflect on next schedule save':
+              'इस विस्तार की संख्या अगले शेड्यूल बचत पर दिखाई देगी।'
         },
         "mr_IN": {
           'User Registration': 'वापरकर्ता नोंदणी',
