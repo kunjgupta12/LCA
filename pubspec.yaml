@@ -46,7 +46,7 @@ dependencies:
   country_state_picker: ^0.0.5
   intl: ^0.19.0
   geocoding: ^3.0.0
-  geolocator: ^11.0.0
+  geolocator: ^13.0.1
   font_awesome_flutter: ^10.7.0
   password_strength: ^0.2.0
   password_strength_checker: ^1.2.3

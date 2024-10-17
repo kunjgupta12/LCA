@@ -133,8 +133,8 @@ class _ScheduleState extends State<Schedule> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        margin: EdgeInsets.only(right: 1.h),
-        padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 11.v),
+        margin: EdgeInsets.only(right: 19.h,left: 5.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 10.v),
         decoration: AppDecoration.fillGrayF.copyWith(
           borderRadius: BorderRadiusStyle.roundedBorder4,
           color: Colors.amber,
@@ -217,7 +217,9 @@ class _ScheduleState extends State<Schedule> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(index == 0 ? 'Program A'.tr : "Program B".tr),
-                  Text(check[index] != 0 ? 'SET'.tr : 'NOT SET'.tr),
+                  Container(width: 80,height: 30,
+                    decoration: BoxDecoration(color:check[index] != 0 ?Colors.green:Colors.grey,borderRadius: BorderRadius.circular(10) ),
+                    child: Center(child: Text(check[index] != 0 ? 'SET'.tr : 'NOT SET'.tr))),
                   CustomElevatedButton(
                     isDisabled: check[index] == 0,
                     buttonTextStyle: CustomTextStyles.titleMediumWhiteA70001,

@@ -39,6 +39,7 @@ class C {
   int? ns;
   int? pc;
   int? pi;
+  int? em;
   int? ps;
   int? rs;
   int? vn;
@@ -59,7 +60,7 @@ class C {
       this.nd,
       this.ns,
       this.vn,
-      this.pc,
+      this.pc,this.em,
       this.pi,
       this.ps,
       this.rs,
@@ -80,6 +81,7 @@ class C {
     nd = json['nd'];
     ns = json['ns'];
     pc = json['pc'];
+    em=json['em'];
     pi = json['pi'];
     ps = json['ps'];
     rs = json['rs'];
@@ -104,6 +106,7 @@ class C {
     data['ns'] = this.ns;
     data['p']=this.p;
     data['pc'] = this.pc;
+    data['em']=this.em;
     data['pi'] = this.pi;
     data['ps'] = this.ps;
     data['rs'] = this.rs;

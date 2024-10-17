@@ -162,16 +162,17 @@ class _FrameThirteenScreenState extends State<FrameThirteenScreen> {
             ),
           ),
           SizedBox(height: 13),
-          Padding(
-            padding: EdgeInsets.only(left: 9),
-            child: Text(
-              "via Email".tr,
-              style: CustomTextStyles.titleLargeRegular,
-            ),
-          ),
+           Padding(
+            padding: EdgeInsets.only(left: 9.h),
+            child: Row(   crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(
+                  "via Email".tr,
+                  style: CustomTextStyles.titleLargeRegular,
+                ),SizedBox(width: 10,),Icon(Icons.email,color: Colors.white,size: 30,),
+              
         ],
       ),
-    );
+    )]));
   }
 
   /// Section Widget

@@ -63,7 +63,7 @@ Future<type1?> valve_detail_type1(String deviceId) async {
 }
 
 Future<void> resetValve(deviceId, BuildContext context) async {
-  final String apiUrl = '$url/api/v1/devices/${deviceId}/reset';
+  final String apiUrl = '$url/api/v1/devices/${deviceId}/flow-reset';
   final Uri uri = Uri.parse(apiUrl);
   Map<String, dynamic> regBody = {'lfr': "1"};
   final response = await http.put(
@@ -76,7 +76,51 @@ Future<void> resetValve(deviceId, BuildContext context) async {
     showToasttoast('Flow Reset Data Send UnSuccessfull');
   }
 }
-
+Future<void> updatesim(deviceId, BuildContext context,id) async {
+  final String apiUrl = '$url/api/v1/devices/${deviceId}/sim/$id';
+  final Uri uri = Uri.parse(apiUrl);
+  Map<String, dynamic> regBody = {};
+  final response = await http.put(
+      body: jsonEncode(regBody), uri, headers: await getHeaders());
+  print(response.body);
+  if (response.statusCode == 200) {
+    Navigator.pop(context);
+    showToasttoast(' Successfully');
+  } else {
+  showToasttoast(' Failed');
+  }
+}
+Future<void> updatepump(deviceId, BuildContext context,String prt,String pit) async {
+  final String apiUrl = '$url/api/v1/devices/${deviceId}/pump';
+  final Uri uri = Uri.parse(apiUrl);
+  Map<String, dynamic> regBody = {"pumpInIt":pit,
+  "pumpRechargeTime":prt};
+  final response = await http.put(
+      body: jsonEncode(regBody), uri, headers: await getHeaders());
+  print(response.body);
+  print(pit);
+  print(prt);
+  if (response.statusCode == 200) {
+    Navigator.pop(context);
+    showToasttoast(' Successfully');
+  } else {
+    showToasttoast(' Failed');
+  }
+}
+Future<void> emergency(deviceId, BuildContext context,bool enable) async {
+  final String apiUrl = '$url/api/v1/devices/${deviceId}/emergency/$enable';
+  final Uri uri = Uri.parse(apiUrl);
+  Map<String, dynamic> regBody = {};
+  final response = await http.put(
+      body: jsonEncode(regBody), uri, headers: await getHeaders());
+  print(response.body);
+  if (response.statusCode == 200) {
+    Navigator.pop(context);
+    showToasttoast(' Successfully');
+  } else {
+  showToasttoast(' Failed');
+  }
+}
 Future<type2> valve_detail_typea(String deviceId) async {
   final String apiUrl = '$url/api/v1/data/${deviceId}/type/2/last';
   final Uri uri = Uri.parse(apiUrl);

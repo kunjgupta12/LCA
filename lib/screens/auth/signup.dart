@@ -56,7 +56,7 @@ class _FrameTwelveScreenState extends State<FrameTwelveScreen> {
   void initState() {
     // TODO: implement initState
 
-    getGeoLocationPosition();
+  //  getGeoLocationPosition();
     super.initState();
   }
 
@@ -454,46 +454,56 @@ class _FrameTwelveScreenState extends State<FrameTwelveScreen> {
       child: Padding(
         padding: EdgeInsets.only(
           left: 22,
-          right: 19,
+          right: 10,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
-                  'Current Location'.tr,
-                  style: TextStyle(color: Colors.green, fontSize: 18),
-                ),
-                Container(
-                    child: IconButton(
-                  onPressed: () async {
-                    position = await getGeoLocationPosition();
-                    location =
-                        'Lat: ${position!.latitude} , Long: ${position!.longitude}';
-                    placemarks = await placemarkFromCoordinates(
+            Container(width: 240,
+              decoration: BoxDecoration(
+              color: Colors.green,borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5.0,right: 5),
+                child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                   Text(
+                      'Current location'.tr,
+                      style: TextStyle(color: Colors.white, fontSize: 16,),
+                    ),
+                    Container(
+                        child: IconButton(
+                      onPressed: () async {
+                        position = await getGeoLocationPosition();
+                        location =
+                            'Lat: ${position!.latitude} , Long: ${position!.longitude}';
+                        placemarks = await placemarkFromCoordinates(
                         position!.latitude, position!.longitude);
-                    print(placemarks);
-                    place = placemarks![0];
-                    setState(() {
-                      grs.text = position!.latitude.toString() +
-                          " , " +
-                          position!.longitude.toString();
-                      region.text = place!.administrativeArea.toString();
-                      pincode.text = place!.postalCode.toString();
-                      city.text = place!.locality.toString();
-                      country.text = place!.country.toString();
-                      // address.text = place!.toString();
-                    });
-                  },
-                  icon: Icon(
-                    Icons.gps_fixed,
-                    color: Colors.green,
-                    size: 30.h,
-                  ),
-                )),
-              ],
-            ),
+                        print(placemarks);
+                        place = placemarks![0];
+                        setState(() {
+                          grs.text = position!.latitude.toString() +
+                              " , " +
+                              position!.longitude.toString();
+                          region.text = place!.administrativeArea.toString();
+                          pincode.text = place!.postalCode.toString();
+                          city.text = place!.locality.toString();
+                          country.text = place!.country.toString();
+                          // address.text = place!.toString();
+                        });
+                      },
+                      icon: Icon(
+                        Icons.gps_fixed,
+                        color: Colors.white,
+                        size: 26.h,
+                      ),
+                    )), Text(
+                      'Auto fill'.tr,
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),SizedBox(height: 10,),
             Container(
               decoration: BoxDecoration(color: Colors.grey.shade100),
               width: 394.h,

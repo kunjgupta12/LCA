@@ -2,16 +2,11 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:lca/api/config.dart';
 import 'package:lca/api/device/device_list.dart';
-import 'package:lca/api/device/functions.dart';
 import 'package:lca/api/formatter.dart';
 import 'package:lca/api/language_shared_pref.dart';
-import 'package:lca/main.dart';
 import 'package:lca/model/device/device.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:lca/screens/dashboard/frame_eight_page.dart';
 import 'package:lca/screens/device/register_device.dart';
 import 'package:lca/screens/language_select/language_page.dart';
@@ -251,11 +246,10 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
               ),
             ),
           ),
-          body: SizedBox(
-            height: MediaQuery.of(context).size.height * 2,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 50.0),
-              child: ListView.builder(
+          body: SafeArea(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 2,
+              child: ListView.builder( padding: const EdgeInsets.only(bottom: 60.0),
                 controller: _scrollController,
                 itemCount: _devices.length + (_hasMoreData ? 1 : 0),
                 itemBuilder: (context, index) {
@@ -265,10 +259,10 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                     );
                   }
                   Device device = _devices[index];
-
+              
                   String formattedTime =
                       formatTime(device.createdOn.toString());
-
+              
                   return Card(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -299,8 +293,8 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                                 print(token);
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>ChangeNotifierProvider(
-        create: (context) => DeviceProvider(device.id.toString()),
-        child:
+                      create: (context) => DeviceProvider(device.id.toString()),
+                      child:
                                       
                                         FrameEightPage(
                                             token: token.toString(),

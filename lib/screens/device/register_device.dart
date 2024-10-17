@@ -96,13 +96,14 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                           left: 25,
                           right: 36,
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding:const EdgeInsets.symmetric(
                           horizontal: 14,
                           vertical: 22,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(height: 6),
                             Text(
@@ -120,9 +121,9 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                               "Device IMEI".tr,
                               style: CustomTextStyles.titleMediumBluegray900,
                             ),
-                            SizedBox(height: 16),
+                          const  SizedBox(height: 16),
                             Padding(
-                              padding: EdgeInsets.only(right: 10),
+                              padding:const EdgeInsets.only(right: 10),
                               child: TextFormField(
                                   enabled: true,
                                   validator: (value) {
@@ -147,11 +148,11 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                   maxLines: 1,
                                   decoration: InputDecoration(
                                     filled: true,
-                                    hintText: "Device IMEI"+"*".tr,
+                                    hintText: "Device IMEI" + "*".tr,
                                     hintStyle: CustomTextStyles
                                         .bodyLargeDMSansBluegray500,
                                     isDense: true,
-                                    contentPadding: EdgeInsets.symmetric(
+                                    contentPadding:const EdgeInsets.symmetric(
                                       horizontal: 20,
                                       vertical: 9,
                                     ),
@@ -318,7 +319,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                             });
                                           },
                                           items: List.generate(
-                                            8,
+                                  selectedValue == 1 ?             8:3,
                                             (index) => DropdownMenuItem<int>(
                                               value: index + 1,
                                               child: Text('${index + 5}'),
@@ -328,7 +329,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                       ],
                                     ),
                                   )
-                                : SizedBox(
+                                : const  SizedBox(
                                     height: 2,
                                   ),
                             selectedValue == 1
@@ -340,7 +341,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                                   )
                                 : Text(""),
                             _buildLatitudeSection(context),
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 8),
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
@@ -395,7 +396,7 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
                               height: 50,
                               //margin: EdgeInsets.only(left: 10),
                               width: 365.h,
-                              text: "Submit".tr,
+                              text: "Save".tr,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: Colors.green),
@@ -595,43 +596,62 @@ class _FrameFifteenScreenState extends State<FrameFifteenScreen> {
   /// Section Widget
   Widget _buildLatitudeSection(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 5.0),
-              child: Text(
-                'Current Location'.tr,
-                style: TextStyle(color: Colors.green, fontSize: 18),
-              ),
-            ),
-            IconButton(
-                onPressed: () async {
-                  position = await getGeoLocationPosition();
-                  location =
-                      'Lat: ${position!.latitude} , Long: ${position!.longitude}';
-                  placemarks = await placemarkFromCoordinates(
-                      position!.latitude, position!.longitude);
-                  print(placemarks);
-                  place = placemarks![0];
-                  setState(() {
-                    latitude.text =
-                        "${position!.longitude.toString() + "," + position!.latitude.toString()}";
-                    latitudedb.text = "${position!.latitude.toString()}";
-                    longitudedb.text = "${position!.longitude.toString()}";
-                    region.text = place!.administrativeArea.toString();
-                    pincode.text = place!.postalCode.toString();
-                    city.text = place!.locality.toString();
-                    country.text = place!.country.toString();
-                    // address.text = place!.toString();
-                  });
-                },
-                icon: const Icon(
-                  Icons.gps_fixed,
-                  color: Colors.green,
-                  size: 25,
+        Container(
+          width: 240,
+          decoration: BoxDecoration(
+              color: Colors.green, borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5.0, right: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Current location'.tr,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Container(
+                    child: IconButton(
+                  onPressed: () async {
+                    position = await getGeoLocationPosition();
+                    location =
+                        'Lat: ${position!.latitude} , Long: ${position!.longitude}';
+                    placemarks = await placemarkFromCoordinates(
+                        position!.latitude, position!.longitude);
+                    print(placemarks);
+                    place = placemarks![0];
+                    setState(() {
+                      latitude.text = position!.latitude.toString() +
+                          " , " +
+                          position!.longitude.toString();
+                      region.text = place!.administrativeArea.toString();
+                      pincode.text = place!.postalCode.toString();
+                      city.text = place!.locality.toString();
+                      country.text = place!.country.toString();
+                      // address.text = place!.toString();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.gps_fixed,
+                    color: Colors.white,
+                    size: 26.h,
+                  ),
                 )),
-          ],
+                Text(
+                  'Auto fill'.tr,
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
         ),
         Padding(
           padding: const EdgeInsets.only(

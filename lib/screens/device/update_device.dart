@@ -644,7 +644,9 @@ class _UpdateDeviceState extends State<UpdateDevice> {
 
   /// Section Widget
   Widget _buildLatitudeSection(BuildContext context) {
-    return Column(
+    return
+    
+     Column(
       children: [
         Row(
           children: [

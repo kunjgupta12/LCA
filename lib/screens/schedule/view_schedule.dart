@@ -453,42 +453,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                       ]),
                                 ),
                                 SizedBox(height: 41),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 20,
-                                    right: 20,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 5, bottom: 25, right: 5),
-                                        child: Text(
-                                          "Start Time".tr+":",
-                                          style: theme.textTheme.titleLarge,
-                                        ),
-                                      ),
-                                      CustomTextFormField(
-                                        autofocus: false,
-                                        focusNode: FocusNode(),
-                                                                            
-                                        enabled: false,
-                                        width: 120,
-                                        hintText: snapshot.data!.typeId == 2
-                                            ? ampm(widget.type1data!.c.st[0])
-                                            : ampm(widget.type1data!.c.st[2]),
-                                        hintStyle: CustomTextStyles
-                                            .titleMediumLibreFranklinOnPrimary,
-                                        textInputType: TextInputType.number,
-                                      
-                                        contentPadding: EdgeInsets.only(
-                                            left: 10, top: 20),
-                                        //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 31),
+                               
                                 Padding(
                                   padding: EdgeInsets.only(left: 3),
                                   child: Text(
@@ -521,7 +486,42 @@ class _ViewScheduleState extends State<ViewScedule> {
                                       textAlign: TextAlign.center,
                                       style: CustomTextStyles.bodyLargeDMSans,
                                     )),
-                                SizedBox(height: 25),
+                                SizedBox(height: 25), Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 5, bottom: 25,),
+                                        child: Text(
+                                          "Start Time".tr+" 1:",
+                                          style: theme.textTheme.titleLarge,
+                                        ),
+                                      ),
+                                      CustomTextFormField(
+                                        autofocus: false,
+                                        focusNode: FocusNode(),
+                                                                            
+                                        enabled: false,
+                                        width: 120,
+                                        hintText: snapshot.data!.typeId == 2
+                                            ? ampm(widget.type1data!.c.st[0])
+                                            : ampm(widget.type1data!.c.st[2]),
+                                        hintStyle: CustomTextStyles
+                                            .titleMediumLibreFranklinOnPrimary,
+                                        textInputType: TextInputType.number,
+                                      
+                                        contentPadding: EdgeInsets.only(
+                                            left: 10, top: 20),
+                                        //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: 20,
@@ -536,13 +536,11 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           bottom: 25,
                                         ),
                                         child: Text(
-                                          "End Time".tr+":",
+                                          "End Time".tr+" 1:",
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 26.h,
-                                      ),
+                                     
                                       GestureDetector(
                                         onTap: () {},
                                         child: CustomTextFormField(
@@ -565,7 +563,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10, right: 35),
+                                  padding: EdgeInsets.only(left: 20, right: 20),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -579,9 +577,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                                           style: theme.textTheme.titleLarge,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 10),
-                                      ),
+                                     
                                       CustomTextFormField(
                                         width: 140.h,
                                         enabled: false,
@@ -593,6 +589,49 @@ class _ViewScheduleState extends State<ViewScedule> {
                                         contentPadding:
                                             EdgeInsets.only(left: 20, top: 20),
                                       ),
+                                    ],
+                                  ),
+                                ),   Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 25,
+                                        ),
+                                        child: Text(
+                                          "End Time".tr+" 2:",
+                                          style: theme.textTheme.titleLarge,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 16.h,
+                                      ),
+                                      GestureDetector(
+                                     
+                                        child: CustomTextFormField(
+                                          width: 140.h,
+                                          enabled: false,
+                                          hintStyle: CustomTextStyles
+                                              .titleMediumLibreFranklinOnPrimary,
+
+                                          hintText: snapshot.data!.typeId == 2
+                                       ?   widget.type1data!.c.st[1]!=00
+                                              ? ampm(widget.type1data!.c.st[1] +
+                                                  endtimetime):"00"
+                                              : widget.type1data!.c.st[3]!=00 ?
+                                              ampm(widget.type1data!.c.st[3] +
+                                                  endtimetime):"00",
+                                          contentPadding: EdgeInsets.only(
+                                              left: 20, top: 20),
+                                          //contentPadding: EdgeInsets.only(right: 4, left: 4, top: 10),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -642,7 +681,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                     padding:
                         const EdgeInsets.only(bottom: 15, left: 10, right: 5),
                     child: Text(
-                      "V${index + 1} : ",
+                      "V".tr+" ${index + 1} : ",
                       style: theme.textTheme.titleLarge,
                     ),
                   ),
@@ -816,7 +855,7 @@ class _ViewScheduleState extends State<ViewScedule> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "V${index + 1}: ",
+                            "${"V".tr}${index + 1}: ",
                             style: theme.textTheme.titleLarge,
                           ),
 

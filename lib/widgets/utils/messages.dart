@@ -15,7 +15,7 @@ void showmessages(BuildContext context) {
         title: 'Success',
         message:
             'We have sent this schedule to your device.. Please wait for upto 9 minutes.\nWill Notify you',
-        messageFontSize: 13,
+       
 
         /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
         contentType: ContentType.success,

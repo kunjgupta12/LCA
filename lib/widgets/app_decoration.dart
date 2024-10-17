@@ -38,7 +38,7 @@ class AppDecoration {
         color: appTheme.blueGray100C1,
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary,
+          color: theme.focusColor,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: Offset(
@@ -52,7 +52,7 @@ class AppDecoration {
         color: appTheme.whiteA700,
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary,
+          color: theme.focusColor,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: Offset(
@@ -80,7 +80,7 @@ class AppDecoration {
         color: appTheme.gray50,
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary,
+            color: theme.focusColor,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: Offset(
@@ -94,7 +94,7 @@ class AppDecoration {
         color: appTheme.whiteA700.withOpacity(0.7),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary,
+         color: theme.focusColor,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: Offset(

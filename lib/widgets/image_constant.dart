@@ -40,9 +40,9 @@ class ImageConstant {
 
   static String imgRectangle4284 = '$imagePath/img_rectangle_4284.png';
   static String fert = '$imagePath/fert.png';
-  static String imgRain2 = '$imagePath/cloudy_sunny_image.png';
+  static String imgRain2 = '$imagePath/cloudy_sunny_image.gif';
 
-  static String imgRaining = '$imagePath/rain_card_image.png';
+  static String imgRaining = '$imagePath/rain_card_image.gif';
   // Frame Eight images
   static String imgRectangle4281 = '$imagePath/img_rectangle_4281.png';
   static String imgirrigation = '$imagePath/Vector.png';
@@ -70,7 +70,7 @@ class ImageConstant {
   // Frame Ten images
   static String imgGroup26 = '$imagePath/img_group_26.svg';
 
-  static String imgClock = '$imagePath/img_clock.svg';
+  static String imgClock = '$imagePath/img_clock.gif';
 
   // Frame Nine images
   static String imgClockBlueGray90001 =

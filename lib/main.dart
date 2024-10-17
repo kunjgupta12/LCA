@@ -8,6 +8,7 @@ import 'package:lca/api/issues_des/issue_repository.dart';
 import 'package:lca/api/schedule/schedule_provider.dart';
 import 'package:lca/api/language_shared_pref.dart';
 import 'package:lca/screens/splash_screen.dart';
+import 'package:lca/services/location.dart';
 import 'package:lca/services/push_notification.dart';
 import 'package:lca/widgets/theme_helper.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
@@ -69,7 +70,8 @@ void main() async {
       //  ChangeNotifierProvider(create: (context) => DeviceProvider()),
         ChangeNotifierProvider(create: (context) => LoginNotifier()),
         ChangeNotifierProvider(create: (context) => CreateScheduleProvider()),
-      ],
+        
+       ],
       child: MyApp(
         token: prefs.getString('token'),
     

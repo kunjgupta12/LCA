@@ -8,35 +8,28 @@ import 'package:lca/widgets/custom_outlined_button.dart';
 import 'package:lca/widgets/custom_text_style.dart';
 import 'package:lca/widgets/utils/size_utils.dart';
 
-Widget valve(
-  int valveCount,
-  dynamic status,
-  dynamic dataProvider,
-  type1? type1Data,
-  String p,
-  int type,
-  int indexV,
-) {
+Widget valve(int valveCount, dynamic status, dynamic dataProvider,
+    type1? type1Data, String p, int type, int indexV, int vs) {
   Widget buildStartTimeLabel(index_v) {
-        if ((status.vn <= 11&&index_v==0)  ||
-                              (status.vn >= 24 && status.vn <= 35&&index_v==1))
-                        return     Container(
-                              decoration: AppDecoration.outlinePrimary,
-                              child: Text(
-                                "Start Time".tr+"1",
-                                style: CustomTextStyles.titleMediumBluegray900,
-                              ),
-                            );
-                            if ((status.vn >= 12  && status.vn <= 23 && index_v==0) ||
-                              (status.vn >= 36 && status.vn <= 47&& index_v==1))
-                      return      Container(
-                              decoration: AppDecoration.outlinePrimary,
-                              child: Text(
-                                "Start Time".tr +"2",
-                                style: CustomTextStyles.titleMediumBluegray900,
-                              ),
-                            );
-                            return SizedBox.shrink();
+    if ((status.vn <= 11 && index_v == 0) ||
+        (status.vn >= 24 && status.vn <= 35 && index_v == 1))
+      return Container(
+        decoration: AppDecoration.outlinePrimary,
+        child: Text(
+          "Start Time".tr + "1",
+          style: CustomTextStyles.titleMediumBluegray900,
+        ),
+      );
+    if ((status.vn >= 12 && status.vn <= 23 && index_v == 0) ||
+        (status.vn >= 36 && status.vn <= 47 && index_v == 1))
+      return Container(
+        decoration: AppDecoration.outlinePrimary,
+        child: Text(
+          "Start Time".tr + "2",
+          style: CustomTextStyles.titleMediumBluegray900,
+        ),
+      );
+    return SizedBox.shrink();
   }
 
   Widget buildProgramLabel() {
@@ -52,11 +45,18 @@ Widget valve(
   Widget buildActionButton() {
     return CustomOutlinedButton(
       width: 152.h,
-      text: type == 1 ? "Irrigation".tr : "Fertilization".tr,
+      text: type == 1
+          ? "Irrigation".tr
+          : vs == 2
+              ? "Prewet".tr
+              : vs == 3
+                  ? "Fertilize".tr
+                  : "Flush".tr,
       buttonStyle: CustomButtonStyles.outlineWhiteATL15.copyWith(
-        backgroundColor: WidgetStateProperty.resolveWith((states) => Colors.white),
+        backgroundColor:
+            WidgetStateProperty.resolveWith((states) => Colors.white),
       ),
-      buttonTextStyle: TextStyle(
+      buttonTextStyle:const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w400,
         fontSize: 15,
@@ -116,7 +116,6 @@ Widget valve(
                   children: [
                     buildProgramLabel(),
                     buildStartTimeLabel(indexV),
-              
                   ],
                 ),
                 buildActionButton(),

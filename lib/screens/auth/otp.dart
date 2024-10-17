@@ -89,9 +89,13 @@ class _FrameFourteenScreenState extends State<FrameFourteenScreen> {
           SizedBox(height: 13.v),
           Padding(
             padding: EdgeInsets.only(left: 9.h),
-            child: Text(
-              "via Phone".tr,
-              style: CustomTextStyles.titleLargeRegular,
+            child: Row(   crossAxisAlignment: CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(
+                  "via Phone".tr,
+                  style: CustomTextStyles.titleLargeRegular,
+                ),SizedBox(width: 10,),Icon(Icons.phone,color: Colors.white,size: 30,),
+                
+              ],
             ),
           ),
         ],
@@ -210,17 +214,7 @@ class _FrameFourteenScreenState extends State<FrameFourteenScreen> {
             width: 15.h,
             margin: EdgeInsets.symmetric(vertical: 9.v),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 5.h,
-              top: 8.v,
-              bottom: 10.v,
-            ),
-            child: Text(
-              "Resend SMS".tr,
-              style: CustomTextStyles.titleMediumGreen600,
-            ),
-          ),
+          
         ],
       ),
     );

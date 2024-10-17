@@ -820,9 +820,9 @@ class A1State extends State<a1> {
             print('${totalHours} ${totalMinutes}');
           });
         }
-        if (_selectedTime.hour + _selectedTime.minute == 0) {
+       /* if (_selectedTime.hour + _selectedTime.minute == 0) {
           showToast(context, 'Please select start time first');
-        }
+        }*/
       }
     }
 
@@ -920,7 +920,7 @@ class A1State extends State<a1> {
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              'Total'.tr,
+              'Total'.tr+ '\n(HH:MM)',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 13,
@@ -961,7 +961,7 @@ class A1State extends State<a1> {
                               hintText: selectedTimefer[index][i].hour +
                                           selectedTimefer[index][i].minute ==
                                       0
-                                  ? '00 hrs'
+                                  ? '00:00'
                                   : convertTime(TimeOfDay(
                                       hour: selectedTimefer[index][i].hour,
                                       minute:
@@ -1048,9 +1048,9 @@ class A1State extends State<a1> {
     }
     if (totalHoursfer > 24) {
       showToast(context, 'Time exceeds');
-    }
+    }/*
     if (_selectedTime.hour + _selectedTime.minute == 0) {
       showToast(context, 'Please select start time first');
-    }
+    }*/
   }
 }

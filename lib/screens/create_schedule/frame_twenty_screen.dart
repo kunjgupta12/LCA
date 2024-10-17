@@ -153,65 +153,13 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
           return AlertDialog(
             backgroundColor: Colors.white,
             title: SizedBox(
-              height: 230,
+              height: 100,
               width: 70,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Pump initial time'.tr+"(Sec)",
-                    style: CustomTextStyles.titleSmallRobotoBlack90001,
-                  ),
-                  CustomTextFormField(
-                    hintText: 'Pump initial time'.tr,
-                    controller: pumpstarttime,
-                    textInputType: TextInputType.number,
-                    validator: (value) {
-                      final number = int.tryParse(value!);
-                      if (value.isEmpty ||
-                          number == null ||
-                          number < 5 ||
-                          number > 90) {
-                        return 'Please enter in range of 5 to 90';
-                      }
-                      return null;
-                    },
-                  ),
-                  Text(
-                    'Pump recharge time'.tr+"(HH:MM)",
-                    style: CustomTextStyles.titleSmallRobotoBlack90001,
-                  ),
-                  Row(
-                    children: [
-                      CustomTextFormField(width: 180.h,
-                        hintText: 'Pump recharge time'.tr,
-                        controller: pumprechargetime,
-                        textInputType: TextInputType.number,hintStyle: TextStyle(fontSize: 16),
-                     enabled: false,
-                      ),Padding(
-          padding: const EdgeInsets.only(bottom: 18.0),
-          child: IconButton(
-           onPressed: () async {
-                  TimeOfDay? picked = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      pumprechargetime.text=convertTime(TimeOfDay(hour: picked.hour,minute:picked.minute));
-                      selectedTime = picked;
-                    });
-                  }},
-          //ClockPainter()
-          //  ,
-            icon: Icon(
-              Icons.alarm,
-              color: Colors.green,
-            ),
-          ),
-        ),
-                    ],
-                  ),
+                
+               
                   Row(
                     children: [
                       Text(
@@ -253,8 +201,8 @@ TimeOfDay _selectedTime=new TimeOfDay(hour: 0, minute: 0);
                     programA: programA.startTime == null ? null : programA,
                     programB: programB.startTime == null ? null : programB,
                     useToday: isChecked,
-                    pit: int.tryParse(pumpstarttime.text),
-                    prt: int.tryParse(pumprechargetime.text),
+                    pit: deviceStatus!.c!.pit,
+                    prt:deviceStatus!.c!.prt
                   );
 
                   deviceStatus = await device_detail(widget.id.toString());

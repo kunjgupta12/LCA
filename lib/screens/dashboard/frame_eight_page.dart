@@ -54,7 +54,6 @@ class _FrameEightPageState extends State<FrameEightPage> {
   void initState() {
     super.initState();
     Provider.of<DeviceProvider>(context, listen: false);
-     
 
     _startTimer();
 
@@ -72,9 +71,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(minutes: 3), (timer) {
-    final data=  Provider.of<DeviceProvider>(context, listen: false)
-         ;
-          data.refreshData();
+      final data = Provider.of<DeviceProvider>(context, listen: false);
+      data.refreshData();
     });
   }
 
@@ -105,9 +103,8 @@ class _FrameEightPageState extends State<FrameEightPage> {
                         horizontal: 5.h,
                         vertical: 7.v,
                       ),
-                      decoration: AppDecoration.outlinePrimary1.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder41,
-                          color: Colors.grey.shade300),
+                      decoration: AppDecoration.outlinePrimary1
+                          .copyWith(color: Colors.grey.shade300),
                       child: Column(
                         children: [
                           _buildTemperatureSection(
@@ -121,7 +118,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                               builder: (context, dataprovider, snapshot) {
                             if (dataprovider!.deviceStatus != null) {
                               var status = dataprovider.deviceStatus!.c!;
-        
+
                               return Container(
                                 margin: EdgeInsets.only(
                                   left: 10.h,
@@ -157,11 +154,10 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 SizedBox(height: 11.v),
-                                                CustomImageView(
-                                                  imagePath:
-                                                      ImageConstant.imgClock,
-                                                  height: 73.adaptSize,
-                                                  width: 73.adaptSize,
+                                                Image.asset(
+                                                  ImageConstant.imgClock,
+                                                  height: 93.adaptSize,
+                                                  width: 93.adaptSize,
                                                   color: status.ms == 1
                                                       ? Colors.green
                                                       : Colors.red,
@@ -186,7 +182,7 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                             ),
                                           ),
                                           Container(
-                                            height: 153.v,
+                                            height: 178.v,
                                             width: 168.h,
                                             margin: EdgeInsets.only(left: 19.h),
                                             decoration: AppDecoration
@@ -198,15 +194,20 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                     color: Colors.indigo[900]),
                                             child: Column(
                                               children: [
-                                                CustomImageView(
-                                                  imagePath: status.rs == 0
-                                                      ? ImageConstant.imgRain2
-                                                      : ImageConstant
-                                                          .imgRaining,
-                                                  height: 100.adaptSize,
-                                                  fit: BoxFit.fitHeight,
-                                                  width: 106.adaptSize,
-                                                  alignment: Alignment.center,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Image.asset(
+                                                    status.rs == 0
+                                                        ? ImageConstant.imgRain2
+                                                        : ImageConstant
+                                                            .imgRaining,
+                                                    height: 105.adaptSize,
+                                                    fit: BoxFit.fitHeight,
+                                                    width: 106.adaptSize,
+                                                    alignment: Alignment.center,
+                                                  ),
                                                 ),
                                                 Text(
                                                   status.rs == 0
@@ -222,40 +223,202 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                       ),
                                     ),
                                     SizedBox(height: 31.v),
-                                    Center(
-                                        child: status.lf == 0
-                                            ? Stack(
-                                                alignment: Alignment.center,
-                                                children: <Widget>[
+                                    status.lf == 0
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Center(
+                                              child: Stack(
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  children: <Widget>[
                                                     Container(
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20)),
-                                                        child: Image.asset(
-                                                          'assets/images/lowflow.gif',
-                                                          height: 120,
-                                                          width: 370.h,
-                                                          fit: BoxFit.cover,
+                                                        width: 380.h,
+                                                        decoration:
+                                                            AppDecoration
+                                                                .outlinePrimary4
+                                                                .copyWith(
+                                                          borderRadius:
+                                                              BorderRadiusStyle
+                                                                  .roundedBorder10,
+                                                        ),
+                                                        child: Column(
+                                                          children: [
+                                                            Image.asset(
+                                                              status.rsf == 1
+                                                                  ? 'assets/images/lowflow.gif'
+                                                                  : 'assets/images/low_flow_png.png',
+                                                              height: 130,
+                                                              width: 170.h,
+                                                              fit: BoxFit.cover,
+                                                            )
+                                                          ],
                                                         )),
-                                                  ])
-                                            : Container(
-                                                color: Color.fromRGBO(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.bottomLeft,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          status.rsf == 1
+                                                              ? 'Pump On'.tr
+                                                              : "Pump Off",
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: TextStyle(
+                                                            color: status.ms ==
+                                                                    1
+                                                                ? Colors.green
+                                                                : Colors.red,
+                                                            fontSize: 25,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.bottomRight,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Column(
+                                                          children: [
+                                                            Text(
+                                                              status.rsf == 0
+                                                                  ? status.rs ==
+                                                                          1
+                                                                      ? 'Rain'
+                                                                          .tr
+                                                                      : ""
+                                                                  : "",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                              style: TextStyle(
+                                                                color:
+                                                                    status.rs ==
+                                                                            1
+                                                                        ? Colors
+                                                                            .red
+                                                                        : Colors
+                                                                            .red,
+                                                                fontSize: 25,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              status.rsf == 0
+                                                                  ? status.ms ==
+                                                                          0
+                                                                      ? 'Main Off'
+                                                                          .tr
+                                                                      : ""
+                                                                  : "",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                              style: TextStyle(
+                                                                color: status
+                                                                            .ms ==
+                                                                        1
+                                                                    ? Colors
+                                                                        .green
+                                                                    : Colors
+                                                                        .red,
+                                                                fontSize: 25,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                            ),
+                                          )
+                                        : status.em == 1
+                                            ? Container(
+                                                color: const Color.fromRGBO(
                                                     180, 200, 199, 1),
                                                 height: 120,
+                                                width: 370.h,
                                                 child: Center(
                                                   child: Text(
-                                                    'Low Flow'.tr,
+                                                    'Emergency'.tr,
                                                     style: TextStyle(
                                                       color: Colors.red,
-                                                      fontSize: 25,
+                                                      fontSize: 28,
                                                     ),
                                                   ),
                                                 ),
+                                              )
+                                            : Container(
+                                                color: const Color.fromRGBO(
+                                                    180, 200, 199, 1),
+                                                height: 120,
                                                 width: 370.h,
-                                              )),
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Recharge State ${status.lf}'
+                                                            .tr,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: const TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 25,
+                                                        ),
+                                                      ),
+                                                      status.lf == 2
+                                                          ? const Text(
+                                                              'Please Reset',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors.red,
+                                                                fontSize: 25,
+                                                              ),
+                                                            )
+                                                          : const Text('')
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
                                     SizedBox(height: 27.v),
+                                    status.pi == 1
+                                        ? Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .87,
+                                            margin: EdgeInsets.only(
+                                              left: 3.h,
+                                              right: 4.h,
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 26.h,
+                                              vertical: 16.v,
+                                            ),
+                                            decoration: AppDecoration
+                                                .outlinePrimary2
+                                                .copyWith(
+                                              borderRadius: BorderRadiusStyle
+                                                  .roundedBorder15,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Running pending schedule',
+                                                style: CustomTextStyles
+                                                    .titleLargeGray50003,
+                                              ),
+                                            ))
+                                        :const  Text(''),
+                                    SizedBox(
+                                      height: 10.v,
+                                    ),
                                     FutureBuilder<type1?>(
                                         future: valve_detail_type1(
                                             widget.id.toString()),
@@ -271,29 +434,44 @@ class _FrameEightPageState extends State<FrameEightPage> {
                                                     'Error: ${snapshot.error}'));
                                           } else if (snapshot.hasData) {
                                             return Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: SizedBox(
                                                 width: 550.h,
-                                                height: snapshot.data!.c.vc * 45,
+                                                height:
+                                                    snapshot.data!.c.vc * 45,
                                                 child: PageView(children: [
-                                                  if (snapshot.data!.c.m[0] != 0)
+                                                  if (snapshot.data!.c.m[0] !=
+                                                      0)
                                                     valve(
-                                                        snapshot.data!.c.vc,
-                                                        dataprovider.deviceStatus!.c!,
+                                                        widget.valve_no!.toInt(),
+                                                        dataprovider
+                                                            .deviceStatus!.c!,
                                                         dataprovider,
                                                         snapshot.data,
                                                         'A',
                                                         snapshot.data!.c.m[0],
-                                                        0),
-                                                  if (snapshot.data!.c.m[1] != 0)
-                                                    valve(
-                                                        snapshot.data!.c.vc,
-                                                        dataprovider.deviceStatus!.c!,
+                                                        0,
+                                                        dataprovider
+                                                            .deviceStatus!
+                                                            .c!
+                                                            .vs!
+                                                            .toInt()),
+                                                  if (snapshot.data!.c.m[1] !=
+                                                      0)
+                                                    valve(       widget.valve_no!.toInt(), 
+                                                        dataprovider
+                                                            .deviceStatus!.c!,
                                                         dataprovider,
                                                         snapshot.data,
                                                         'B',
                                                         snapshot.data!.c.m[1],
-                                                        1),
+                                                        1,
+                                                        dataprovider
+                                                            .deviceStatus!
+                                                            .c!
+                                                            .vs!
+                                                            .toInt()),
                                                 ]),
                                               ),
                                             );
