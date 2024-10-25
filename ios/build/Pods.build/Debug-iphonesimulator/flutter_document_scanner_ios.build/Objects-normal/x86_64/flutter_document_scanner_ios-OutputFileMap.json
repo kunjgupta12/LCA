@@ -1,0 +1,28 @@
+{
+  "" : {
+    "diagnostics" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/flutter_document_scanner_ios-master.dia",
+    "emit-module-dependencies" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/flutter_document_scanner_ios-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/flutter_document_scanner_ios-master-emit-module.dia",
+    "swift-dependencies" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/flutter_document_scanner_ios-master.swiftdeps"
+  },
+  "/Users/apple/.pub-cache/hosted/pub.dev/flutter_document_scanner_ios-1.0.0/ios/Classes/FlutterDocumentScannerPlugin.swift" : {
+    "const-values" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.swiftconstvalues",
+    "dependencies" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.d",
+    "diagnostics" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.o",
+    "llvm-bc" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.bc",
+    "object" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.o",
+    "swift-dependencies" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin.swiftdeps",
+    "swiftmodule" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/FlutterDocumentScannerPlugin~partial.swiftmodule"
+  },
+  "/Users/apple/.pub-cache/hosted/pub.dev/flutter_document_scanner_ios-1.0.0/ios/Classes/VisionPlugin.swift" : {
+    "const-values" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.swiftconstvalues",
+    "dependencies" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.d",
+    "diagnostics" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.o",
+    "llvm-bc" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.bc",
+    "object" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.o",
+    "swift-dependencies" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin.swiftdeps",
+    "swiftmodule" : "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/Objects-normal/x86_64/VisionPlugin~partial.swiftmodule"
+  }
+}

@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/RemoteSettings.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/RemoteSettings.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/RemoteSettings.swiftdeps"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/RemoteSettings.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/RemoteSettings.swiftconstvalues"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/RemoteSettings.dia"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/SDKDefaultSettings.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SDKDefaultSettings.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SDKDefaultSettings.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SDKDefaultSettings.dia"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SDKDefaultSettings.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SDKDefaultSettings.swiftconstvalues"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/SessionCoordinator.swift":
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SessionCoordinator.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SessionCoordinator.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SessionCoordinator.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SessionCoordinator.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SessionCoordinator.swiftdeps"

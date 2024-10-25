@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Public/SessionsDependencies.swift":
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionsDependencies.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionsDependencies.swiftconstvalues"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionsDependencies.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionsDependencies.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionsDependencies.swiftdeps"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/SessionGenerator.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionGenerator.o"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionGenerator.dia"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionGenerator.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionGenerator.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionGenerator.swiftdeps"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/SessionInitiator.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionInitiator.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionInitiator.d"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionInitiator.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionInitiator.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/SessionInitiator.dia"

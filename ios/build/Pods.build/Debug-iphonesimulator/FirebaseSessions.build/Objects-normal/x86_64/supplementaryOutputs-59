@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/SettingsProvider.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProvider.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProvider.d"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProvider.swiftdeps"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProvider.o"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProvider.dia"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Time.swift":
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/Time.swiftdeps"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/Time.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/Time.d"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/Time.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/Time.o"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/SettingsProtocol.swift":
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProtocol.dia"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProtocol.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProtocol.d"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProtocol.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/x86_64/SettingsProtocol.swiftdeps"

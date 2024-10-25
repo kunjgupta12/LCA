@@ -1,0 +1,24 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/GoogleDataTransport+GoogleDataTransportProtocol.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/GoogleDataTransport+GoogleDataTransportProtocol.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/GoogleDataTransport+GoogleDataTransportProtocol.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/GoogleDataTransport+GoogleDataTransportProtocol.dia"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/GoogleDataTransport+GoogleDataTransportProtocol.d"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/GoogleDataTransport+GoogleDataTransportProtocol.o"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/FirebaseSessionsError.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessionsError.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessionsError.d"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessionsError.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessionsError.dia"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessionsError.swiftconstvalues"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/LocalOverrideSettings.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/LocalOverrideSettings.o"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/LocalOverrideSettings.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/LocalOverrideSettings.d"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/LocalOverrideSettings.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/LocalOverrideSettings.dia"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Installations+InstallationsProtocol.swift":
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/Installations+InstallationsProtocol.d"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/Installations+InstallationsProtocol.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/Installations+InstallationsProtocol.o"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/Installations+InstallationsProtocol.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/FirebaseSessions.build/Objects-normal/arm64/Installations+InstallationsProtocol.swiftdeps"

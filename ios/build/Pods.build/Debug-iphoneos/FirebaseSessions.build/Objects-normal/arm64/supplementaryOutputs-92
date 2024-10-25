@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/SettingsProtocol.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProtocol.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProtocol.d"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProtocol.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProtocol.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProtocol.dia"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Settings/SettingsProvider.swift":
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProvider.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProvider.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProvider.o"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProvider.swiftconstvalues"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/SettingsProvider.d"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Time.swift":
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Time.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Time.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Time.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Time.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Time.swiftdeps"

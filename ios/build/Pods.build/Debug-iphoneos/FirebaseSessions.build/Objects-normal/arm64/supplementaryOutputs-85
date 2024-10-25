@@ -1,0 +1,24 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Development/DevEventConsoleLogger.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/DevEventConsoleLogger.swiftconstvalues"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/DevEventConsoleLogger.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/DevEventConsoleLogger.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/DevEventConsoleLogger.d"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/DevEventConsoleLogger.swiftdeps"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/EventGDTLogger.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/EventGDTLogger.o"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/EventGDTLogger.dia"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/EventGDTLogger.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/EventGDTLogger.swiftdeps"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/EventGDTLogger.d"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/ApplicationInfo.swift":
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/ApplicationInfo.o"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/ApplicationInfo.dia"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/ApplicationInfo.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/ApplicationInfo.swiftdeps"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/ApplicationInfo.d"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/FirebaseSessions.swift":
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessions.d"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessions.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessions.o"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessions.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/FirebaseSessions.swiftdeps"

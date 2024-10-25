@@ -109,7 +109,7 @@ class _ScheduleState extends State<Schedule> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(left: 10),
           child: Text(
             "$label:".tr,
             style: CustomTextStyles.headlineSmallDMSansBlack90001Bold,

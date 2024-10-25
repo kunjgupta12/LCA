@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Logger.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Logger.swiftconstvalues"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Logger.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Logger.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Logger.dia"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/Logger.d"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/Development/NanoPB+CustomStringConvertible.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NanoPB+CustomStringConvertible.swiftconstvalues"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NanoPB+CustomStringConvertible.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NanoPB+CustomStringConvertible.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NanoPB+CustomStringConvertible.dia"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NanoPB+CustomStringConvertible.d"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/FirebaseSessions/FirebaseSessions/Sources/NetworkInfo.swift":
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NetworkInfo.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NetworkInfo.swiftconstvalues"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NetworkInfo.dia"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NetworkInfo.swiftdeps"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/FirebaseSessions.build/Objects-normal/arm64/NetworkInfo.o"

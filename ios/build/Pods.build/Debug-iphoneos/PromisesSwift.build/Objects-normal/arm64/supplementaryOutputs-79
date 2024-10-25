@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/PromisesSwift/Sources/Promises/Promise+Always.swift":
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+Always.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+Always.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+Always.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+Always.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+Always.o"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/PromisesSwift/Sources/Promises/Promise+All.swift":
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+All.d"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+All.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+All.swiftdeps"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+All.swiftconstvalues"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise+All.dia"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/PromisesSwift/Sources/Promises/Promise.swift":
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise.dia"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise.swiftdeps"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise.d"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphoneos/PromisesSwift.build/Objects-normal/arm64/Promise.swiftconstvalues"

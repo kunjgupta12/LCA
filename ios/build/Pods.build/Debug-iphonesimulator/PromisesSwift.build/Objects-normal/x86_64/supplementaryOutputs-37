@@ -1,0 +1,18 @@
+"/Users/apple/uct/lca-mobile-app/ios/Pods/PromisesSwift/Sources/Promises/Promise+Catch.swift":
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Catch.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Catch.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Catch.d"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Catch.swiftdeps"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Catch.swiftconstvalues"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/PromisesSwift/Sources/Promises/Promise+Delay.swift":
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Delay.dia"
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Delay.swiftconstvalues"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Delay.o"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Delay.swiftdeps"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Delay.d"
+"/Users/apple/uct/lca-mobile-app/ios/Pods/PromisesSwift/Sources/Promises/Promise+Do.swift":
+  const-values: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Do.swiftconstvalues"
+  swift-dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Do.swiftdeps"
+  diagnostics: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Do.dia"
+  object: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Do.o"
+  dependencies: "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/PromisesSwift.build/Objects-normal/x86_64/Promise+Do.d"

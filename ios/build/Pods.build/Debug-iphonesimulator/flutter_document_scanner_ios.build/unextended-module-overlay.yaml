@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/apple/uct/lca-mobile-app/ios/build/Debug-iphonesimulator/flutter_document_scanner_ios/flutter_document_scanner_ios.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/apple/uct/lca-mobile-app/ios/build/Debug-iphonesimulator/flutter_document_scanner_ios/flutter_document_scanner_ios.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "flutter_document_scanner_ios-Swift.h",
+      'external-contents': "/Users/apple/uct/lca-mobile-app/ios/build/Pods.build/Debug-iphonesimulator/flutter_document_scanner_ios.build/unextended-interface-header.h",
+    }]
+    }]
+}
